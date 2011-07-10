@@ -19,6 +19,7 @@
 \usepackage{algorithmic}
 \usepackage{natbib}
 
+
 \DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
 \DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
 
@@ -102,12 +103,21 @@
 \def\Until{{\bf until }}
 \def\eqdef{\stackrel {\triangle}{=}}
 \def\squarebox#1{\hbox to #1{\hfill\vbox to #1{\vfill}}}
-
-\def\cmt{7cm}
+\def\cmt{5cm}
 
 
 %%% new/renew commands
-\renewcommand{\algorithmiccomment}[1]{// #1 } % comment in algorithmic
+\renewcommand{\algorithmiccomment}[1]
+{ 
+  \vspace {2mm}
+  \hfill ::
+  \begin{tabular}{|ll}
+   &\parbox{7cm}{ \space \tt{ #1 }}\\  % {\tt /* #1 */}    \hspace{2mm}
+  \end{tabular}
+}
+
+
+ % comment in algorithmic
 \newtheorem{observation}{Observation}
 \newcommand{\Eqr}[1]{Eq.~(\ref{#1})}
 \newcommand{\diff}{\ne}
@@ -155,15 +165,25 @@
       \setlength{\topsep}{0pt} \setlength{\partopsep}{0pt}
       \setlength{\itemsep}{0pt} }}{\end{list}}
 
+% Review comment. in a parbox that wraps before right margin. vertical
+% lines on the left for easy identification.
+\newcommand{\rcomment}[1]{}
+% { \begin{tabular}{ |||||r| } 
+%     \hline
+%     \parbox{\cmt}{\tiny{#1}}\\
+%     \hline
+%   \end{tabular}
+% }
+
+\newcommand{\rfootnote}[1] {} %{\footnote{{#1}}}
+
 
 % D O C U M E N T
 \begin{document}
-\title{Tree Path Assignments to Sets-A Generalization of the Consecutive Ones Property}
+\title{Tree Path Labeling of Path Hypergraphs - A Generalization of the Consecutive Ones Property}
+\author{N.S. Narayanaswamy \inst{1} \and Anju Srinivasan \inst{2}}
 
-\author{N.S. Narayanaswamy \inst{1} \and Anju Srinivasan Zabil \inst{2}}
-
-\institute{ %The Institute of Mathematical Sciences, Chennai,
-  % \email{arvind@imsc.res.in} \and
+\institute{ 
   Indian Institute of Technology
   Madras, Chennai, \email{swamy@cse.iitm.ernet.in},\\
   Indian Institute of Technology Madras, Chennai,
@@ -175,6 +195,7 @@
 \maketitle
 
 \begin{abstract}
+  \rcomment{Need to overhaul the abstract}
   We consider the following constraint satisfaction problem: Given a
   set $\cF$ of subsets of a finite set $U$ of cardinality $n$, a tree
   $T$ on $n$ vertices, and an assignment of paths from $T$ to each of
@@ -197,7 +218,7 @@
 
 \section{Introduction}
 %\subsection{Previous Work}
-
+  \rcomment{Needs a section overhaul }
 \noindent
 Consecutive ones property (COP) of binary matrices is a widely studied
 combinatorial problem. The problem is to rearrange rows (columns) of a
@@ -348,18 +369,24 @@ Consecutive Ones Testing is in Logspace.
 
 \section{Preliminaries} \label{prelims} 
 \noindent
-In this paper, the collection $\F = \{S \mid S \subseteq U, S \ne \O
-\}$ is a {\em set system} of a universe $U$ with $|U| = n$. 
-% = \{1, \ldots,
-%n\}$. 
-Moreoever, a set system is assumed to ``cover'' the universe,
-i.e. $ \bigcup_{S \in \cF}S = U$ and the set system is not a multiset
-(for all pairs of sets $S_1, S_2 \in \cF$, $S_1 \ne S_2$). \\
+In this paper, the set $\F \subseteq (powerset(U) \setminus \O)$ is a
+{\em set system} of a universe $U$ with $|U| = n$. \\
 
 \noindent
 The {\em support} of a set system $\F$ denoted by  $supp(\cF)$ is the
 union of all the sets in $\F$. Formally, $supp(\F) =
 \bigcup_{S \in \F}S$.\\
+
+\noindent
+For the purposes of this paper, a set system is required to ``cover'' the universe,
+i.e. $ supp(\cF) = U$. \\
+% In this paper, the collection $\F = \{S \mid S \subseteq U, S \ne \O
+% \}$ \rcomment{wrong. $\F \subseteq $ powerset of $U$} is a {\em set system} of a universe $U$ with $|U| = n$. 
+% \
+% Moreoever, a set system is assumed to ``cover'' the universe,
+% i.e. $ \bigcup_{S \in \cF}S = U$ and the set system is not a multiset
+% (for all pairs of sets $S_1, S_2 \in \cF$, $S_1 \ne S_2$). \\
+
 
 \noindent
 To state in simple terms, the {\em intersection graph} $\bI(\cF)$ of a
@@ -376,7 +403,21 @@ The graph $T=(V,E)$ represents a given tree with $|V| = n$.
 All paths
 referred to in this paper are paths from $T$ unless explicitly
 specified. A {\em path system} $\cP$ is a set system of paths from
-$T$. More precisely, $\cP = \{P \mid P \subseteq V, \text{ } T[P] \text{ is a path.} \}$\\
+$T$. More precisely, $\cP = \{P \mid P \subseteq V, \text{ } T[P]
+\text{ is a path.} \}$\\
+
+
+% \noindent
+% A graph $G'$ is called the {\em subdivision} of a graph $G$ if we can
+% obtain a graph $H$ from $G$ by replacing any number of edges of $G$ with
+% paths by adding any number of new vertices such that $H$ is isomorphic to $G'$.\\
+
+\noindent
+A {\em star} graph is a complete bipartite graph
+$K_{1,l}$. The vertex with maximum degree is called the {\em center} of
+the star and the edges are called {\em rays} of the star.
+A {\em $k$-subdivided star} is a star with all its rays subdivided exactly
+$k$ times. Thus a $k$-subdivided star has all its rays of length $k+2$.
 
 \noindent
 A graph $G$ that is isomorphic to the intersection graph $\bI(\cP)$ of a
@@ -390,48 +431,39 @@ bijection from $\cF$ to $\cP$, $\cl$ is called the
 path labeling of set system $\cF$ and the path system $\cP$ may be alternatively
 denoted as $\cF^\cl$. \\
 
-\parbox{\cmt}
-{path labeling is ``almost'' as same as path assignment. difference
-is that path labeling is defined only if the pairwise intersection non
-emptiness is preserved (due to the intersection graph isomorphism). in
-path assignment it is any assignment. ?????? does it matter if we take
-TPAs one step down to pairwise inteserction nonemptiness preservation?\\\\
-} 
 
+\rcomment
+{ define hypergraph}
 
 \noindent
 A set system $\cF$ can be represented as a hypergraph $\H_\cF$ whose
 vertex set is $supp(\cF)$ and hyperedges are sets in $\cF$. This is a
 known representation for interval systems in literature (
-
-\parbox{\cmt}
-{
-*** CITATION ****
-BLS99, Section 8.7 from KKLV10).\\} 
-We extend this definition here to
-path systems.
+\rcomment
+{*** CITATION ****
+BLS99, Section 8.7 from KKLV10).} 
+We extend this definition here to path systems.
 
 \noindent
 Two hypergraphs $\cH, \cK$ are said to be isomorphic to each other
 $\cH \cong \cK$ if there exists a bijection $\phi: supp(\cH)
 \rightarrow supp(\cK)$ such that 
 for all sets $H \subseteq supp(\cH)$, $H$ is a hyperedge in $\cH$ iff
-$K$ is a hyperedge in $\cK$ where $K = \{y \mid y = \phi(x), x \in H\}$.
+$K$ is a hyperedge in $\cK$ where $K = \{y \mid y = \phi(x), x \in H\}$.\\
 
 
 \noindent
-If $\H_\cF$ is isomorphic to hypergraph $\H_\cP$ of a path system $\cP$, then $\H_\cF$ is called a {\em path hypergraph} (of course,
+If $\H_\cF$ is isomorphic to hypergraph $\H_\cP$ of a path system
+$\cP$, then $\H_\cF$ is called a {\em path hypergraph} (of course, 
 $\H_\cP$ is trivially a path hypergraph). Then $\cP$
-is called {\em path representation} of $\H_\cF$. Clearly, by definition there exists an
-isomorphism $\phi: supp(\H_\cF) \rightarrow supp(\H_\cP)$.\\
-
-\parbox{\cmt}
-{ define hypergraph \\\\
-}
+is called {\em path representation} of $\H_\cF$. If isomorphism is
+$\phi: supp(\H_\cF) \rightarrow supp(\H_\cP)$, then it is clear that
+there is an induced path labeling $l_\phi: \cF \rightarrow \cP$ to the
+set system.\\
 
 
-\parbox{\cmt} 
-{Several path labelings could result in the same path representation. EXPAND?\\}
+\rcomment
+{Several path labelings could result in the same path representation. EXPAND?}
 
 
 \noindent
@@ -454,12 +486,10 @@ it can be verified that one of the following is true.
 \end{enumerate}
  
 
-\parbox{\cmt} 
-{CHANGE the above for hypergraphs instead of set systems?\\}
+\rcomment
+{CHANGE the above for hypergraphs instead of set systems?}
 
-
-The terms
-overlap graph and overlap components are analogously defined for
+The terms overlap graph and overlap components are analogously defined for
 hypergraphs as well. 
 
 
@@ -489,10 +519,10 @@ hypergraphs as well.
 % \end{align}
 A path labeling $\cl: \cF \rightarrow \cP$ on $\cF$ is defined to be {\em
   feasible} if the hypergraphs $\cH_\cF$ and $\cH_\cP$ are isomorphic
-to each other, and thus there exists an isomorphism $\phi: supp(\cF)
-\rightarrow supp(\cP)$. Clearly, this implies $|supp(\cF)| = |supp(\cP)|$.
-
-
+to each other the isomorphism being $\phi: supp(\cF)
+\rightarrow supp(\cP)$ and the induced path labeling $\cl_\phi: \cF
+\rightarrow \cP$ is
+such that $\cl_\phi = \cl$. 
 
 \noindent
 Let $X$ be a partially ordered set with $\preccurlyeq$ being the
@@ -521,19 +551,6 @@ directed toward to the root.
 
 \section{Characterization of Feasible Tree Path  Labeling} 
 \label{feasible} 
-% Consider a path assignment $\cA = \{(S_i, P_i) \mid S_i \in \cF, P_i
-% \text{ is a path from $T$}, i \in [m]\}$ to a set system $\cF = \{S_i
-% \mid S_i \subseteq U, i \in [m]\}$, were $T$ is a given tree, $U$ is
-% the set system's universe and $m$ is the number of sets in $\cF$. We
-% call $\cA$ an {\em Intersection Cardinality Preserving Path Assignment
-%   (ICPPA)} if it has the following properties.
-
-% \begin{enumerate}
-% \item [i.]  $|S_i| = |P_i|$ for all $i \in [m]$
-% \item [ii.] $|S_i \cap S_j| = |P_i \cap P_j|$ for all $i,j \in [m]$
-% \item [iii.] $|S_i \cap S_j \cap S_k| = |P_i \cap P_j \cap P_k|$ for
-%   all $i,j,k \in [m]$
-% \end{enumerate}
 
 Consider a path labeling $\cl: \cF \rightarrow \cP$ for set system $\cF$
 and path system $\cP$ on the given tree $T$. We
@@ -585,7 +602,8 @@ call $\cl$ an {\em Intersection Cardinality Preserving Path Labeling
   P_j \cap P_k$.
 \end{lemma}
 \begin{proof}
-  {\em Case 1:} Consider the path $P = P_3 \cap P_4$ (intersection of two paths is a path).
+  {\em Case 1:} Consider the path $P = P_3 \cap P_4$ (intersection of
+  two paths is a path).
   % Since $P_1, P_2$ share a leaf, the following are paths $P_1
   % \setminus P_2$, $P_2 \setminus P_1$, $P_1 \cap P_2$ and they are
   % mutually disjoint.
@@ -814,16 +832,15 @@ the possible cases for each invariant for the  $j$th  iteration.
     \item [Case 3.1:] {\em $R$, $R'$ and $R''$ are not new sets.} Trivially
       true by induction hypothesis.
     \item [Case 3.2:] {\em Only one, say $R$, is a new set.}
-
-      ***************** 
+      ******** PROOF NOT CLEAR TBD ******* \\
       Consider the case where exactly one of them is
       not in $\Pi_{j-1}$. w.l.o.g let that be $(P,Q)$ and it could be any
   one of the new sets. If $(P,Q)$ is $(P_1 \cap P_2, Q_1 \cap Q_2)$,
   from lemma \ref{lem:fourpaths} and invariant III hypothesis,
   invariant IV is proven. Similarly if $(P,Q)$ is any of the other new
   sets, invariant IV is proven by also using lemma
-  \ref{lem:setminuscard}.
-  ******************** 
+  \ref{lem:setminuscard}.\\
+  ******** END PROOF NOT CLEAR TBD ******* 
 
     \item [Case 3.3:] {\em At least two of $R, R', R''$ are new sets.}
       The new sets are disjoint hence this case is vacuously true.
@@ -918,10 +935,10 @@ are valid.
   it is contained in at least two sets due to our assumption about
   cardinality of $X$. Let $S_2 \in \cF_{j-1}$ be another set that
   contains $x$. From the above argument, we know $v \notin
-  \cl_{j-1}(S_2)$. ********** Therefore there cannot exist a
+  \cl_{j-1}(S_2)$. ******** NOT CLEAR TBD ******* Therefore there cannot exist a
   permutation that maps elements of $S_{i_2}$ to $P_{i_2}$. This
   contradicts our assumption that this is an ICPPA. Thus $X$ cannot be
-  empty.**********
+  empty. ******** END NOT CLEAR TBD *******
 
   \noindent
   For the rest of the proof we use mathematical induction on the
@@ -973,18 +990,20 @@ are valid.
     \item [Case 3.1:] {\em $R$, $R'$ and $R''$ are not new sets.} Trivially
       true by induction hypothesis.
     \item [Case 3.2:] {\em Only one, say $R$, is a new set.}
-      *****************  If exactly one of them, say $P_3 \notin \Pi_{j-1}$, it is one of the new sets. By the same argument used to
+      ******** PROOF NOT CLEAR TBD *******\\  
+      If exactly one of them, say $P_3 \notin \Pi_{j-1}$, it is one of the new sets. By the same argument used to
   prove invariant III, $|P_1 \cap P_2 \cap (P'
   \setminus \{x\})| = |P_1 \cap P_2 \cap P'|$ 
   and $|Q_1 \cap Q_2 \cap (Q' \setminus \{x\})| = |Q_1 \cap Q_2 \cap
   Q'|$. Since $P_1, P_2, P'$ are all in $\Pi_{j-1}$, by induction hypothesis
   $|P_1 \cap P_2 \cap P'| = |Q_1 \cap Q_2 \cap Q'|$. Also $|P_1 \cap
-  P_2 \cap \{x\}| = 0, Q_1 \cap Q_2 \cap \{v\} = 0$. 
-
+  P_2 \cap \{x\}| = 0, Q_1 \cap Q_2 \cap \{v\} = 0$. \\
+  ******** END PROOF NOT CLEAR TBD *******
 
 
     \item [Case 3.3:] {\em At least two of $R, R', R''$ are new sets.}
- ***********       If two or more of them are not in $\Pi_{j-1}$, then it can
+      ******** PROOF NOT CLEAR TBD *******\\
+      If two or more of them are not in $\Pi_{j-1}$, then it can
   be verified that $|P_1
   \cap P_2 \cap P_3| = |Q_1 \cap Q_2 \cap Q_3|$ since the new sets
   in $\Pi_j$ are either disjoint or as follows: assuming $P_1, P_2
@@ -998,16 +1017,16 @@ $|P_1
   \{x_2\}) \cap P_3| = |P' \cap P'' \cap P_3| = |Q' \cap Q'' \cap Q_3|
   = |(Q' \setminus \{v_1\} \cap Q'' \setminus \{v_2\} \cap Q_3| =
   |Q_1 \cap Q_2 \cap Q_3|$. Thus invariant
-  IV is also proven.
-
+  IV is also proven.\\
+  ******** END PROOF NOT CLEAR TBD *******
     \end{enumerate}
   \end{enumerate} \qed
 \end{proof}
 
 \noindent
 Using algorithms \ref{perms} and \ref{leafasgn} we prove the following
-theorem.
-
+theorem.\\\\
+******** NOT IN NEW NOTATION TBD *******
 \begin{theorem}
 \label{th:perm}
   If $\cF$ has an ICPPL $\cl$, then there exists a hypergraph
@@ -1079,29 +1098,41 @@ is a single path. Now run ICPIA algorithm on $T_d$ to get
 permutation $\sigma'$. The relation $\cL_0 \cup \cL_1 \cup .. \cup
 \cL_{d} \cup \sigma'$ gives the bijection required in the original problem.\qed
 \end{proof}
+******** END NOT IN NEW NOTATION TBD *******
 
 \section{Finding an assignment of tree paths to a set
-  system} \label{decompos} In the previous section we have shown that
-the problem of finding a Tree Path Asssignment to an input $(\cF,T)$
-is equivalent to finding an ICPPA to $\cF$ in tree $T$.  In this
-section we characterize those set systems that have an ICPPA in a
+  system} \label{sec:decompos} 
+In the previous section we have shown that
+the problem of finding a Tree Path Labeling to an input $(\cF,T)$
+is equivalent to finding an ICPPL to $\cF$ in tree $T$.  In this
+section we characterize those set systems that have an ICPPL in a
 given tree.  As a consequence of this characterization we identify two
-sub-problems that must be solved to obtain an ICPPA.  We do not solve
-the problem and in the next section show that finding an ICPPA in a
-given tree is GI-Complete.
+sub-problems that must be solved to obtain an ICPPL.  We do not solve
+these subproblems but use them as blackboxes to describe the rest of
+the algorithm. In the next section, we solve one of these subproblems
+for a smaller class of trees, $k$-subdivided stars.
 
 \noindent
 A set system can be concisely represented by a binary matrix where the
 row indices denote the universe of the set system and the column
 indices denote each of the sets. Let the binary matrix be $M$ with
 order $n \times m$, the set system be $\cF = \{S_i \mid i \in [m]\}$,
-universe of set system $U = \{x_1, \dots ,x_n\}$. If $M$ represents
-$\cF$, $|U| = n, |\cF| = m$. Thus $(i,j)$th element of $M$, $M_{ij} =
-1$ iff $x_i \in S_j$. If $\cF$ has a feasible tree path assignment
-(ICPPA) $\cA = \{(S_i,P_i) \mid i \in [m]\}$, then we say its
-corresponding matrix $M$ has an ICPPA. Conversly we say that a matrix
-$M$ has an ICPPA if there exists an ICPPA $\cA$ as defined
-above.\\
+universe of set system $U = \{x_i \mid i \in [n]\}$. We say $M$ represents
+$\cF$, if $(i,j)$th element of $M$, $M_{ij} =
+1$ iff $x_i \in S_j$. If $\cF$ has a feasible tree path labeling $\cl:
+\cF \rightarrow \cP$, where $\cP$ is a set of paths from a given tree
+$T$
+% with vertex set $V(T) = \{ v_i \mid i \in [n] \}$
+%$\cA = \{(S_i,P_i) \mid i \in [m]\}$, 
+then we say its 
+corresponding matrix $M$ has an ICPPL. Since $\cl$ is feasible, there
+exists a bijection $\phi: [n] \rightarrow [n]$ such that $\cl(S_i) =
+\{v_j \mid j \in \{ \phi(x) \mid x \in S_i\} \}$.
+
+Conversely, we say that a matrix
+$M$ has an ICPPL if there exists an ICPPL $\cl$ as defined
+above.
+
 \noindent
 We now define the strict intersection graph or overlap graph of
 $\cF$. This graph occurs at many places in the literature, see for
@@ -1302,13 +1333,14 @@ must be remarked that this step is easy when $T$ itself is a path, as
 each individual $T_i$ would be sub-paths.  The second algorithmic
 challenge is identified by lemma \ref{lem:rooticppa} which is to
 assign an ICPPA from a given tree to the matrix associated with the
-root node of $X_i$.   
+root node of $X_i$. 
+  
 \begin{algorithm}[h]
 \caption{Algorithm to find an ICPPA for a matrix $M$ on tree $T$: $main\_ICPPA(M, T$)}
 \label{Al:icppa-main}
 \begin{algorithmic}
 \STATE Identify the prime sub-matrices. This is done by constructing
-the strict overlap graph and identify connected components.  Each
+the strict overlap graph and identifying the connected components. Each
 connected component yields a prime sub-matrix.   \\ 
 \STATE Construct the partial order $\preccurlyeq$ on the set of prime
 sub-matrices.  \\ 
@@ -1323,6 +1355,632 @@ $X_{i,0}$ has an ICPPA in $T_i$.  If not such
 partition exists, exit with negative answer.  
 \end{algorithmic}
 \end{algorithm}
+
+
+\section{Finding tree path labeling from $k$-subdivided stars}
+
+As we saw earlier, the algorithm \ref{Al:icppa-main} for the problem
+of tree path labeling to a path system in a general tree is not
+polynomial time. Algorithm \ref{Al:icppa-main} line
+\ref{l:icppasubtree} leaves an unsolved problem in the main ICPPL
+algorithm where ICPPL needs to be found out for the mub of each
+partition $X_i$ i.e, $X_{i0}$ on subtree $T_i$. Essentially this is
+the problem of finding a path labeling to an overlap component of $\cH_\cF$ from a
+subtree of $T$.
+When the subtrees are restricted to a smaller class, namely 
+$k$-subdivided stars, we have an algorithm which has better time complexity.\\
+
+
+\noindent
+Following the notation in the previous section, the subtree assigned to the partition
+$X_i$ is $T_i$. We saw that it is sufficient to find the ICPPL for $X_{i0}$
+from $T_i$ to find the ICPPL for the set subsystems corresponding to
+the whole partition $X_i$. Hence in this section, we are interested in
+the mub $X_{i0}$ of partition $X_i$.  Let the set subsystem
+corresponding to $X_{i0}$ be $\cO_{i0}$. For ease of notation and due to our focus here being only on the overlap subsystem
+of the mub and the assigned subtree, we will drop the subscripts, and
+call $\cO$ and $T$ as the set system and tree (rather than set
+subsystem and subtree) respectively.\\ 
+
+\noindent
+Note that here we assume the partitioning of the tree $T$
+into subtrees $\{T_i \mid T_i \text{ assigned to } X_i, T_i \subseteq T,  1 \le i \le t\}$ has been
+done. The problem of partitioning $T$ is a problem that needs to be
+addressed separately and is not covered in this paper at the moment.
+
+%%%%%%%%%%%%
+%%        %%
+\noindent
+\rfootnote{could be explored for logspace algo::
+{\em Slots} are sets of elements in the universe $supp(\cF)$ which either
+appear together in a set or do not appear in a set at all (as defined
+in \cite{kklv10}).  \rcomment{mention partative family connection?}
+\rcomment{Define ``slot'' in prelim sec}
+If $T$ is a three leaved tree, it is clear that there is exactly one vertex $r$ in $T$ that has
+degree $d(r) = 3$.\rfootnote{unexplored: Which is the set(s) that
+  maps to a path(s) that has $r$?} In \cite{kklv10} they find the two {\em
+  side slots} by identifying the two {\em maximum marginal} sets from $\cF$ (or
+hyperedge from hypergraph $\cH$ in their set up). \rcomment{define
+  ``marginal'', ``side slot'' in prelim or here.} Using this side slot
+a partial order is defined that in their case (intervals) totally
+orders $supp(\cF)$. From this it is easy to derive the 
+the interval isomorphism and labeling.\\
+
+\noindent
+Calculate the slots in $supp(\cF)$ and let them be $Y_1, Y_2 ... Y_k$,
+$k \in \mathbb{N}$.
+
+\rcomment{Define ``marginal slot'' for a set in the system. How do we
+  find it? 
+}
+\begin{lemma}
+  If a set $S \in \cF$ has three marginal slots and if $v$ is the
+  unique vertex in a three leaved tree $T$ such that $d(v) = 3$, $S$
+  contains the element mapped to $v$ by a feasible tree path labeling
+  if one exists. i.e. $\cl^{-1}(v) \in S$ where $\cl$ is a feasible
+  tree path labeling. If such a labeling cannot be found, there does
+  not exist a feasible tree path labeling for $\cF$ from $T$.
+\end{lemma}
+\begin{proof}
+  \rcomment{TBD}
+\end{proof}
+
+\noindent
+There will be exactly
+three end slots if $\cF$ has a TPL to $T$. For each slot $Y_i, i \in
+[k]$, do the following till a solution is found. Assume $Y = Y_i$ is
+an end slot. Define the following partial order $\preccurlyeq_Y$ on $supp(\cF)$
+\begin{enumerate}
+\item if $u \in Y$ and $v \notin Y$ then $u \preccurlyeq_Y v$
+\item if $u, v \in S$, where $S \in \cF$, then for every $w \notin S$,
+  if $u \preccurlyeq_Y w$ then $v \preccurlyeq_Y w$ or if $w \preccurlyeq_Y u$ then $w \preccurlyeq_Y v$
+\end{enumerate}
+
+This is clearly a partial order since it is reflexive, antisymmetric and
+transitive 
+\rcomment{prove?}.
+
+\begin{theorem}
+  Let the Hasse diagram of the partial order $\preccurlyeq_Y$ defined
+  above be $H_{\preccurlyeq_Y}$. Then if $T$ is a subgraph of
+  $H_{\preccurlyeq_Y}$, there exists a TPL to $\cF$ from $T$.
+\end{theorem}
+\begin{proof}
+ \qed
+\end{proof}
+}
+
+\rfootnote{tried first/unexplored:
+  let slot that gets
+assigned to the path with $r$ be $Y_r$. If $T_i$ is rooted at $r$ we
+have exactly three paths from $r$ to the three leaves which are vertex
+disjoint except at $r$. -- but it is not straightforward to find this
+special slot. end slots are easier to find see kklv10.}  
+\rfootnote{tried: There will be three marginal sets and three end slots. pick one at
+random. Let it be $Y = Y_i, i \in [k]$
+Use the partial ordering idea in \cite{kklv10} (page 10 para 1)
+$\le_{Y}$. However in this case it will not be a total order. 
+Assign paths as in pg 10 eq (3). \\
+Finding $Y$ involves something similar to the marginal hyperedge
+idea in \cite{kklv10}.}
+%%        %%
+%%%%%%%%%%%%
+
+\noindent
+We generalize the interval assignment algorithm for an overlap
+component from a prime matrix in \cite{nsnrs09} (algorithm 4 in their paper) to find
+tree path labeling for overlap component $\cO$. The tree $T$ is a
+$k$-subdivided star. The vertex $r$ is the center of the star.\\
+
+The outline of the algorithm is as follows. Notice that the path
+between a leaf and the center vertex has the property that none of the
+vertices except the center has degree greater than 2. Thus each ray excluding the center
+can be considered as independent intervals. 
+ So we begin by labeling of hyperedges to paths that have vertices
+ from a single ray only and the center vertex. Clearly this can be
+ done using ICPIA alone. This is done for each ray one
+after another till a condition for a blocking hyperedge is reached
+for each ray which is described below. This part of the algorithm is called the
+{\em initialization of path labeling}. 
+
+When considering labeling from any
+particular ray, we will reach a point in the algorithm were we cannot
+proceed further with ICPIA alone because the overlap properties of the
+hyperedge will require a path that will cross the center of the star
+to another ray and ICPIA cannot tell us which ray that would be. Such
+a hyperedge is called {\em blocking hyperedge} of that ray. At this
+point we make the following observation about the classification of
+the hyperedges in $\cO$.
+\begin{itemize}
+\item[i] {\em Type 0/ labeled hyperedges}: The hyperedges that have been labeled.
+\item[ii] {\em Type 1/ unlabeled non-overlapping hyperedges}: The hyperedges that are either contained or
+  disjoint from type 0 hyperedges.
+\item[iii] {\em Type 2/ unlabeled overlaping hyperedges}: The hyperedges that overlap with at least one
+  labeled hyperedge, say $H$, but cannot be labeled to a path in the
+  same ray as $\cl(H)$ alone. It requires verices from another ray
+  also in its labeling. A {\em blocking hyeredge} is one of this kind
+  which is encountered in each iteration of the initialization of rays algorithm.
+\end{itemize}
+
+Since $\cO$ is an overlap component, the type 1 hyperedges overlap
+with some type 2 hyperedge and can be handled after type 2
+hyperedges. Note that in the algorithm outlined above, we find a single
+blocking hyperedge and it is a type 2 hyperedge, per ray. Consider a
+ray $R_i = \{v \mid v \in V(T), v \text{ is in $i$th ray or is the center}\}$ and its
+corresponding blocking hyperedge $B_i$. Now we try
+to make a partial path labeling such that for every $i \in [l]$. We partition the blocking
+hyperedge into two subsets $B_i = B'_i \cup B''_i$ such that $B'_i,
+B''_i$ map to paths $P'_i, P''_i$ respectively which are defined as
+follows. 
+\begin{table}[h]
+  \centering
+  \begin{tabular}[h]{ll}
+    $P'_i$ &$\subseteq R_i \text{ such that } $$r \in P'_i $\\
+&and 
+$|P'_i| = k+2- |supp(\{P \mid P \text{ is a path from $R_i$ assigned to type 0
+  hyperedges} \})|$\\
+$P''_i$ &$\in \{P_{i,j} \mid j \in [l], j \ne i\}$ \\
+&$\text{where } P_{i,j} = \{v_{j,p} \mid v_{j,0} \text{ is adjacent
+  to $r$ on $R_j$, }$\\
+&for all $ 0 < p \le |B_i \setminus P'_i|-1,
+v_{j,p} \text{ is adjacent to } v_{j,p-1}\}$ \\ 
+$P'_i \cup P''_i$ & $\text{ is a path in $T$}$
+  \end{tabular}
+\end{table}
+
+****** DIAGRAM *******
+The path $P'_i$ is obvious and the following procedure is used to find
+$P''_i$. It is clear that a hyperedge cannot be blocking more than two rays,
+since a path cannot have vertices from more than two rays. If the blocking 
+hyperedge $B_a$ of ray $R_a$ is also the blocking hyperedge for
+another ray $R_b$ (i.e. $B_a = B_b$), then clearly $P''_a = P_{a,b}$
+(and $P''_b = P_{b,a}$). If $B_a$ does not block any other rays of the
+star other than $R_a$, then we find that it must intersect with
+exactly one other blocking hyperedge, say $B_b$. Once we find that
+ray,  then clearly $P''_a = P_{a,b}$. Note that $P''_b \ne P_{b,a}$ in
+this case else it would have been covered in the previous case.
+Now we continue to find new blocking hyperedges on all rays until the
+path labeling is complete. 
+
+\noindent
+The function $dist(u,v)$ returns the number of vertices between the
+vertices $u$ and $v$ on the path between them. 
+
+The algorithm is formally described as follows. Algorithm
+\ref{al:icppl-kleaves_symm_starlike__4} is the main algorithm which
+uses algorithms \ref{al:icppl-initialize_rays_symm_starlike},
+\ref{al:icppl-saturate_rays_symm_starlike} and
+\ref{al:icppl-partial_labeling_symm_starlike} as subroutines.
+
+
+\begin{algorithm}[h]
+\caption{Algorithm (main subroutine) to find an ICPPL $\cl$ for an overlap
+  component $\cO$ from $k$-subdivided star graph $T$:
+  $overlap\_ICPPL\_l\_leaves\_symstarlike3(\cO, T$)} 
+\label{al:icppl-kleaves_symm_starlike__4}
+%{\tiny
+\begin{algorithmic}[1]
+
+\STATE $\cL$  
+\COMMENT {$\cL \subseteq \cO$ is a global variable for the set subsystem that has a
+  path labeling so far. It is the domain of the feasible path labeling $\cl$ at
+  any point in the algorithm.}
+
+\STATE $\cl$ 
+\COMMENT {$\cl: \cL \rightarrow \cP$, is a global
+  variable representing a feasible path
+  labeling of $\cL$ to some path system $\cP$ of $T$. It is
+  the partial feasible path labeling of $\cO$ at any point in the algorithm.}
+
+%\STATE $i \leftarrow initialize\_rays(\cO, T)$ 
+\STATE $initialize\_rays(\cO, T)$ 
+\COMMENT {Call algorithm
+  \ref{al:icppl-initialize_rays_symm_starlike} for initialization of rays.
+  This is when a hyperedge is assigned to a path with the ray's
+  leaf.} % $i$ rays are initialized.}
+
+\WHILE {$\cL \ne \cO$}
+  \STATE $saturate\_rays\_and\_find\_blocking\_hyperedges(\cO, T)$
+  \COMMENT {Saturate all rays of $T$ by using algorithm 
+  \ref{al:icppl-saturate_rays_symm_starlike}. This subroutine also
+  finds the blocking hyperedge $\cB_i$ of each ray $i$. A blocking
+  hyperedge is one that needs to be labeled to a path that has
+  vertices from exactly two rays.}
+
+  \STATE $partial\_path\_labeling\_of\_blocking\_hyperedges(\cO, T)$
+  \COMMENT {Find path labeling of blocking hyperedges by using
+    algorithm \ref{al:icppl-partial_labeling_symm_starlike}. This subroutine
+  finds the part of the blocked hyperedge's path label that comes from the second ray.}
+
+\ENDWHILE % \cL \ne \cO
+
+\end{algorithmic} %}
+\end{algorithm}
+
+
+\begin{algorithm}[h]
+\caption{$initialize\_rays(\cO, T)$}
+\label{al:icppl-initialize_rays_symm_starlike}
+%{\tiny
+\begin{algorithmic}[1]
+
+\STATE Let $\{ v_i
+\mid i \in [l], l \text{ is number of leaves of $T$} \}$ 
+\COMMENT {Also note $k+2$ is the length of the path from the center to
+  any leaf since $T$ is $k$-subdivided star.}
+
+\STATE $\cK  \leftarrow \{ H \mid H \in \cO$, $N(H)$ in $\cO$ is a
+clique $\}$ \COMMENT {Local variable to hold the marginal
+  hyperedges. A marginal hyperedge is one that has exactly one
+  inclusion chain of interections with every set it overlaps with,
+  i.e., its neighbours in the overlap graph form a clique.}
+
+% \STATE $\cK  \leftarrow \{ H \mid H \in \cO$ s.t. neighbours of $H$ in
+% the overlap graph form a clique$\}$ 
+\FOR {every inclusion chain $C \subseteq \cK$ }
+  \STATE Remove from $\cK$ all sets in $C$ except the set
+  $H_{C-icpia-max}$ which is the set closest to the maximal inclusion set $H_{C-max}$
+  such that $|H_{C-icpia-max}| \le k+2$. 
+\ENDFOR % every inclusion chain $C \subseteq \cK$ 
+
+\IF {$|\cK| > l$}
+  \STATE Exit. %%%%%%%%%%******** NEEDS PROOF
+  \COMMENT {No labeling possible since $\cO$ is an overlap component and
+  $T$ does not have enough rays.}
+\ENDIF
+
+%\IF {$|\cK| < l$}
+\label{line:Li_is_empty}  
+\STATE \COMMENT { $H_{C-icpia-max}$ does not exist for at least one ray. Labeling
+  could still be possible because $H_{C-max}$ could be a viable blocking
+  hyperedge itself. Hence proceed.}
+%\ENDIF
+
+\STATE $i \leftarrow 0$
+\FOR {every hyperedge $H \in \cK$}
+  \STATE $i \leftarrow i+1$
+  \STATE $\cl(H) \leftarrow P_i$ where $P_i$ is the path in $T$
+  containing leaf $v_i$ such that $|P_i| = |H|$.
+  \STATE $\cL \leftarrow \cL \cup \{H\}$
+\ENDFOR % every $H \in \cK$
+\STATE Return the number of initialized rays, $i$.
+\end{algorithmic} %}
+\end{algorithm}
+
+
+
+\begin{algorithm}[h]
+\caption{$saturate\_rays\_and\_find\_blocking\_hyperedge(\cO, T)$}
+\label{al:icppl-saturate_rays_symm_starlike}
+%{\tiny
+\begin{algorithmic}[1]
+ 
+\STATE Variable $\cB_i$ shall store the blocking hyperedge for $i$th ray. Init
+variables: for every $i \in [l]$, $\cB_i \leftarrow \O$
+\STATE Let $\cL_i \subseteq \cL$ containing hyperedges labeled to $i$th ray i.e. $\cL_i = \{H \mid
+\cl(H) \subseteq R_i\}$
+
+\FOR {every $i \in [l]$} 
+\STATE \COMMENT {for each ray}
+  \IF {$L_i = \O$} 
+  \STATE \COMMENT {Due to the condition \ref{line:Li_is_empty} in algorithm
+  \ref{al:icppl-initialize_rays_symm_starlike}}
+    \STATE $\cK  \leftarrow \{ H \mid H \in \cO \setminus \cL$ s.t. neighbours of
+    $H$ in the overlap graph of $\cO$ form a clique$\}$ 
+    \STATE Pick an inclusion chain $C \subseteq \cK$ and let
+    $H_{C-max}$ be the maximal inclusion hyperedge in $C$.
+    \STATE $\cB_i \leftarrow H_{C-max}$ \COMMENT {Since $H_{C-max} \in
+    \cL$, and due to earlier subroutines, $|H_{C-max}| > k+2 $}
+  \ENDIF % $L_i = \O$
+
+  \WHILE {$\cB_i = \O$ and there exists $H \in \cO \setminus \cL$, such that $H$ overlaps with some
+    hyperedge $H' \in \cL_i$} 
+    \STATE $d \leftarrow |H \setminus H'|$ 
+    \STATE Let $u$ be the end vertex of the path $\cl(H')$ that is
+    closer to the center $r$, than its other end vertex 
+
+    \IF {$d \le dist(u, r)+1$} 
+      \STATE Use ICPIA to assign path $P \subseteq R_i$ to $H$ 
+      \STATE $\cl(H) \leftarrow P$ \COMMENT {Update variables}
+      \STATE $\cL \leftarrow \cL \cup \{H\}$, $\cL_i \leftarrow \cL_i \cup \{H\}$
+   \ELSE
+      \STATE $\cB_i \leftarrow H$
+      \STATE Continue \COMMENT{Found the blocking hyperedge for this ray; move on to
+      next ray}
+    \ENDIF    
+  \ENDWHILE % $\cB_i = \O$
+\ENDFOR
+
+\end{algorithmic} %}
+\end{algorithm}
+
+
+\begin{algorithm}[h]
+\caption{$partial\_path\_labeling\_of\_blocking\_hyperedges(\cO, T)$}
+\label{al:icppl-partial_labeling_symm_starlike}
+%{\tiny
+\begin{algorithmic}[1]
+
+\STATE \COMMENT {Process equal blocking hyperedges. At this point for
+  all $i \in [l]$, $\cB_i \ne \O$.} 
+\FOR {every $i \in [l], \cB_i \ne \O$}
+  \FOR {every $j \in [l]$}
+    \IF {$\cB_i = \cB_j$}
+      \STATE \COMMENT {Blocking hyperedges of $i$th and $j$th rays are same}
+      \STATE Let $H \leftarrow \cB_i$ \COMMENT { or $\cB_j$ }
+      \STATE Find path $P$ on the path $R_i \cup R_j$ to assign to
+      $H$ using ICPIA
+      \STATE $\cl(H) \leftarrow P$
+      \STATE $\cL \leftarrow \cL \cup \{H\}$
+      \STATE $\cB_i \leftarrow \O$, $\cB_j \leftarrow \O$ \COMMENT
+      {Reset blocking hyperedges for $i$th and $j$th rays}
+    \ENDIF
+  \ENDFOR % j > i
+\ENDFOR % i
+
+\STATE \COMMENT {Process intersecting blocking hyperedges}
+\FOR {every $i \in [l], \cB_i \ne \O$}
+  \FOR {every $j \in [l]$}
+    \IF {$\cB_i \cap (supp(\cL_j \cup
+    \cB_j)) \ne \O$}
+      \STATE \COMMENT {Blocking hyperedge of $i$th ray intersects with hyperedge
+    associated with $j$th ray}
+      \STATE Find interval $P_i$ for $\cB_i$, on the path $R_i \cup R_j$ that
+      satisfies ICPIA. 
+      \STATE $\cl(\cB_i) \leftarrow P_i$
+      \STATE $\cB_i \leftarrow \O$
+      \STATE $\cL \leftarrow \cL \cup \{\cB_i\}$
+    \ENDIF
+  \ENDFOR % j
+\ENDFOR % i
+
+\end{algorithmic} %}
+\end{algorithm}
+
+
+
+
+
+
+%\section {Acknowlegements:} 
+%TBD
+
+%\bibliographystyle{plainnat}
+\bibliographystyle{alpha} %to have only [i] type of citation
+\bibliography{../lib/cop-variants}
+
+
+\pagebreak
+\appendix
+
+\section{Detailed proofs}
+
+\noindent
+\begin{proof}[Lemma \ref{lem:invar1}]
+  \noindent
+  \begin{enumerate}
+  \item [Case 1:] {\em Invariant I and II} 
+    \begin{enumerate}
+    \item [Case 1.2:] {\em $R$ is a new set:}\\ 
+      If $R = S_1 \cap S_2$, $|R| = |S_1 \cap S_2| = |\cl_{j-1}(S_1) \cap
+      \cl_{j-1}(S_2)|\footnote{Inv III hypothesis} = |\cl_j(S_1 \cap
+      S_2)|\footnote{$\cl_j$ definition} = |\cl_j(R)|$\\
+      If $R = S_1 \setminus S_2$, 
+         $|R| = |S_1 \setminus S_2| 
+              = |S_1| - |S_1 \cap S_2| 
+              = |\cl_{j-1}(S_1)| - |\cl_{j-1}(S_1) \cap \cl_{j-1}(S_2)|\footnote{Inv II and III hypothesis} 
+              = |\cl_{j-1}(S_1) \setminus \cl_{j-1}(S_2)| 
+              = |\cl_j(S_1 \setminus S_2)|\footnote{$\cl_j$ definition}
+              = |\cl_j(R)|$. \\
+      Thus Invariant II proven.
+   \end{enumerate}
+  \item [Case 2:] {\em Invariant III}
+    \begin{enumerate}
+    \item [Case 2.2:] {\em Only $R$ is a new set:}\\
+      If $R = S_1 \cap S_2$, $|R \cap R'| = |S_1 \cap S_2 \cap R'| = |\cl_{j-1}(S_1) \cap
+      \cl_{j-1}(S_2) \cap \cl_{j-1}(R')|\footnote{Inv IV hypothesis} = |\cl_j(S_1 \cap
+      S_2) \cap \cl_j(R')|\footnote{$\cl_j$ definition. Note that $R'$ is not a
+        new set} = |\cl_j(R) \cap \cl_j(R')|$\\
+      If $R = S_1 \setminus S_2$, 
+         $|R \cap R'| = |(S_1 \setminus S_2) \cap R'| 
+                      = |(\cl_{j-1}(S_1) \setminus \cl_{j-1}(S_2))
+                      \cap \cl_{j-1}(R')|\footnote{Lemma \ref{lem:setminuscard}}
+                      = |\cl_{j}(R) \cap \cl_{j}(R')|\footnote{$\cl_j$
+                        definition. Note $R'$ is not a new set}$\\
+      Thus Invariant III proven.
+    \end{enumerate}
+  \end{enumerate}
+\end{proof}
+
+\end{document}
+
+
+
+\section{Certifying algorithm for tree path labeling to a set system}
+\begin{enumerate}
+\item[1.] {\em incompatibility relation is the ICPIA relation. each vertex
+  is ordered pair (set,interval) s.t. card(set) = card(interval). for all vertices having
+  the same set in its label form a clique since the ICPIA condition
+  does not hold. If two vertices $(S_1, \cl(S_1))(S_2,\cl(S_2))$, where
+  $\cl: \cF \rightarrow \cI$ is {\em { one of the possible interval
+      labelings}} of $\cF$, are such that
+%******************** !!!
+  pairwise intersections are not preserved, then they have an edge
+  between them else not. if there is no independent set of size $n$
+  then there is no ICPIA possible. CONJECTURE: this incompatibility
+  graph is a perfect graph.} *** FILL IN FORMAL
+DETAILS IN KKLV NOTATION ***\\
+CHECK BERGE'S THEOREM. robertson n seymour proved it for perfect graphs.
+\item[2.] {\em incompatibility graph for tree labeling to set
+    system. extending the idea above we create an incompatibility
+    3-uniform hypergraph. vertices are ordered pairs (set,tree path) with
+    cardinalities preserved. a hyperedge involving three vertices is present iff the three
+    vertices involved have three way intersection cardinalities
+    preserved. there does not exist an independent set of size $n$
+    in this graph iff there cannot be a tree path labeling to the
+    given set system} *** FILL IN FORMAL DETAILS IN KKLV NOTATION
+  ***
+\item[3.] {\em incompatibilty graph as in [2] but without using
+    hypergraphs. edges represent incompatible pairwise intersections
+    as in [1]. three way intersections are not represented (it could
+    be we need to come up with that). how can we find an independent
+    set such that the ICPPL condition is met? }
+\item [4.] {\em can we extend the side slot idea to trees and how? if
+    so, what kind of ordering can we use? any two of preorder,
+    inorder, postorder defines the tree uniquely. this could be used
+    to define a partial order based on ``side slots''.} *** FILL IN FORMAL DETAILS IN KKLV NOTATION
+  ***\\
+- definition of slots is general for any set system. therefore remains
+same here.\\
+- ``side slots'' can be the slots that have the root? must have a
+concept equivalent of ``maximal side slot'' ---- no, before that we
+need to decide what should the ordering be. how do we use it to define
+the partial order. then characterize the maximal special slot.
+\end{enumerate}
+
+
+
+\section{ICPPL from 3 leaved tree/k leaved symmetric tree }
+\label{para:3-leaved}
+$T$ is three leaved tree which is not necessarily symmetric -
+Unverified/incomplete Algorithm \ref{al:icppl-3leaves__1}.\\
+
+\noindent
+$T$ is $k$ leaved and symmetric. Starting from one arbitrary arm and
+trying other arms after reaching center of graph - Unverified/incomplete Algorithm \ref{al:icppl-kleaves_symm_starlike__2}.\\
+
+\begin{algorithm}[h]
+\caption{Algorithm to find an ICPPL $\cl$ for an overlap component $\cO$ from tree $T$: $overlap\_ICPPL\_3\_leaves(\cO, T$)}
+\label{al:icppl-3leaves__1}
+%{\tiny
+\begin{algorithmic}[5]
+\STATE Find $H_0 \in \cO$ s.t. all the sets that intersect with $H_0$
+ have non-empty pairwise intersections with each other. \\
+\STATE $\cL \leftarrow \{ H_0 \}$, $\cl \leftarrow \O$  %// list of hyperedges given path labels
+%\STATE \\         %// resetting path label function
+\STATE Choose a path $P_0$ from $T$ containing leaf $v_1$ s.t. $|H_0|=|P_0|$\\
+\STATE Assign $\cl(H_0) \leftarrow P_0$, $\cX \leftarrow \O$\\ %// set of tested paths for H defined below
+\STATE Push $(H_0, v_1)$ to stack\\     %// for backtracking
+\WHILE {there exists $H \in \cO \setminus \cL$, such that $H$ intersects with some set in $\cL$, say $H'$}
+\WHILE {there exists a path $P$ from $T$ s.t. $P \notin \cX$ and $|P \cap \cl(H')| = |H \cap H'|$}
+
+  \IF {$\cl(H')$ has $r$}
+    \STATE there will be two paths containing r $P_{r1}, P_{r2}$, one each containing the
+    end points $P_{1}, P_{2}$.\\
+    \STATE add to $\cL$, assign $\cl$, push to stack appropriately after
+    checking ICPPL conditions.\\
+    \STATE if all of them fail ICPPL, backtrack. Else continue.\\
+  \ENDIF
+
+  \STATE $d \leftarrow |H' \setminus H|$ \\
+  \STATE Let $u_1, u_2$ be the end vertices of $\cl(H')$\\
+ \IF {$d \le dist(u_1, r)$ and $d \le dist(u_2, r)$} 
+  %only one possibile RIGHT path. two paths to consider.
+    \STATE Let $P_1 \leftarrow $ path containing $u_1$ s.t. $|P_1 \cap
+     \cl(H')| = |H \cap H'|$\\
+    \STATE Let $P_2 \leftarrow $ path containing $u_2$ s.t. $|P_2 \cap
+     \cl(H')| = |H \cap H'|$\\
+    \IF {$(\cL \cup H$, $\cl \cup (H, P_1))$ is an ICPPL}
+      \STATE $\cL \leftarrow \cL \cup H$\\
+      \STATE $\cl(H) \leftarrow P_1$\\
+      \STATE      Push $(H,null)$ to stack\\
+    \ENDIF
+    \IF {$(\cL \cup H$, $\cl \cup (H, P_2))$ is an ICPPL}
+      \STATE $\cL \leftarrow \cL \cup H$\\
+      \STATE $\cl(H) \leftarrow P_2$\\
+      \STATE      Push $(H,null)$ to stack\\
+    \ELSE
+      \STATE backtrack.
+    \ENDIF
+  \ELSE % i.e. $d > dist(u_1, r)$ or $d > dist(u_2, r)$  
+    \STATE \textsl{i.e. $d > dist(u_1, r)$ or $d > dist(u_2, r)$}
+    %only TWO possibile RIGHT path that can be decided at this iteration.. three paths to consider.
+    \STATE Let $P_1 \leftarrow $ path containing $u_1$ s.t. $|P_1 \cap
+    \cl(H')| = |H \cap H'|$\\
+    \STATE Let $P_2 \leftarrow $ path containing $u_2$ s.t. $|P_2 \cap
+    \cl(H')| = |H \cap H'|$\\
+    \STATE Let $P_3 \leftarrow $ path containing $u_1$ or $u_2$ and $r$ s.t. $|P_3 \cap
+    \cl(H')| = |H \cap H'|$. This would intersect with $P_1$ or $P_2$
+    depending on which endpoint is contained in it.\\
+
+    \IF {$(\cL \cup H$, $\cl \cup (H, P_1))$ is an ICPPL}
+      \STATE $P \leftarrow P_1$\\
+   \ENDIF
+    \IF {$(\cL \cup H$, $\cl \cup (H, P_2))$ is an ICPPL}
+      \STATE $P \leftarrow P_2$\\
+    \ENDIF
+    \IF {$(\cL \cup H$, $\cl \cup (H, P_3))$ is an ICPPL}
+      \STATE $P \leftarrow P_3$\\
+   \ELSE
+      \STATE Exit.
+    \ENDIF
+    \STATE $\cL \leftarrow \cL \cup H$\\
+    \STATE $\cl(H) \leftarrow P$\\
+    \IF {there is $r \in P$}
+      \STATE      Push $(H,r)$ to stack\\
+    \ELSE
+      \STATE      Push $(H,null)$ to stack\\
+    \ENDIF
+    \STATE      Break while. Path label for $H$ has been assigned.\\
+    \ENDIF % % i.e. $d >/<= dist(u_1, r)$or/and $d >/<= dist(u_2, r)$  
+\ENDWHILE % checked all paths
+
+    \IF {all paths in $\cX$ failed}  % backtrack
+      \STATE    $(H_x, v_x) \leftarrow $ Pop stack\\
+      \WHILE {$v_x = null$}
+        \STATE      $\cL \leftarrow \cL \setminus \{ H_x \}$\\
+        \STATE      $\cl(H_x) \leftarrow undefined$\\     % // exclude
+                                % H_x from \cl domain
+      \ENDWHILE
+      \IF {$v_x = r$}
+        \STATE FIND AN ALTERNATE PATH FOR $H_x$ - LOOK AT POSSIBILITIES AT
+        ROOT. REASSIGN $l(H_x)$, PUSH BACK INTO STACK AND CONTINUE WHILE.\\
+      \ENDIF
+      \IF {$v_x = v_1$}
+        \STATE FAILURE AT LEAF. START WITH ANOTHER LEAF. PUT OUTERLOOP
+        AND DO A CONTINUE ON THAT.\\
+      \ENDIF
+    \ENDIF
+\ENDWHILE
+\end{algorithmic} %}
+\end{algorithm}
+
+\begin{algorithm}[h]
+\caption{Algorithm to find an ICPPL $\cl$ for an overlap component $\cO$ from tree $T$: $overlap\_ICPPL\_k\_leaves\_symstarlike2(\cO, T$)}
+\label{al:icppl-kleaves_symm_starlike__2}
+\begin{algorithmic}[1]
+
+\STATE Let $k$ be the length of the path to a leaf from the center.\\
+\STATE $\H_l \leftarrow \{ H \mid H \in \cO$ s.t. all the sets that intersect with $H$
+ have non-empty pairwise intersections with each other and any set in
+ $\H_l$ is not contained in another set in $\H_l$. When there are
+ ambiguities regarding containment, choose the largest set whose size
+ is less than or equal to $k$ $\}$ \\ % so that it gets assigned only
+                                % till the center
+\IF {$|\H_l| \ne l$, where $l$ is the number of leaves in $T$}
+  \STATE No labeling possible. Exit.
+\ENDIF
+
+\STATE For every $i \in [l]$, $\cl(H_i) \leftarrow P_i$ where $H_i \in
+\H_l$, $P_i$ is a path in $T$ containing leaf $v_i$ such that $|P_i| =
+|H_i|$.
+\STATE $\cL \leftarrow \H_l$ % assigned sets
+
+
+\WHILE {there exists $H \in \cO \setminus \cL$, such that $H$ intersects with some set in $\cL$, say $H'$}
+
+  \STATE $d \leftarrow |H' \setminus H|$ \\
+  \STATE Let $u_1, u_2$ be the end vertices of the path $\cl(H')$\\
+  \IF [where $r$ is the center of star $T$] {$d \le dist(u_1, r)$ and $d \le dist(u_2, r)$} 
+    \STATE Use ICPIA to assign path to $H$ \rcomment{expand}
+  \ENDIF
+\ENDWHILE
+
+\end{algorithmic}
+\end{algorithm}
+
+
+
 \section{Complexity of Tree Path Assignment-A Discussion} \label{complexity}
 Recall that the input to the Tree Path Assignment question is an order
 pair $(\cF,T)$ where $\cF$ is a family of subsets of an universe $U$,
@@ -1457,117 +2115,8 @@ Tree Path Assignment in caterpillars easier than Tree Path assignment
 in general trees.
 
 
-\appendix
-
-\section{Detailed proofs}
-
-\noindent
-\begin{proof}[Lemma \ref{lem:invar1}]
-  \noindent
-  \begin{enumerate}
-  \item [Case 1:] {\em Invariant I and II} 
-    \begin{enumerate}
-    \item [Case 1.2:] {\em $R$ is a new set:}\\ 
-      If $R = S_1 \cap S_2$, $|R| = |S_1 \cap S_2| = |\cl_{j-1}(S_1) \cap
-      \cl_{j-1}(S_2)|\footnote{Inv III hypothesis} = |\cl_j(S_1 \cap
-      S_2)|\footnote{$\cl_j$ definition} = |\cl_j(R)|$\\
-      If $R = S_1 \setminus S_2$, 
-         $|R| = |S_1 \setminus S_2| 
-              = |S_1| - |S_1 \cap S_2| 
-              = |\cl_{j-1}(S_1)| - |\cl_{j-1}(S_1) \cap \cl_{j-1}(S_2)|\footnote{Inv II and III hypothesis} 
-              = |\cl_{j-1}(S_1) \setminus \cl_{j-1}(S_2)| 
-              = |\cl_j(S_1 \setminus S_2)|\footnote{$\cl_j$ definition}
-              = |\cl_j(R)|$. \\
-      Thus Invariant II proven.
-   \end{enumerate}
-  \item [Case 2:] {\em Invariant III}
-    \begin{enumerate}
-    \item [Case 2.2:] {\em Only $R$ is a new set:}\\
-      If $R = S_1 \cap S_2$, $|R \cap R'| = |S_1 \cap S_2 \cap R'| = |\cl_{j-1}(S_1) \cap
-      \cl_{j-1}(S_2) \cap \cl_{j-1}(R')|\footnote{Inv IV hypothesis} = |\cl_j(S_1 \cap
-      S_2) \cap \cl_j(R')|\footnote{$\cl_j$ definition. Note that $R'$ is not a
-        new set} = |\cl_j(R) \cap \cl_j(R')|$\\
-      If $R = S_1 \setminus S_2$, 
-         $|R \cap R'| = |(S_1 \setminus S_2) \cap R'| 
-                      = |(\cl_{j-1}(S_1) \setminus \cl_{j-1}(S_2))
-                      \cap \cl_{j-1}(R')|\footnote{Lemma \ref{lem:setminuscard}}
-                      = |\cl_{j}(R) \cap \cl_{j}(R')|\footnote{$\cl_j$
-                        definition. Note $R'$ is not a new set}$\\
-      Thus Invariant III proven.
-    \end{enumerate}
-  \end{enumerate}
-
-
-
-  
-\end{proof}
-
-\section{TPA on 3 leaf trees}
-
-\noindent
-{\bf Try the $(X_{i0}, T_i)$ tree path assignment on tree with three leaves
-(one node with deg 3) using the idea of slots from \cite{kklv10}}\\\\
-
-{\bf Backdrop:} Algorithm \ref{Al:icppa-main} line
-\ref{l:icppasubtree} leaves an unsolved problem in the main ICPPA
-algorithm where ICPPA needs to be found out for the mub of each
-partition $X_i$ i.e, $X_{i0}$ on subtree $T_i$. In this section we assume the
-partitioning of the tree $T$ into subtrees $\{T_i \mid T_i 
-\subset T, 1 \le i \le t\}$ has been done. This is a problem that needs
-to be addressed separately.\\\\
-
-\noindent
-Let $X_{i0} = \cF, T_i = T$ for ease of notation.\\
-Slots are sets of elements in the universe $supp(\cF)$ which either
-appear together in a set or do not $T_i$ appear at all (as defined in \cite{kklv10}).
-There is exactly one vertex $r$ in that has degree 3, $d(r) = 3$. Which
-is the set(s) that maps to a path(s) that has $r$? In \cite{kklv10}
-they find the {\em side slot} by identifying the maximal marginal set
-from $\cF$ (or hyperedge from hypergraph $\cH$ in their set up). Using
-this side slot a partial order is defined that strictly orders the
-slots which is also the order in which their assigned intervals appear
-in the interval labeling.\\\\
-Basic idea is to find the this set that gets assigned to deg 3 vertex
-path and then assign sub paths from the 3 paths incident on $r$.\\\\
-Other observations: 
-\begin{itemize}
-\item there exists exactly one set such that the sets
-that overlap with this set form 3 maximal inclusion chains.
-\item there exists exactly three sets such that for each of them, the
-  sets that overlap with it forms a single maximal inclusion chain
-\item for every other set, there are exactly 2 inclusion maximal chain
-\end{itemize}
-
-{\tt TRY AN EXAMPLE}\\\\
-
-
-\noindent
-Let the identified slots be $Y_1, Y_2 ... Y_k$ and let slot that gets
-assigned to the path with $r$ be $Y_r$. If $T_i$ is rooted at $r$ we
-have exactly three paths from $r$ to the three leaves which are vertex
-disjoint except at $r$. \\\\
-Use the slot ordering idea in \cite{kklv10} (page 10 para 1)
-$\le_{Y_r}$. Now we get three (or 2?) orderings with only $Y_r$ in
-common. Assign paths as in pg 10 eq (3). \\
-Finding $Y_r$ involves something similar to the marginal hyperedge
-idea in \cite{kklv10}.\\
-Or pick any one of the 3 ``prongs'' of the rooted version of $T$ and
-delete it. Consider the remaining as an interval. Rename nodes to make
-it interval. Find the 3 maximal marginal sets. Arbitrarily choose one
-and use the ordering formula as in page 10 eq (2) in \cite{kklv10}.
-
-{\tt TRY AN EXAMPLE}\\\\
 
 
 
 
 
-
-%\section {Acknowlegements:} 
-%TBD
-
-%\bibliographystyle{plainnat}
-\bibliographystyle{alpha} %to have only [i] type of citation
-\bibliography{../lib/cop-variants}
-
-\end{document}
