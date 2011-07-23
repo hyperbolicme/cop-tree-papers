@@ -4,7 +4,6 @@
 
 
 \documentclass{fsttcs}
-
 %\usepackage{fullpage}
 \usepackage{latexsym}
 \usepackage{amssymb}
@@ -183,7 +182,6 @@
 %     \hline
 %   \end{tabular}
 % }
-
 \newcommand{\rfootnote}[1] {} %{\footnote{{#1}}}
 
 
@@ -201,7 +199,7 @@
 
 
 \title{Tree Path Labeling of Path Hypergraphs - A Generalization of
-  consecutive ones property}
+  Consecutive Ones Property}
 
 % These are required for headers and for copyright on title page
 \runningtitle{Tree Path Labeling of Path Hypergraphs}
@@ -221,7 +219,7 @@
   \rcomment{Need to overhaul the abstract}
   We consider the following constraint satisfaction problem. Given (i)
   a
-  set subsystem $\F \subseteq (powerset(U) \setminus \O)$ of a finite
+  set system $\F \subseteq (powerset(U) \setminus \O)$ of a finite
   set $U$ of cardinality $n$, (ii) a tree 
   $T$ of size $n$ and (iii) a bijection $\cl$, defined as {\em tree
     path labeling}, mapping the sets in $\cF$ to 
@@ -231,12 +229,12 @@
    \cl(S)$?  A tree path labeling of a set system is called {\em
      feasible} if there exists such 
   a bijection $\phi$.  In this paper, we characterize feasible tree
-  path labeling of a given set subsystem to a tree.  This result is a
+  path labeling of a given set system to a tree.  This result is a
   natural generalization of results on matrices with the Consecutive
   Ones Property. COP is a special instance of tree path labeling
   problem when $T$ is a path.  We also
-  present algorithm to find the tree path labeling itself of a given
-  set subsystem when $T$ is a {\em $k$-subdivided star} as well as a
+  present an algorithm to find the tree path labeling of a given
+  set system when $T$ is a {\em $k$-subdivided star} as well as a
   characterization of set systems which have a 
   feasible tree path labeling. 
 \end{abstract}
@@ -503,40 +501,33 @@ call $\cl$ an {\em Intersection Cardinality Preserving Path Labeling
   \cl(S_3)|$ for all distinct  $S_1, S_2, S_3 \in \cF$
 \end{enumerate}
 
-
+The following two lemma are useful in characterizing feasible tree path labelings.  Their
+proofs are in the appendix.
 \begin{lemma}
   \label{lem:setminuscard}
   If $\cl$ is an ICPPL, and $S_1, S_2, S_3 \in
   \cF$, then $|S_1 \cap (S_2 \setminus S_3)| = |P_1 \cap (P_2
    \setminus P_3)|$ where $P_i = \cl(S_i), i \in \{1, 2, 3\}$.
 \end{lemma}
-\begin{proof}
-  $|S_1 \cap (S_2 \setminus S_3)| = |(S_1 \cap S_2) \setminus S_3| =
-  |S_1 \cap S_2| - |S_1 \cap S_2 \cap S_3|$. Due to conditions (ii)
-  and (iii) of ICPPL, $|S_1 \cap S_2| - |S_1 \cap S_2 \cap S_3| = |P_1
-  \cap P_2| - |P_1 \cap P_2 \cap P_3| = |(P_1 \cap P_2) \setminus P_3|
-  = |P_1 \cap (P_2 \setminus P_3)|$. Thus lemma is proven. \qed
-\end{proof}
-
-\begin{lemma}[Proof in appendix.]
-  \label{lem:fourpaths} Consider four paths in a tree $P_1, P_2, P_3,
+\begin{lemma}\label{lem:fourpaths} 
+   Consider four paths in a tree $P_1, P_2, P_3,
   P_4$ such that they have non-empty pairwise intersection and paths $P_1,
   P_2$ share a leaf. Then there exists distinct $i, j, k \in
   \{1,2,3,4\}$ such that, $P_1 \cap P_2 \cap P_3 \cap P_4 = P_i \cap
   P_j \cap P_k$.
 \end{lemma}
 
-
 \noindent
 In the remaining part of this section we show that a path labeling is
 feasible if and only if it is an ICPPL.  One direction of this claim
 is clear: that if a path labeling is feasible, then all intersection
-cardinalities are preserved, i.e. the path labeling is an ICPPL.  The
+cardinalities are preserved, i.e. the path labeling is an ICPPL.  
+The
 reason is that a feasible path labeling has an associated bijection
 between $supp(\cF)$ and $V(T)$ such that the sets map to paths. The
 rest of the section is devoted to constructively proving that it is
-sufficient, for a path labeling to be an ICPPL.  At a top-level, the
-constructive approaches refine the path labeling iteratively, such
+sufficient for a path labeling to be an ICPPL.  At a top-level, the
+constructive approaches refine an ICPPL iteratively, such
 that at the end of each iteration we have a ``filtered'' path labeling,
 and finally we have a path labeling that defines a family of
 bijections from $supp(\cF)$ to $supp(\cP)$.  First we
@@ -585,8 +576,8 @@ S_2$, set $\cl_j(S) = \cl_{j-1}(S)$
   $|R \cap R' \cap R''|=|\cl_j(R) \cap \cl_j(R') \cap \cl_j(R'')|$
 \end{itemize}
 \end{lemma}
-
 \proof
+The complete proofs of the different cases below are in the appendix.
   Proof is by induction on the number of iterations, $j$. In the rest
   of the proof, the term ``new sets'' will refer to the sets added
   to $\cF_j$ in $j$th iteration in line \ref{setbreak} of Algorithm
@@ -608,24 +599,22 @@ the possible cases for each invariant for the  $j$th  iteration.
       proven.
     \item [Case 1.2:] {\em $R$ is a new set.} If $R$ is in $\cF_{j}$
       and not in $\cF_{j-1}$, then it must be one of the new sets
-      added in $\cF_j$. In this case, it can be easily verified that
-      all the new sets are also paths since by definition the chosen
-      sets $S_1$ and $S_1$ are from $\cF_{j-1}$ and by the while loop
-      condition, $\cl_{j-1}(S_1), \cl_{j-1}(S_2)$ have a common
+      added in $\cF_j$. In this case, it is clear that
+      for each new set, the image under $\cl_j$ is a path since by definition the chosen
+      sets $S_1$, $S_2$ are from $\cF_{j-1}$ and due to the while loop
+      condition, $\cl_{j-1}(S_1)$, $\cl_{j-1}(S_2)$ have a common
       leaf. Thus invariant I is proven.\\
       Moreover, due to induction hypothesis of invariant III ($j-1$th
-      iteration), invariant II can be verified easily for $j$th
-      iteration by using the definition of $l_j$ in terms of $l_{j-1}$
-      for any of the new sets.
+      iteration) and the  the definition of $l_j$ in terms of $l_{j-1}$, invariant II is indeed true in the $j$th
+      iteration for any of the new sets.
    \end{enumerate}
   \item [Case 2:] {\em Invariant III}
     \begin{enumerate}
     \item [Case 2.1:] {\em $R$ and $R'$ are not new sets.} Trivially
       true by induction hypothesis.
     \item [Case 2.2:] {\em Only one, say $R$, is a new set.} Due to
-      induction IV hypothesis, lemma \ref{lem:setminuscard} and
-      definition of $l_j$ with the fact that $R'$ is not a new set, it
-      can be verified that invariant III is true no matter which of
+  invariant IV which is true by the induction hypothesis, lemma \ref{lem:setminuscard} and
+      definition of $l_j$ with the fact that $R'$ is not a new set, it is follows that invariant III is true no matter which of
       the new sets $R$ is equal to.
     \item [Case 2.3:] {\em $R$ and $R'$ are new sets.} By definition,
       the new sets and their path images in path label $l_j$ are
@@ -637,13 +626,6 @@ the possible cases for each invariant for the  $j$th  iteration.
     \item [Case 3.1:] {\em $R$, $R'$ and $R''$ are not new sets.} Trivially
       true by induction hypothesis.
     \item [Case 3.2:] {\em Only one, say $R$, is a new set.}
-%       First consider $R$ being equal to $S_1 \cap S_2$. 
-%       From principle of inclusion exclusion, we know that $|S_1 \cap
-%       S_2 \cap R' \cap R''| = |S_1|+|S_2|+|R'|+|R''|-|S_1 \cap
-%       S_2|-|S_1 \cap R'|-|S_1 \cap R''|-|S_2 \cap R'|-|S_2 \cap
-%       R''|-|R' \cap R''|+|S_1 \cap S_2 \cap R'|+|S_1 \cap S_2 \cap
-%       R''|+|S_1 \cap R' \cap R''|+|S_2 \cap R' \cap R''|-|S_1 \cup S_2
-%       \cup R' \cup R''|$
       If $R = S_1 \cap S_2$,  from lemma \ref{lem:fourpaths} and
       invariant III hypothesis,  this case is proven. Similarly if $R$
       is any of the other new  sets, the case is proven by also using
@@ -656,13 +638,11 @@ the possible cases for each invariant for the  $j$th  iteration.
 
 
 \noindent
-It can be observed that the output of algorithm \ref{perms} is such
-that every leaf of $T$ is incident on at most one path in the path
-images of the returned set system $\cF$ on the returned path labeling
-$\cl$. This is due to the loop condition at line \ref{shareleaf}. The
-next algorithm refines the path labeling and the set system further as
-follows. This is done to help reduce the size of the problem by
-pruning the tree off its leaves.  Let vertex $v \in T$ be the unique
+As a result of  algorithm \ref{perms} each leaf of $T$ is present in at most
+one path assigned to some set in $\cF$.  In Algorithm \ref{leafasgn} we
+identify elements in $supp(\cF)$ whose images are leaves in feasible path labeling
+if one exists.
+Let vertex $v \in T$ be the unique
 leaf incident on a path image $P$ in $\cl$.  We define a new path
 labeling $\cl_{new}$ such that $\cl_{new}(\{x\}) = \{v\}$ where $x$ an
 arbitrary element from $\cl^{-1}(P) \setminus \bigcup_{\hP \ne P}
@@ -672,7 +652,7 @@ present in no other path image other than $P$.  The element $x$ and
 leaf $v$ are then removed from the set $\cl^{-1}(P)$ and path $P$
 respectively. The tree is pruned off $v$ and the refined set system
 will have $\cl^{-1}(P) \setminus \{x\}$. After doing this for all
-leaves in $T$ (that is part of a path image), all path images in the
+leaves in $T$, all path images in the
 new path labeling $\cl_{new}$ except single leaf labels (the pruned
 out vertex is called the {\em leaf label} for the corresponding set
 item) 
@@ -1325,6 +1305,11 @@ variables: for every $i \in [l]$, $\cB_i \leftarrow \O$
 
 \section{Finding an assignment of tree paths to a set
   system} \label{sec:decompos} 
+
+
+observation: T[V-c] is a collection of independent paths. c is the center.
+
+
 In the previous section we have shown that
 the problem of finding a Tree Path Labeling to an input $(\cF,T)$
 is equivalent to finding an ICPPL to $\cF$ in tree $T$.  In this
@@ -1597,9 +1582,51 @@ colleagues who helped us with the readability of this document.
 \appendix
 
 \section{Detailed proofs}
+{\bf Proof of Lemma \ref{lem:setminuscard}}\\
+\begin{proof}
+  $|S_1 \cap (S_2 \setminus S_3)| = |(S_1 \cap S_2) \setminus S_3| =
+  |S_1 \cap S_2| - |S_1 \cap S_2 \cap S_3|$. Due to conditions (ii)
+  and (iii) of ICPPL, $|S_1 \cap S_2| - |S_1 \cap S_2 \cap S_3| = |P_1
+  \cap P_2| - |P_1 \cap P_2 \cap P_3| = |(P_1 \cap P_2) \setminus P_3|
+  = |P_1 \cap (P_2 \setminus P_3)|$. Thus lemma is proven. \qed
+\end{proof}
 
 \noindent
-\begin{proof}[Lemma \ref{lem:invar1}]
+{\bf Proof of Lemma \ref{lem:fourpaths}}\\
+\begin{proof}
+  {\em Case 1:} Consider the path $P = P_3 \cap P_4$ (intersection of
+  two paths is a path).
+  % Since $P_1, P_2$ share a leaf, the following are paths $P_1
+  % \setminus P_2$, $P_2 \setminus P_1$, $P_1 \cap P_2$ and they are
+  % mutually disjoint.
+  Suppose in this case, $P$ does not intersect with $P_1 \setminus
+  P_2$, i.e. $P \cap (P_1 \setminus P_2) = \O$. Then $P \cap P_1 \cap
+  P_2 = P \cap P_2$. Similarly, if $P \cap (P_2 \setminus P_1) = \O$,
+  $P \cap P_1 \cap P_2 = P \cap P_1$. Thus it is clear that if the
+  intersection of any two paths does not intersect with any of the set
+  differences of
+  the remaining two paths, the claim in the lemma is true.\\
+  {\em Case 2:} The other possibilty is the compliment of the previous
+  case which is as follows. So let us assume that the intersection of
+  any two paths intersects with both the set differences of the other
+  two. First let us consider $P \cap (P_1 \setminus P_2) \ne \O$ and
+  $P \cap (P_2 \setminus P_1) \ne \O$, where $P = P_3 \cap P_4$. Since
+  $P_1$ and $P_2$ share a leaf, there is exactly one vertex at which
+  they branch off from the path $P_1 \cap P_2$ into two paths $P_1
+  \setminus P_2$ and $P_2 \setminus P_1$. Let this vertex be $v$. It
+  is clear that if path $P_3 \cap P_4$, must intersect with paths $P_1
+  \setminus P_2$ and $P_2 \setminus P_1$, it must contain $v$ since
+  these are paths from a tree. Moreover, $P_3 \cap P_4$ intersects
+  with $P_1 \cap P_2$ at exactly $v$ and only at $v$ which means that
+  $P_1 \cap P_2$ does not intersect with $P_3 \setminus P_4$ or $P_4
+  \setminus P_3$ which contradicts the assumption of this case. Thus
+  this  case cannot occur and case 1 is the only possible scenario. \\
+  Thus lemma is proven. \qed
+\end{proof}
+
+\noindent
+{\bf Proof of Lemma \ref{lem:invar1}}\\
+\begin{proof}
   \noindent
   \begin{enumerate}
   \item [Case 1:] {\em Invariant I and II} 
@@ -1632,6 +1659,28 @@ colleagues who helped us with the readability of this document.
                         definition. Note $R'$ is not a new set}$\\
       Thus Invariant III proven.
     \end{enumerate}
+   \item [Case 3:] {\em Invariant IV}
+     \begin{enumerate}
+       \item [Case 3.2:] {\em Only R is a new set:}\\
+         If $R = S_1 \cap S_2$, Consider, $|\cl_{j-1}(S_1) \cap \cl_{j-1}(S_2) \cap \cl_{j-1}(R') \cap \cl_{j-1}(R'')|$. We know from lemma \ref{lem:fourpaths} that the intersection
+of these four paths is same as the intersection of three distinct paths among the four.  
+Let us call these four paths $P_1,P_2, P_3,P_4$ and without loss of generality, 
+let it be that $\displaystyle \cap_{i=1}^4 P_i  = \cap_{i=1}^3 P_i$. Further $|\cap_{i=1}^4 P_i|=| S_1 \cap S_2 \cap R'|$ by the invariant IV of the induction hypothesis.  
+Therefore, it follows that $|\cap_{i=1}^4 P_i| \geq |S_1 \cap S_2 \cap R' \cap R''|$.\\
+\begin{comment}
+ Next, we write $\displaystyle |\cap_{i=1}^4 P_i| = |P_4| + |\displaystyle \cap_{i=1}^3 P_i| - |P_4 \cup \cap_{i=1}^3 P_i|$. Clearly $\displaystyle P_4 \cup \cap_{i=1}^3 P_i = P_4$.  By
+ induction hypothesis Invariant I and IV, We can now write 
+$\displaystyle |\cap_{i=1}^4 P_i| = |S_4| + |\cap_{i=1}^3 S_i| - |S_4|$.  
+Since $\cl_{j-1}$ is an ICPPL in which $S_4$ is mapped to
+$P_4$, and $P_4$ contains $\displaystyle \cap_{i=1}^3 P_i$, it follows that 
+$|S_4|=|P_4| \geq|\cap_{i=1}^3 P_i| = |S_1 \cap S_2 \cap R'| \geq |S_1 \cap S_2 \cap R' \cap R''|$.  
+Therefore, $\displaystyle |\cap_{i=1}^4 P_i| \leq |S_1 \cap S_2 \cap R' \cap R''|$, 
+and equality of these two terms follows because we have also proved the inequality in the
+opposite direction. It now follows that$|\cl_j(R) \cap \cl_j(R') \cap \cl_j(R'')|=|\cl_{j-1}(S_1) \cap \cl_{j-1}(S_2) \cap \cl_{j-1}(R') \cap \cl_{j-1}(R'')| = |\cap_{i=1}^4 P_i| = |S_1 \cap S_2 \cap R' \cap R''|= |R \cap R' \cap R''|$. This completes induction hypothesis in this case. \\
+\end{comment}
+      If $R = S_1 \setminus S_2$, a similar argument using Lemma \ref{lem:setminuscard} and the induction hypothesis completes the proof of this case.\\
+      Thus Invariant IV proven.
+      \end{enumerate}
   \end{enumerate}
 \end{proof}
 
@@ -1642,36 +1691,6 @@ colleagues who helped us with the readability of this document.
 %   \{1,2,3,4\}$ such that, $P_1 \cap P_2 \cap P_3 \cap P_4 = P_i \cap
 %   P_j \cap P_k$.
 % \end{lemma}
-\begin{proof}[Lemma \label{lem:fourpaths}]
-  {\em Case 1:} Consider the path $P = P_3 \cap P_4$ (intersection of
-  two paths is a path).
-  % Since $P_1, P_2$ share a leaf, the following are paths $P_1
-  % \setminus P_2$, $P_2 \setminus P_1$, $P_1 \cap P_2$ and they are
-  % mutually disjoint.
-  Suppose in this case, $P$ does not intersect with $P_1 \setminus
-  P_2$, i.e. $P \cap (P_1 \setminus P_2) = \O$. Then $P \cap P_1 \cap
-  P_2 = P \cap P_2$. Similarly, if $P \cap (P_2 \setminus P_1) = \O$,
-  $P \cap P_1 \cap P_2 = P \cap P_1$. Thus it is clear that if the
-  intersection of any two paths does not intersect with any of the set
-  differences of
-  the remaining two paths, the claim in the lemma is true.\\
-  {\em Case 2:} The other possibilty is the compliment of the previous
-  case which is as follows. So let us assume that the intersection of
-  any two paths intersects with both the set differences of the other
-  two. First let us consider $P \cap (P_1 \setminus P_2) \ne \O$ and
-  $P \cap (P_2 \setminus P_1) \ne \O$, where $P = P_3 \cap P_4$. Since
-  $P_1$ and $P_2$ share a leaf, there is exactly one vertex at which
-  they branch off from the path $P_1 \cap P_2$ into two paths $P_1
-  \setminus P_2$ and $P_2 \setminus P_1$. Let this vertex be $v$. It
-  is clear that if path $P_3 \cap P_4$, must intersect with paths $P_1
-  \setminus P_2$ and $P_2 \setminus P_1$, it must contain $v$ since
-  these are paths from a tree. Moreover, $P_3 \cap P_4$ intersects
-  with $P_1 \cap P_2$ at exactly $v$ and only at $v$ which means that
-  $P_1 \cap P_2$ does not intersect with $P_3 \setminus P_4$ or $P_4
-  \setminus P_3$ which contradicts the assumption of this case. Thus
-  this  case cannot occur and case 1 is the only possible scenario. \\
-  Thus lemma is proven. \qed
-\end{proof}
 
 
 \end{document}
