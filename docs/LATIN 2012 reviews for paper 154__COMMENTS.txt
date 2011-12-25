@@ -1,0 +1,176 @@
+Subject:
+LATIN 2012 reviews for paper 154
+From:
+LATIN 2012 <latin2012@easychair.org>
+Date:
+Sat, 3 Dec 2011 01:37:23 +0000
+To:
+Anju Srinivasan <anjuzabil@gmail.com>
+
+Dear 	Anju,
+
+Appended to this message you will find the reviews for your paper
+
+Tree Path Labeling of Path Hypergraphs – A Generalization of the Consecutive Ones Property
+
+The reviewers worked hard to ensure that each submission to LATIN 2012 received a fair and objective 
+evaluation.  The process was conducted in two phases. First, the reviewers prepared and submitted their 
+initial evaluations.  After that, a vigorous discussion took place.  The reviews that you see reflect  the 
+outcomes of these discussions.
+
+I hope that the feedback provided here is of value to you.  Thank you again for your contribution to 
+LATIN 2012.
+
+Best regards,
+
+--David Fernández-Baca
+
+
+----------------------- REVIEW 1 ---------------------
+PAPER: 154
+TITLE: Tree Path Labeling of Path Hypergraphs – A Generalization of the Consecutive Ones Property
+AUTHORS: N.S. Narayanaswamy and Anju Srinivasan
+
+OVERALL RATING: -2 (reject)
+REVIEWER'S CONFIDENCE: 4 (expert)
+RELEVANCE: from 1 (lowest) to 5 (highest): 2 (everyone who has been working on the problem would be interested)
+ORIGINALITY: from 1 (lowest) to 2 (highest): 1 (standard techniques)
+TECHNICAL INNOVATION: from 1 (lowest) to 5 (highest): 3 (novel use of a known technique)
+DIFFICULTY: from 1 (lowest) to 5 (highest): 2 (a researcher in the area could replicate this result with some effort)
+CORRECTNESS: from 1 (lowest) to 5 (highest): 4 (seems correct)
+PRESENTATION: from 1 (lowest) to 5 (highest): 2 (poor)
+
+In this paper the authors study the following problem: Let $G$ and $T$ be a graph and a tree on $n$ vertices.
+Is $G$ the intersection graph of a set of paths of $T$?
+
+I find the paper hard to read and understand. To start, the problem stated above is introduced in a way that is hard to understand. One has to spend some time simply translating the problem into standard terminology on intersection graphs. Instead, the authors speak about set systems, tree labelings, etc! The same applies to Section 2.
+
+The rest of the paper is written in a similar way. For example, following Algorithms 2 and 3 is a challenge. The paper has to be rewritten using simpler terminology. It cannot be accepted in its current form.
+
+
+----------------------- REVIEW 2 ---------------------
+PAPER: 154
+TITLE: Tree Path Labeling of Path Hypergraphs – A Generalization of the Consecutive Ones Property
+AUTHORS: N.S. Narayanaswamy and Anju Srinivasan
+
+OVERALL RATING: -1 (weak reject)
+REVIEWER'S CONFIDENCE: 3 (high)
+RELEVANCE: from 1 (lowest) to 5 (highest): 2 (everyone who has been working on the problem would be interested)
+ORIGINALITY: from 1 (lowest) to 2 (highest): 1 (standard techniques)
+TECHNICAL INNOVATION: from 1 (lowest) to 5 (highest): 2 (traditional use of a known technique)
+DIFFICULTY: from 1 (lowest) to 5 (highest): 1 (an uninitiated researcher could replicate this result with some effort)
+CORRECTNESS: from 1 (lowest) to 5 (highest): 4 (seems correct)
+PRESENTATION: from 1 (lowest) to 5 (highest): 3 (fair)
+
+The paper considers a generalization of the consecutive ones property (COP). The first problem they consider is the following: Given a collection of sets S_i on universe U with |U|=n, and 
+and a tree T with n vertices, and a mapping of S_i to paths in the tree. Check if 
+it is feasible, i.e. there is a mapping of U to vertices in T such that the set S_i can 
+form the claimed path under this mapping.
+
+
+The paper gives a characterization for when this holds and also given an algorithm to construct such a mapping.
+While the characterization is reasonably interesting, I find the algorithmic result quite weak. In fact it seems that one can easily solve a much more general problem using bipartite-matching.
+
+Consider the following bipartite graph:
+There is a node on the left for each element in U. There is a node on the right for each
+vertex in T.
+Put an edge $(u,v)$  if for every set $S_i$ containing u, the map T_i also contains v
+(i.e. v is a valid candidate for u to be mapped to it).
+Now any perfect matching in this graph gives the desired mapping.
+Note that in this mapping a set S_i will only be mapping to vertices in T_i, given how the 
+edges in the bipartite graph are defined. So, for the problem considered in this paper, it will give a valid path mapping.
+
+
+The second result considered in this paper is much weaker.
+Here one is not given where S_i is mapped in the tree, and the goal is to figure this out.
+The paper does it for a very special case of T being a k-divided substare (i.e. a spider with legs of length k)and sets being of size k+2.
+
+
+Another comment: On page 2, the paper cites [11] and says that they show that the path
+isomorphism problem is isomorphism-complete, but looking at [11] they seem to just
+show that path isomorphism is complete for log-space. I only browsed quickly at [11], so I could be missing something there.
+
+
+----------------------- REVIEW 3 ---------------------
+PAPER: 154
+TITLE: Tree Path Labeling of Path Hypergraphs – A Generalization of the Consecutive Ones Property
+AUTHORS: N.S. Narayanaswamy and Anju Srinivasan
+
+OVERALL RATING: -1 (weak reject)
+REVIEWER'S CONFIDENCE: 2 (medium)
+RELEVANCE: from 1 (lowest) to 5 (highest): 1 (not particularly interesting)
+ORIGINALITY: from 1 (lowest) to 2 (highest): 1 (standard techniques)
+TECHNICAL INNOVATION: from 1 (lowest) to 5 (highest): 2 (traditional use of a known technique)
+DIFFICULTY: from 1 (lowest) to 5 (highest): 2 (a researcher in the area could replicate this result with some effort)
+CORRECTNESS: from 1 (lowest) to 5 (highest): 4 (seems correct)
+PRESENTATION: from 1 (lowest) to 5 (highest): 2 (poor)
+
+The authors consider the following problem:  Given a collection F of subsets from a universe U and a tree T, does there exist a bijection from U to the vertices of T such that each set in F maps to a path in T? This mapping is called a tree path labeling.
+
+The results seem rather weak.  The authors give necessary and sufficient conditions for a labeling to be a feasible path labeling and they show how to find a feasible path labeling for a _very_ special class of tree called a k-subdivided star.  Another issue is that the problem itself is poorly motivated.  It is surely true that the interval assignment problem, which the tree path labeling problem generalizes, is an important one.  What, however, makes tree path labeling interesting?  Something should have been said about this.  As things stand, it does not seem that this paper would generate much interest from a LATIN audience. 
+
+As a final comment, the paper contains a number of awkward sentences, suggesting that it was put together rather carelessly.  Here are some examples from the Introduction:
+
+"Indeed, our work provides a sufficient condition for a related problem:
+that is whether a path assignment to be feasible?"
+
+"Therefore, it is unlikely that we can solve the for a feasible path labeling l for a given F and tree T."
+
+
+----------------------- REVIEW 4 ---------------------
+PAPER: 154
+TITLE: Tree Path Labeling of Path Hypergraphs – A Generalization of the Consecutive Ones Property
+AUTHORS: N.S. Narayanaswamy and Anju Srinivasan
+
+OVERALL RATING: 0 (borderline paper)
+REVIEWER'S CONFIDENCE: 4 (expert)
+RELEVANCE: from 1 (lowest) to 5 (highest): 3 (everyone in the general subfield would be interested)
+ORIGINALITY: from 1 (lowest) to 2 (highest): 1 (standard techniques)
+TECHNICAL INNOVATION: from 1 (lowest) to 5 (highest): 2 (traditional use of a known technique)
+DIFFICULTY: from 1 (lowest) to 5 (highest): 3 (an expert in the area could replicate this result with some effort)
+CORRECTNESS: from 1 (lowest) to 5 (highest): 4 (seems correct)
+PRESENTATION: from 1 (lowest) to 5 (highest): 3 (fair)
+
+The paper explores how the feasibility of a tree path labeling of a  
+hypergraph can be verified efficiently and how a tree path labeling can 
+be found for some special cases of path hypergraphs.
+
+Path hypergraphs are a generalization of interval hypergraphs (i.e. 
+matrices with the consecutive ones property). The second part of the 
+paper, which gives an algorithm to construct a path labeling for some 
+class of path hypergraphs, implies efficient recognition and isomorphism 
+testing for this class of hypergraphs. On the other hand, isomorphism of 
+path graphs is known to be isomorphism complete. This sets the paper in 
+an interesting area. However, it is not known whether isomorphism hardness 
+also holds for path hypergraphs, or how the positive result for the studied 
+class of path hypergraphs implies a result for the corresponding class of 
+path graphs. The paper would benefit from exploring this connection.
+
+More specific comments:
+
+The definition of a super-marginal hyperedge has to be modified: it
+should be contained in no other hyperegde (otherwise Lemma 4.1 is not
+correct).
+
+At the end of the proof of Lemma 3.4 you should refer to Lemma 3.2
+(instead of 3.3) to justify that the exit condition does not occur.
+
+On page 8 you mention the Helly property of intervals as a guarantee
+that the higher level intersection cardinalities are preserved. Don't
+the paths in a tree have the Helly property?
+
+There seems to be something missing in the presentation of 
+the algorithm in Section 4.1: In part II, the authors assume the 
+existence of an Z\in L_1\cap L_2 that overlaps Y. However there does not 
+appear to be such a Z in the second iteration, if all super-marginal 
+hyperedges that were added to L_1 in the first iteration have 
+cardinality less than k+2.
+
+The condition in II.a appears to be too simple. Consider the following 
+situation:
+  X: 1111110000...
+  Y: 0011111100...
+  Z: 0000111111...
+Here, X and Z have nonempty intersection, but l(X) and l(Z) need to 
+overlap l(Y) from opposite directions.
+

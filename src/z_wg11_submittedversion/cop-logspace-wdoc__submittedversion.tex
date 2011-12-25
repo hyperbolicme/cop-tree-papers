@@ -143,7 +143,7 @@
 
 % D O C U M E N T
 \begin{document}
-\title{On Extensions of Consecutive Ones Testing}
+\title{Tree Path Assignments to Sets-A Generalization of the Consecutive Ones Property}
 
 \author{N.S. Narayanaswamy \inst{1} \and Anju Srinivasan Zabil \inst{2}}
 
@@ -160,14 +160,7 @@
 \maketitle
 
 \begin{abstract}
-  Consecutive ones property (COP) of a binary matrix is a
-  combinatorial property of the matrix such that there exists a
-  permutation of the rows of the matrix which makes all the
-  ones in the columns consecutive. Detecting this property in a
-  matrix is polynomial time solvable and there are several algorithms
-  known. This problem is also the same as interval assigments to a set
-  system. In this paper we extend this idea to tree path assignments
-  to a set system and give a characterization for it.
+We consider the following constraint satisfaction problem: Given a set $\cF$ of subsets  of a finite set $U$ of cardinality $n$, a tree $T$ on $n$ vertices, and an assignment of paths from $T$ to each of the subsets, does there exist a bijection $f:U \rightarrow \{v_1,\ldots,v_n\}$ such that for each element of $\cF$,  its image under $f$ is same as the path assigned to it?    A path assignment to a given set of subsets is called {\em feasible} if there exists such a bijection.   In this paper, we characterize feasible path assignments to  a given set of subsets and a tree.   This result is a natural generalization of results on matrices with the Consecutive Ones Property(COP) which can be viewed as a special instance of the problem in which the given tree is a path on $n$ vertices.  We also present a characterization of set systems and trees which have a feasible path assignment.  We also show that testing for a feasible path assignment is isomorphism-complete.  On the other hand, it is known that if the given tree is a path a feasible assignment can be found in polynomial time, and we observe that it can actually be done in logspace.
 \end{abstract}
 
 \section{Introduction}
@@ -179,8 +172,8 @@ combinatorial problem. The problem is to rearrange rows(columns) of a
 binary matrix in such a way that every column(rows) has its $1$s occur
 consecutively. If this is possible the matrix is said to have COP.  It
 has several practical applications in diverse fields including
-scheduling\cite{hl06}, information retrieval\cite{k77} and computational biology\cite{abh98}. Within
-theory it is used as a tool in graph theory\cite{mcg04} and integer linear
+scheduling\cite{hl06}, information retrieval\cite{k77} and computational biology\cite{abh98}. 
+Further, it is a tool in graph theory\cite{mcg04} for  interval graph recognition, characterization of hamiltonian graphs, and in integer linear
 programming\cite{ht02,hl06}. 
 Recognition of COP is polynomial time
 solvable by several algorithms. PQ trees\cite{bl76}, variations of PQ
@@ -197,44 +190,57 @@ integers. In other words, the sets are intervals. Indeed now the
 problem now becomes finding interval assignments to the given set
 system \cite{nsnrs09} with a single permutation of the universe (set
 of row
-indices) permutes each set to its interval. The idea of this algorithm
-is similar to that in \cite{wlh02} but much simpler. 
+indices) permutes each set to its interval. The  result in \cite{nsnrs09} characterize interval assignments
+to the sets which can be obtained from a single permutation of the rows.  They show that 
+for each set, the interval cardinality assigned to it must be same as the cardinality of the set, and the
+intersection cardinality of any two sets must be same as the interesction cardinality of the corresponding intervals.
+While this is naturally a necessary condition, it is shown that it is indeed sufficient.  Such an interval assignment
+is called an Intersection Cardinality Preserving Interval Assignment (ICPIA).  The idea of decomposing a given 0-1
+matrix into prime matrices is then taken from \cite{wlh02} to test if an ICPIA exists for a given set system.  
+
 \noindent
+{\bf Our Work:}
 A natural generalization of the interval assignment problem is
 feasible tree path assignments to a set system which is the topic of
-this paper. The problem is defined as follows - given a set system
-from a universe $U$ and a tree $T$, can there be a bijection from the
+this paper. The problem is defined as follows - given a set system $\cF$
+from a universe $U$ and a tree $T$, does  there exist a bijection from the
 $U$ to the vertices of $T$ such that each set in the system maps to a
-path in $T$. As a special case if $T$ is a path the problem becomes
-the interval assignment problem or the ICPIA as it is called in
-\cite{nsnrs09}. 
-\noindent 
-It can be noted that intersection graphs of ICPIA set systems can be
-characterized by chordal graphs. Chordal
-graphs are of great significance and has several applications. One of
+path in $T$.  We refer to this as the Tree Path Assignment problem for an input $(\cF,T)$ pair.As a special case if $T$ is a path the problem becomes
+the interval assignment problem.  We focus on the question of generalizing the notion
+of an ICPIA \cite{nsnrs09} to characterize feasible path assignments.  We show that
+for a given set system, a tree T, and an assignment of paths from $T$ to the sets, there is a bijection
+between $U$ and $V(T)$ if and only if all intersection cardinalities among any 3 sets (not necessarily distinct) is same as the intersection cardinality of the paths assigned to them.  This
+characterization is proved constructively and it gives a natural data structure that stores all the relevant
+bijections between $U$ and $V(T)$.  Further, it also gives an efficient algorithm to test if a path assignment to the
+sets is feasible.  This also naturally generalizes the result in \cite{nsnrs09}.  
+ 
+\noindent
+It is an interesting fact that for a matrix with the COP, the intersection graph of the corresponding set system is
+an interval graph.  A similar connection to a subclass of chordal graphs, and this subclass contains interval graphs, exists for the generalization of COP.  In this case, the intersection graph of the corresponding set system must be a
+{\em path chordal} graph. Chordal
+graphs are of great significance, extensively studied, and have several applications.
+ One of
 the well known and interesting properties of a chordal graphs is its
 connection with intersection graphs\cite{mcg04}. For every chordal
 graph, there exists a tree and a family of subtrees of this tree such
 that the intersection graph of this family is isomorphic to the
-chordal graph\cite{plr70,gav78,bp93}. Certain format of these trees are called clique
+chordal graph\cite{plr70,gav78,bp93}.  Certain format of these trees are called clique
 trees\cite{apy92} of the graph which is a compact representation of the
 chordal graph. There has also been work done on the generalization of
-clique trees to clique hypergraphs\cite{km02}. In the chordal graph as
-intersection graphs, if all the subtrees that map to the vertices of the
-graph in the isomorphism 
-are paths on the tree, it is called a path graph\cite{mcg04} or path
-chordal graph.
-If a set system is an ICPIA or has feasible tree path assignment, its
-the intersection graph is an interval graph or a path graph
-respectively. This is because every vertex represents a set that can be permuted to  an
-interval or a path in a tree. Path graph recognition is polynomial
-solvable\cite{gav78,aas93}. If a given set system has an intersection
-graph that is isomorphic to a path graph, it is not necessary that the
-set system has feasible tree path assignment. It would be interesting
-to study if feasible tree path assignments can be used in path graph
-isomorphism.
+clique trees to clique hypergraphs\cite{km02}.  If the chordal graph can be represented as
+the intersection graph of paths in a tree, then the graph is called  path graph\cite{mcg04} or path
+chordal graph.  Therefore, it is clear that if there is a bijection from $U$ to $V(T)$ such that
+the sets map to paths, then the intersection graph of the set system is indeed a path chordal graph.
+This is, however, only a necessary condition and can be checked efficiently, as  path graph recognition is polynomial
+solvable\cite{gav78,aas93}.  Indeed, it is possible to construct a set system and tree, such that
+the intersection graph is a path chordal graph, but there is no bijection between $U$ and $V(T)$ such that
+the sets map to paths.   This connection indeed suggests that our problem is indeed as hard as path graph 
+isomorphism.   Further path graph isomorphism is known be isomorphism-complete, see for example \cite{kklv10}.  In the second part of this paper, we decompose our search for a bijection between $U$ and $V(T)$ into subproblems.  Each subproblem is on a set system in which for each set, there is another set in the set system with which the intersection is {\em strict}- there is a non-empty intersection, but neither is contained in the other.  This is in the spirit of results in \cite{wlh02,nsnrs09} where to test for COP in a given matrix, the COP problem is solved on an equivalent set of prime matrices.  Our decomposition localizes the challenge of path graph isomorphism to two problems.  
 
+Finally, we show that Tree Path Assignment is isomorphism-complete.  We also point out Consecutive Ones Testing is in Logspace from two different results in the literature \cite{kklv10, mcc04}. To the best of our knowledge this observation has not been made earlier.  
 
+\noindent
+{\bf Roadmap:} In Section \ref{prelims} we present the necessary preliminaries, in Section \ref{feasible} we present our characterization of feasible tree path assignments, and in Section \ref{decompos} we present the characterizing subproblems for finding a bijection between $U$ and $V(T)$ such that sets map to tree paths. Finally, in Section \ref{complexity} we conclude by showing that Tree Path Assignment is GI-Complete, and also observe that Consecutive Ones Testing is in Logspace.  
 % \noindent
 % It has been long known that interval graph recognition is in
 % logspace\cite{rei84}. Recently interval graph isomorphism was also
@@ -274,7 +280,7 @@ isomorphism.
 % \subseteq U, i \in [m]\}$ where $U = \{x_i \mid i \in [n]\}$ such that
 % $x_j \in S_i$ iff $M_{ij} = 1$.
 
-\section{Preliminaries (WIP)}
+\section{Preliminaries} \label{prelims}
 In this paper, the collection $\F = \{S_i \mid S_i \subseteq U, S_i
 \ne \O, i \in I\}$ is a {\em set system} of universe, $U = \{1,
 \ldots, n\}$. Moreoever, a set system is assumed to ``cover'' the universe,
@@ -283,18 +289,7 @@ i.e. $ \bigcup_{i \in I}S_i = U$. \\
 \noindent
 The graph $T=(V,E)$ represents a given tree with $|V| = n$. Further,
 for simplicity, $V$ is defined as $\{1,\ldots,n\}$. All paths
-referred to in this paper are paths on a tree. \\
-
-\noindent
-Generalizing the definition of {\em feasibility} in \cite{nsnrs09} to
-a set assignment, a set assignment $\A_s$ is defined to be {\em
-  feasible} if there exists a bijection defined as follows.
-\begin{align}
-  \sigma: U \rightarrow Z, \text{ such that }\sigma(S_i) = Q_i \text{
-    for all } i \in I, \sigma \text{ is a bijection}
-\label{eq:stf}
-\end{align}
-The assignment $\A_s$ is then called {\em Set Translation Feasible}.\\
+referred to in this paper are paths of $T$ unless explicitly specified. \\
 
 \noindent
 A {\em path assignment} $\A$ to $\F$ is defined as a set assignment
@@ -309,10 +304,22 @@ $\A$. As mentioned before for set systems, the paths cover the whole
 tree, i.e. $\bigcup_{i \in I}P_i = V$ \\
 
 \noindent
-Let $X$ be a partially ordered set. The element $mub(X)$ represents
-the maximal upper bound of a poset $X$. A maximal upper bound $X_m$ of
-a poset $X$ is such that, $\nexists X_q \mid X_m,X_q \in X, X_m
-\preccurlyeq X_q$. $\preccurlyeq$ being the partial order.\\
+Generalizing the definition of {\em feasibility} in \cite{nsnrs09} to
+a set assignment, a path assignment $\A$ is defined to be {\em
+  feasible} if there exists a bijection defined as follows.
+\begin{align}
+  \sigma: U \rightarrow V(T), \text{ such that }\sigma(S_i) = P_i \text{
+    for all } i \in I, \sigma \text{ is a bijection}
+\label{eq:stf}
+\end{align}
+%The assignment $\A$ is then called {\em Set Translation Feasible}.
+
+
+\noindent
+Let $X$ be a partially ordered set with $\preccurlyeq$ being the partial order on $X$.  
+$mub(X)$ represents an element in $X$ which is a maximal upper bound on $X$.  $X_m \in X$ is a maximal upper bound of
+$X$ if $\nexists X_q \in X$ such that $X_m
+\preccurlyeq X_q$. \\
 
 \noindent
 The set $I$ represents the index set $[m]$. If index $i$ is used
@@ -325,17 +332,12 @@ $\hat f(S) = \{y \mid y = f(x), x \in S\}$. \\
 
 \noindent
 When refering to a tree as $T$ it could be a reference to the tree
-itself, or the vertices of the tree. This will be obvious from the
+itself, or the vertices of the tree. This will be clear from the
 context.\\
 
 \noindent
-An in-tree is an oriented tree in which a single vertex is reachable from every other vertex.
-
-
-\section{Tree path assignment}
-
-A natural extension of the interval assignment problem is assignment
-of paths from a tree to a set system. 
+Finally, an in-tree is a directed rooted tree in which all edges are directed toward to the root.
+\section{Characerization of Feasible Tree Path Assignment} \label{feasible}
 Consider a path assignment $\cA = \{(S_i, P_i) \mid S_i \in \cF, P_i
 \text{ is a path from $T$}, i \in [m]\}$ to a set system $\cF = \{S_i \mid S_i
 \subseteq U, i \in [m]\}$, were $T$ is a given tree, $U$
@@ -367,8 +369,7 @@ P_3)|$. Thus lemma is proven. \qed
 \begin{lemma}
   \label{lem:fourpaths} Consider four paths in a tree $Q_1, Q_2, Q_3,
   Q_4$ such that they have nonempty pairwise intersection and $Q_1,
-  Q_2$ share a leaf. Then there exists $i, j, k \in \{1,2,3,4\}$ with no two of $i,j,k$
-  being equal such that, $Q_1 \cap Q_2 \cap Q_3 \cap Q_4 = Q_i \cap
+  Q_2$ share a leaf. Then there exists distinct $i, j, k \in \{1,2,3,4\}$ such that, $Q_1 \cap Q_2 \cap Q_3 \cap Q_4 = Q_i \cap
   Q_j \cap Q_k$.
 \end{lemma}
 \begin{proof}
@@ -407,10 +408,14 @@ P_3)|$. Thus lemma is proven. \qed
 
 
 \noindent
-Following are two algorithms which will be used later to prove a
-property of the ICPPA.
+In the remaining part of this section we show that a path assignment is feasible if and only if
+it is an ICPPA.  One direction of this claim is clear: that is a path assignment is feasible, then all
+intersection cardinalities are preserved, that is the path assignment is an ICPPA.  The reason is that a
+feasible path assignment has an associated bijection between $U$ and $V(T)$ such that the sets
+map to paths.  The rest of the section is devoted to constructively proving that it is sufficient, for the existence of a bijection, for a path
+assignment to be an ICPPA.  At a top-level, the constructive approaches refine the path assignment iteratively, such that at the end of each iteration we have a path assignment, and finally we have a family of bijections.
 First we present and then prove the
-  correctness of Algorithm \ref{perms}.
+  correctness of Algorithm \ref{perms}.  This algorithm refines the path assignment by considering pairs of paths that share a leaf.  
 
 \begin{algorithm}[h]
 \caption{Permutations from an ICPPA $\{(S_i,P_i) | i \in I\}$}
@@ -542,10 +547,8 @@ two paths $P_i, P_j, i \ne j$ share a leaf.\\
 
 \begin{lemma}
 \label{lem:invar3}
-  In Algorithm \ref{leafasgn}, at the end of the $j$th iteration, $j \geq 0$, of the while loop of
-  Algorithm \ref{leafasgn}, the invariants given in lemma \ref{lem:invar1}
-  hold. Moreover, $X$ as defined in the algorithm
-  is non empty if this is an ICPPA.
+  In Algorithm \ref{leafasgn},for all $j \geq 0$, at the end of the $j$th iteration the four invariants given in lemma \ref{lem:invar1} are valid.
+% Moreover, $X$ as defined in the algorithm  is non-empty if this is an ICPPA.
 \end{lemma}
 \begin{proof}
   First we see that $X = S_{i_1} \setminus \bigcup_{i \ne i_1, i \in
@@ -691,7 +694,11 @@ permutation $\sigma'$. The relation $\cL_0 \cup \cL_1 \cup .. \cup
 \cL_{d} \cup \sigma'$ gives the bijection required in the original problem.\qed
 \end{proof}
 
-\section{Finding an assignment of tree paths to a set system}
+\section{Finding an assignment of tree paths to a set system} \label{decompos}
+In the previous section we have shown that the problem of finding a Tree Path Asssignment to an input $(\cF,T)$ is equivalent to finding an ICPPA to $\cF$ in tree $T$.  
+In this section we characterize those set systems that have an ICPPA in a given tree.  As a consequence of this characterization we identify two sub-problems that must be solved to obtain an ICPPA.  We do not solve the problem and in the next section show that finding an ICPPA in a given tree is GI-Complete.  
+
+\noindent
 A set system can be concisely represented by a binary matrix where the
 row indices denote the universe of the set system and the column
 indices denote each of the sets. Let the binary matrix be $M$ with
@@ -703,9 +710,9 @@ say its corresponding matrix $M$ has an ICPPA. Conversly
 we say that a matrix $M$ has an ICPPA if there exists an ICPPA $\cA$ as defined
 above.\\
 \noindent
-Consider the strict intersection graph or overlap graph of $\cF$. It
-is constructed with its vertices denoting a unique subset in the set
-system and an edge is present between vertices of two sets iff the
+We now define the strict intersection graph or overlap graph of $\cF$. This graph occurs at many
+places in the literature, see for example \cite{kklv10, wlh02, nsnrs09}.  The vertices of the graph
+correspond to the sets in $\cF$.  An edge is present between vertices of two sets iff the
 corresponding sets have a nonempty intersection and none is contained
 in the other. Formally, intersection graph is $G_f = (V_f, E_f)$ such
 that $V_f = \{v_i \mid S_i \in \cF\}$ and $E_f = \{(v_i, v_j) \mid S_i
@@ -718,14 +725,14 @@ sub-matrices by $M_1,\ldots,M_p$ each corresponding to one of the $p$
 components of $G_f$. Clearly, two distinct matrices have
 a distinct set of columns.  Let $col(M_i)$ be the set of columns in
 the sub-matrix $M_i$.  The support
-of a prime sub-matrix $M_i$ is defined as $supp(M_i) = \displaystyle \bigcup_{j \in
-  col(M_i)}S_j$. Note that for each $i$, $supp(M_i) \subseteq
+of a prime sub-matrix $M_i$ is defined as $supp(M_i) = \displaystyle \bigcup_{j \in  col(M_i)}S_j$. 
+Note that for each $i$, $supp(M_i) \subseteq
 U$.  For a set of prime sub-matrices $X$ we define
 $supp(X) = \displaystyle \bigcup_{M \in X} supp(M)$. \\
 
 
 \noindent
-Now we define a partial order on the prime submatrices. Consider the relation
+Consider the relation
 $\preccurlyeq$ on the prime sub-matrices $M_1, \ldots, M_p$ defined as
 follows: 
 \begin{equation} 
@@ -734,325 +741,148 @@ follows:
   \leq i \leq p\} 
 \end{equation}
 
-This partial order is the same as that defined in \cite{nsnrs09}. The prime submatrices and the above partial order can be defined for
-any set system. We will use this theory of prime submatrices to find
-an ICPPA for a set system $\cF$. Recall the following lemmas and theorems.
+\noindent
+This relation is the same as that defined in \cite{nsnrs09}. The prime submatrices and the above relation can be defined for
+any set system. We will use this structure of prime submatrices to present our results on an 
+an ICPPA for a set system $\cF$. Recall the following lemmas, and theorem that $\preccurlyeq$ is a partial order, 
+from \cite{nsnrs09}.
 
-\begin{lemma}[Lemma 3, \cite{nsnrs09}] \label{lem:containment}
+\begin{lemma} \label{lem:containment}
 Let $(M_i,M_j) \in \preccurlyeq$.  Then there is a set $S' \in M_j$ such that for each $S \in M_i$, $S \subseteq S'$. 
 \end{lemma}
-\begin{lemma}[Lemma 4, \cite{nsnrs09}]
+\begin{lemma}
 For each pair of prime sub-matrices, either $(M_i,M_j) \not\in \preccurlyeq$ or $(M_j,M_i) \not\in \preccurlyeq$.
 %If $(M_i,M_j) \in \preccurlyeq$ and $(M_j,M_i) \in \preccurlyeq$, then $i = j$ and $|M_i| = 1$.
 \end{lemma}
-\begin{lemma}[Lemma 5, \cite{nsnrs09}]
+\begin{lemma}
 If $(M_i,M_j) \in \preccurlyeq $ and $(M_j,M_k) \in \preccurlyeq$, then $(M_i,M_k) \in \preccurlyeq$.
 \end{lemma}
-\begin{lemma}[Lemma 6, \cite{nsnrs09}]
+\begin{lemma}
 If $(M_i,M_j) \in \preccurlyeq$ and $(M_i,M_k) \in \preccurlyeq$, then
 either $(M_j,M_k) \in \preccurlyeq$ or $(M_k,M_j) \in \preccurlyeq$. 
 \end{lemma}
-\begin{theorem}[Theorem 4, \cite{nsnrs09}] \label{thm:partitionold}
+\begin{theorem} \label{thm:partitionold}
   $\preccurlyeq$ is a partial order on the set of prime sub-matrices
   of $M$.  Further, it uniquely partitions the prime sub-matrices of
   $M$ such that on each set in the partition $\preccurlyeq$ induces a
   total order.
 \end{theorem}
-
-
-
-Now we define another relation $\ll$ on the set of prime
-submatrices as follows:\\
+For the purposes of this paper, we refine the total order mentioned in Theorem \ref{thm:partitionold}. We do
+this by identifying an in-tree rooted at each maximal upper bound under $\preccurlyeq$.  Each of these in-trees
+will be on disjoint vertex sets, which in this case would be disjoint sets of prime-submatrices.  The in-trees are 
+specified by selecting the appropriate edges from the Hasse diagram associated with $\preccurlyeq$.
+Let $\cI$ be the following set:
 \begin{align*}
-  \ll = \{ (M_i,M_j) \mid \nexists M_k s.t. M_i \preccurlyeq M_k, M_k \preccurlyeq M_j
+  \cI = \{ (M_i,M_j) \in \preccurlyeq \mid \nexists M_k s.t. M_i \preccurlyeq M_k, M_k \preccurlyeq M_j
   \} \cup \{ (M_i,M_i), i \in [p] \}
 \end{align*}
 
-\begin{lemma}
-  Relation $\ll$ is a partial order
-\end{lemma}
-\begin{proof}
-Reflexive by definition. Antisymmetric and transitive because
-$\preccurlyeq$ is antisymmetric and transitive. 
-\end{proof}
-
-- Hasse diagram of $\ll$ is an intree.
-
-
 \begin{theorem} \label{thm:partition}
-Relation $\ll$ is a partial order on the set of prime sub-matrices of $M$.
-Further, it uniquely partitions the prime sub-matrices of $M$ such
-that on each set in the partition $\ll$ induces intrees. and the
-intrees partition into total orders.
+Consider the directed graph $X$ whose vertices correspond to the prime sub-matrices, and the edges are given by
+$\cI$.  Then, $X$ is a vertex disjoint collection of in-trees and the root of each in-tree is a maximal upper bound in 
+$\preccurlyeq$.
 \end{theorem}
 \begin{proof}
-  Relation $\ll$ is relective, antisymmetric and transitive because so
-  is $\preccurlyeq$.  Consider the Hasse diagram of $\ll$. By
-  definition mubs have outdegree
-  0 \\
-  Claim 1: every other node has out degree 1.\\
-  we wil prove this by induction on the level of the tree. level 1 has
-  this true since root(mub) is the only possible parent. assume this
-  is true for all nodes till level k-1 . Consider level k. assume
-  there is a node, $M_i$ in level k that has out degree 2 going into
-  two nodes say. $M_{i1}$ and $M_{i2}$. i.e. $(M_i, M_{i1}$ and $(M_i,
-  M_{i2}$. We also know that $(M_{i1}, M_p) \in \ll$. Therefore by
-  transitivity, $ (M_i, M_p) \in \ll$. Then $M_i$ should have been
-  related in $\ll$ to $M_{i}$ instead of $M_{i1}$. This is a
-  contradiction to the assumption above.
-%Hence it is acyclic as well since there are no nodes with 
-
-Claim 2: Every node other than the root has a path to the root
-proof: tbd.
-
-
-  % Construct the Hasse diagram of $\preccurlyeq$. Let it be $\cD$. We will layer
-%   the submatrices in a particular manner described below. Note that
-%   this graph is a dag.  Let the set of matrices $\cE_1 = \{M \mid M
-%   \text{ is a maximal upper
-%     bound in } \cD \} $. This is layer 1.\\
-%   The matrices in layer 2, $\cE_2$ are those that are connected to a
-%   matrices in $\cE_1$ by only paths of l
-% ength at most 1, $\cE_3$ are those that are connected to a
-%   matrices in $\cE_2$ by only paths of length at most 1 and so on. In other
-%   words, given a matrix $M$, set of matrices $\cE$, we define
-%   functions $N'$ and $N$, $N'(M) = \{ M' \mid M' \preccurlyeq M,
-%   \nexists M'' s.t. , M' \preccurlyeq M'', M'' \preccurlyeq M, M'' \ne
-%   M, M'' \ne M' \}$,
-%   $N(\cE) = \bigcup_{M \in \cE} N'(M)$. Now we have
-% $\cE_1 = \{M \mid M \text{ is a maximal upper
-%   bound in } \cD \}$, 
-% $\cE_2 = N(\cE_1), \cE_3 = N(\cE_2)$ and so on as
-% layers of the Hasse graph.\\
-
-% Construct a subgraph from the hasse graph with only edges that
-% belong to the longest path between corresponding mub and mlb. \\
-% claim: this is a collection of in-trees. one intree per mub.\\
-claim: matrices in each level can be partitioned s.t.  each partition
-set is a total order.  - suggested construction: matrices of the
-level$(level i)$ with common parent
-$(level i-1)$ is one partition.\\
-claim: these created partitions are disjoint
-disjoint. there is total order in the partition.\\
-
+To observe that $X$ is a collection of in-trees, we observe that for vertices corresponding to maximal upper bounds, no out-going edge is present in $I$.  Secondly, for each other element, exactly one out-going edge is chosen, and for the
+minimal lower bound, there is no in-coming edge.  Consequently, $X$ is acyclic, and since each vertex has at most one edge leaving it, it follows that $X$ is a collection of in-trees, and for each in-tree, the root is a maximal upper bound in $\preccurlyeq$.  Hence the theorem.
 \end{proof}
-
-From Theorem \ref{thm:partition} we can see that the set of prime
-submatrices can be partitioned into sets of matrices that form in-trees.\\
-
-
-Let $X$ be an in-tree and $T$ be a tree. It is said $X$ has ICPPA on
-$T$ iff the prime matrix $mub(X)$ has an ICPPA with some subtree $T_1
-\subseteq T$ and prime
-matrices $X \setminus mub(X)$ have ICPIA.
+Let the partition of $X$ given by Theorem \ref{thm:partition} be $\{X_1,\ldots,X_r\}$.  Further, each in-tree itself 
+can be layered based on the distance from the root.  The root is considered to be at level zero. For $j \geq 0$, Let $X_{i,j}$ denote the set of prime matrices in level $j$ of in-tree $X_i$.  
 
 \begin{lemma}
 \label{lem:subicppa}
-A matrix $M$ has an ICPPA iff there exists a tree $T$ that has
-subtrees $T_1, T_2, \dots T_r \in T, T_i \cap T_j \ne \O, i \ne j, i,j
-\in [r]$ such that, intrees $X_1, X_2, \dots X_r$ have an ICPPA in
-trees $T_1, T_2, \dots T_r$. $X_1, X_2, \dots X_r$ represent
-in-trees of prime submatrices of $M$ due to the partial order
-$\ll$.
+Let $M$ be a matrix and let $X$ be the directed graph whose vertices are in correspondence with the prime submatrices of $M$.  Further let $\{X_1,\ldots,X_r\}$ be the partition of $X$ into in-trees as defined above.
+Then, matrix $M$ has an ICPPA in tree $T$ iff $T$ can be partitioned into vertex disjoint subtrees
+ $\{T_1, T_2, \dots T_r\}$ such that, for each $1 \leq i \leq r$, the set of prime sub-matrices corresponding to vertices in $X_i$ has an ICPPA in $T_i$.
 \end{lemma}
-
 \begin{proof}
-  First we prove that if a matrix $M$ has an ICPPA, then there exists
-  tree $T$ as described in lemma statement. If $M$ has an ICPPA, then
-  there exists a tree $T$ with an assignment $\cA$ of paths from $T$
-  to sets in $M$. From Theorem \ref{thm:partition} we know that $M$
-  can be decomposed into a partition of prime submatrices $X_1, X_2,
-  \dots X_r$.  Let $M_{Xi} = mub(X_i)$. The assignment of sets in
-  $M_{Xi}$ are paths by definition and being a prime matrices these sets
-  strictly overlap. Thus it is clear that the vertices $\{\cA(x) \mid
-  x \in supp(mub(X_i))$ \} for any $i \in [r]$ induce a subtree in
-  $T$, let us call it $T_i$. Since $X_i \cap X_j = \O, i \ne j$ and
-  $\cA$ is a bijection\footnote{sloppy tbd}, $T_i \cap T_j = \O, i \ne
-  j$. Thus
-  claim proven.\\
+Let us consider the reverse direction first.  Let us assume that $T$ can be partitioned into $T_1, \ldots, T_r$ such
+that for each $1 \leq i \leq r $, the set of prime sub-matrices corresponding to vertices in $X_i$ has an ICPPA in $T_i$.  It is clear from the properties of the partial order $\preccurlyeq$ that these ICPPAs naturally yield an ICPPA  of $M$ in $T$.  The main property used in this inference is that for each $1 \leq i \neq j \leq r$, $supp(X_i) \cap supp(X_j) = \phi$.  
 
 \noindent
-Now we need to prove the if condition of lemma. 
-We prove by construction of an algorithm to find the ICPPA for a given
-matrix $M$ and a tree $T$. 
-
-
-TO PROVE:
-IF
-there exists a tree $T$ which has
-subtrees $T_1, T_2, \dots T_r \in T, T_i \cap T_j \ne \O, i \ne j, i,j
-\in [r]$ such that, the intrees rooted at $mub(X_1), mub(X_2), \dots
-mub(X_r)$ have an ICPPA from $T_1, T_2, \dots T_r$ resp. $X_1, X_2,
-\dots X_r$ are the partition sets of prime submatrices of $M$ due to the partial
-order $\preccurlyeq$. $mub(X)$ denotes the maximal upper bound of a poset
-X.
-THEN
-then sets in M have path assignments that preserve ICPPA conditions
-
-Since $mub(X_i)$ has ICPPA from $T_i$, every set in the matrix mub has a
-path in $T_i$ that form an ICPPA. By definition of mub and $X_i$, all other sets
-in partition $X_i$ are descendants of $X_i$. there is a unique path from any
-node mi in hasse of $X_i$ to mub($X_i$). The matrix adjacent to mub($X_i$) on
-this path let it be $M_{xi1}$, and path $P$. $M_{xi1}$ is completely contained in
-a set in $mub(X_i)$, say $S_{xi1}$. $P_{xil}$ is a path in $T_i$ assigned to
-$S_{xil}$. Effectively $P{xil}$ is an interval. Thus if $M_{xi2}$ is matrix adjacent
-to $M_{xi1}$ in the path $p$, to get path assignments to $M_{xi2}$ from $P_{xil}$ is an
-ICPIA problem. Similarly $supp(Mxi2) \subseteq S_{xi1}$ a set in
-$M_{xi1}$. $P_{xil}'$ is again a path and path assignments to $M_{xi3}$, next in the
-path $P$, from $P_{xil}'$ is an ICPIA problem and so on till the mlbs.
-
-to prove: all sets have paths assigned to them. 
-
-
-  
+To prove the forward direction, we show that if $M$ has an ICPPA, say $\cA$, in $T$, then there exists
+  a partition of $T$ into vertex disjoint subtree $T_1, \ldots, T_r$ such that for each $1 \leq i \leq r$, the set of prime sub-matrices corresponding to vertices in $X_i$ has an ICPPA in $T_i$.  For each $1 \leq i \leq r$, we define based on $\cA$ a subtree 
+$T_i$ corresponding to $X_i$.  We then argue that the trees thus defined are vertex disjoint, and complete the proof.
+ Consider $X_i$ and consider the prime sub-matrix in $X_{i,0}$.  Consider the paths assigned under $\cA$ to the sets in the prime sub-matrix in $X_{i,0}$.  Since the component in $G_f$ corresponding to this matrix is a connected component, it follows that union of paths assigned to this prime-submatrix is a subtree of $T$.  We call this sub-tree $T_i$.  All other prime-submatrices in $X_i$ are assigned paths in $T_i$ since $\cA$ is an ICPPA, and the support of other prime sub-matrices in $X_i$ are contained in the support of the matrix in $X_{i,0}$.  Secondly, for each $1 \leq i \neq j \leq r$, $supp(X_i) \cap supp(X_j) = \phi$, and since $\cA$ is an ICPPA, it follows that $T_i$ and $T_j$ are vertex disjoint.  Finally, since $|U| = |V(T)|$, it follows that $T_1, \ldots, T_r$ is a partition of $T$ into vertex disjoint sub-trees such that for each $1 \leq i \leq r$, the set of matrices corresponding to nodes in $X_i$ has an ICPPA in $T_i$.  Hence the lemma.
 \end{proof}
-
-
-
-
-
-
-The
- following is the outline of the algorithm. Let $\cF$
-be the given set system and $T$ be the given tree.  Consider one of
-the partitions $X_i$ that is induced by $\preccurlyeq$. By theorem
-\ref{thm:partition}, we know that the submatrices in $X_i$ can be
-ordered in the following manner- $M_{ik} \preccurlyeq ... \preccurlyeq
-M_{i2} \preccurlyeq M_{i1}$ where $\{i_1, i_2, .. i_k\} \subseteq [p]$
-and $p$ is the number of prime submatrices, $M_{i_j} \in X_i, j \in
-[k]$ . From the definition of $\preccurlyeq$, for each $r$, $2 \leq r
-\leq k$, $supp(M_{ir})$ is contained in at least one set in
-$M_{i(r-1)}$.  Therefore, it follows that $supp(X_i) = supp(M_{i1})$.
-We find a subtree $T_i \subseteq T$, such that $supp(M_{i1}) = |T_i|$,
-and associate it with $M_{i1}$. Now we assign paths from $T_i$ to the
-sets $col(M_{i1})$ maintaining the ICPPA condition. If we are unable to do so,
-we try the next subtree of size $|supp(M_{i1})|$ and so on. Suppose paths
-have been successfully assigned to the sets in $M_{i1}$. We know that
-$supp(M_{i2}) $ is contained in at least one column/set $S \in
-col(M_{i1})$. 
-Thus the subtree associated with $supp(M_{i2}) $ is
-contained in the path associated with $S$.
-Now this becomes an interval assignment problem and ICPIA
-algorithms can be used to assign paths to all $S' \in
-M_{i2}$. Similarly ICPIA can be used to assign paths to $col(M_{i_j})$
-for all $2 \le j \le k$.
-
-For simplicity, we consider $T$ to be a rooted tree with an arbitrary
-node as its root.
-
+ The essence of the following lemma is that an ICPPA only needs to be assigned to the prime sub-matrix corresponding to the root of each in-tree, and all the other prime sub-matrices only need to have an Intersection Cardinality Preserving Interval Assignments (ICPIA).  Recall, an ICPIA is an assignment of intervals to sets such that the cardinality of an assigned interval is same as the cardinality of the interval, and the cardinality of intersection of any two sets is same as the cardinality of the intersection of the corresponding intervals.  It is shown in \cite{nsnrs09} that the existence of an ICPIA is a necessary and sufficient condition for a matrix to have COP. 
+We present the pseudo-code to test if $M$ has an ICPPA in $T$. 
+\begin{lemma} \label{lem:rooticppa}
+Let $M$ be a matrix and let $X$ be the directed graph whose vertices are in correspondence with the prime submatrices of $M$.  Further let $\{X_1,\ldots,X_r\}$ be the partition of $X$ into in-trees as defined earlier in this section.
+Let $T$ be the given tree and let $\{T_1, \ldots, T_r\}$ be a given partition of $T$ into vertex disjoint sub-trees.
+Then, for each $1 \leq i \leq r$, the set of matrices corresponding to vertices of $X_i$ has an ICPPA in $T_i$ if and only if the matrix in $X_{i,0}$ has an ICPPA in $T_i$ and all other matrices in $X_i$ have an {\bf {\em ICPIA}}.
+\end{lemma}
+\begin{proof}
+The proof is based on the following fact- $\preccurlyeq$ is a partial order and $X$ is a digraph which is the disjoint
+union of in-trees.  Each edge in the in-tree is a containment relationship among the supports of the corresonding sub-matrices. Therefore, any ICPPA to a prime sub-matrix that is not the root is contained in a path assigned to the sets in the parent matrix.  Consequently, any ICPPA to the prime sub-matrix that is not at the root is an ICPIA, and any ICPIA can be used to construct an ICPPA to the matrices corresponding to nodes in $X_i$ provided the matrix in the root has an ICPPA in $T_i$.   Hence the lemma.
+\end{proof}
+Lemma \ref{lem:subicppa} and Lemma \ref{lem:rooticppa} point out two algorithmic challenges in finding an ICPPA for a given set system $\cF$ in a tree $T$.  Given $\cF$, finding $X$ and its partition $\{X_1,\ldots,X_r\}$ into in-trees can be done in polynomial time.  On the other hand, as per lemma \ref{lem:subicppa} we need to parition $T$ into vertex disjoint sub-trees $\{T_1, \ldots, T_r\}$ such that for each $i$, the set of matrices corresponding  to nodes in $X_i$ have an ICPPA in $T_i$.  This seems to be a challenging step, and it must be remarked that this step is easy when $T$ itself is a path, as each individual $T_i$ would be sub-paths.  The second algorithmic challenge is identified by lemma \ref{lem:rooticppa} which is to assign an ICPPA from a given tree to the matrix associated with the root node of $X_i$.  
 \begin{algorithm}[h]
 \caption{Algorithm to find an ICPPA for a matrix $M$ on tree $T$: $main\_ICPPA(M, T$)}
 \label{al:icppa-main}
 \begin{algorithmic}
 \STATE Identify the prime sub-matrices. This is done by constructing the strict overlap graph and identify connected components.  Each connected component yields a prime sub-matrix.   \\
 \STATE Construct the partial order $\preccurlyeq$ on the set of prime sub-matrices.  \\
-\STATE Construct the partition $X_1,\ldots,X_l$ of the  prime
+\STATE Construct the partition $X_1,\ldots,X_r$ of the  prime
 sub-matrices induced by $\preccurlyeq$ \\
-\STATE  Construct the total order on each set in the partition. Let $M_{k1}, M_{k2}, ... , M_{k{j_k}}$ be the total order of
-partition $X_k$ in reverse order. \\
-
-$\cA_M = \O$ 
-\FOR {$(k=1; k \leq l; k++)$} % For every partition
-\STATE Assign some subtree $T' \subseteq T$ to $M_{k1}$ s.t. $|T'| =
-supp(M_{k1})$ \\
-\STATE Assign paths from $T'$ to sets in $M_{k1}$. Let this assignment
-be $\cA_{k1} = \{(S_{ki},P_{ki}) | S_{ki} \text{ is a set in }M_{k1}, P_{ki} \text{ is a
-  path from }T'\}$\\
-$\cA_k = \cA_{k1}$\\
-
-\FOR{ $2 \leq r \leq j_k$}
-\IF {parent of $M_{kr}$ in total order is $M_{k1}$}
-\STATE Find the set in $M_{k1}$ that contains $supp(M_{kr})$. Let it
-be $S_{kr}$
- \\
-\STATE $\cA_{kr} = ICPPA(M_{kr},P_{kr},k,r)$\\
-\IF{$\cA_{kr}$ is invalid}
-\STATE  exit
-\ENDIF
-\STATE $\cA_k = \cA_{k} \cup \cA_{kr}$
-\ENDIF
-\ENDFOR
-\STATE $\cA_M = \cA_M \cup \cA_{kr}$
-\ENDFOR\\
-return $\cA_M$
+\STATE For each $1 \leq i \leq r$, Check if all matrices except those in $X_{i,0}$ has an ICPIA.  If a matrix does not have ICPIA exit with a negative answer.  To check for the existence of ICPIA, use the result in \cite{nsnrs09}.
+\STATE  Find a partition of $T_1, \ldots, T_r$ such that matrices in $X_{i,0}$ has an ICPPA in $T_i$.  If not such
+partition exists, exit with negative answer.  
 \end{algorithmic}
-  
-\end{algorithm}
-
-
-
-%W.l.o.g assume $T$ is an ordered tree with an arbitrary vertex as the root.
-
-\begin{algorithm}[h]
-\caption{Recursive algorithm ICPPA($M_{km}, T_x, k, m$), $M$ is the matrix which to which
-  paths from $T_x$ must be assigned. $k$ is the partition being
-  processed and $m$ is index of the submatrix in the total order for
-  $M_{km}$. For simplicity we refer to $M_{km}$ as $M_x$ below}. 
-\label{al:icppa-rec}
-
-\begin{algorithmic}
-% Handle recursion end case
-\IF{$|col(M_x) = 1|$ and $T_x$ is a path}
-\STATE return $\{(S, T_x)\}$ where $S$ is the only set in $M_x$\\
-\ELSE
-\IF{$|col(M_x) = 1|$}
-\STATE Report failure and return
-\ENDIF
-\ENDIF
-
-% Process M_x and its children
-\STATE Rank the vertices of $T_x$ to get interval $I_x$.\\
-\STATE $\cA' = $ ICPIA ($M_x, I_x$)\\
-\STATE Convert intervals back to tree paths. $P_i = \{ v \mid rank(v)
-= r, r \in I_i\} \text{ for every interval } I_i \text{ assigned in } \cA' \}$\\
-\STATE $\cA = \{(S_i,P_i) \mid \text{ for all } S_i \text{ represented in }M_x\}$\\
-\STATE $\cA_f = \cA$\\
-%\STATE In the total order of $X_k$, let $M_{k}$
-\FOR{$s = m+1 $ to $j_k$}
-\IF{$M_x$ is the parent of $M_{ks}$}
-\STATE  Find $S_j$ in $M_x$ that contains $supp(M_{ks})$\\
-\STATE $\cA_s = ICPPA(M_{ks}, P_j, k, s)$
-\STATE $\cA_f = \cA_f \cup \cA_f$
-\ENDIF
-\ENDFOR \\
-return $\cA_f$
-\end{algorithmic}  
-\end{algorithm}
-
-The ranking in algorithm \ref{al:icppa-rec} of the tree path $T_{x}$
-is as follows. Assume one of the ends of path as the left vertex and the other as
-right vertex. Rank the vertices of $T_x$ from left to right to get $I_x =
-\{r \mid r = rank(v), v \in T_x\}$. i.e. $I_x = [1, |T_x|]$
-
-
-\section{COP in logspace}
+  \end{algorithm}
+\section{Complexity of Tree Path Assignment-A Discussion} \label{complexity}
+Recall that the input to the Tree Path Assignment question is an order pair $(\cF,T)$ where $\cF$ is a family of subsets of an universe $U$, and $T$ is a tree such that $|V(T)| = |U|$.  The question is to come up with a bijection from
+$U$ to $V(T)$ such that the image of each set in $\cF$ is a path in $T$.  We show that this problem is at least as hard as the problem of testing if two given path chordal graphs are isomorphic.  
+\begin{theorem} \label{thm:isocomp}
+Tree Path Assignment is isomorphism-complete.
+\end{theorem}
+\begin{proof}
+It is well known (see for example \cite{kklv10}) that testing isomorphism of path chordal graphs is isomorphism complete.  We show a reduction of path chordal graph isomorphism to tree path assignment.  
+Given $G_1$ and $G_2$ two path chordal graphs, let $T_2$ be the clique tree of $G_2$ obtained from say \cite{gav78}.  The nodes of $T_2$ correspond to the maximal cliques of $G_2$ and each vertex of $G_2$ corresponds to a path in $G_2$.  This is a well-known characterization of path chordal graphs and $T_2$ can be computed in polynomial time.
+In $G_1$, let $S_v$ denote the maximal cliques of $G_1$ that contain $v$.  This can be computed in polynomial time
+as $G_1$ is path chordal, and all chordal graph only have a linear number of maximal cliques.  
+The universe $U$ corresponds bijectively to the set of maximal cliques in $G_1$, and $\cF = \{S_v | v \in V(G_1)\}$.
+Now, we claim that $(\cF, T_2)$ has a tree path assignment if and only if $G_1$ and $G_2$ are isomorphic.  This is clear since for each vertex $v \in G_1$, there is an associated $S_v$ which is the set of maximal cliques containing $v$.  In $G_2$, each vertex corresponds to a path in $T_2$, and the nodes on this path corresponds to the maximal cliques in $G_2$.  Consequenlty, a tree path assignment will naturally yield an isomorphism between $G_1$ and $G_2$, and vice versa.  Therefore, Tree Path Assignment is isomorphism-complete.
+\end{proof}
+\subsection{Consecutive Ones Testing is in Logspace}
+While Tree Path Assignment is isomorphism-complete, it is polynomial time solvable when the given tree is a path.  
+Indeed, in this case we encounter a restatement of matrices with the COP.  The known approaches to testing for COP fall into two categories: those that provide a witness when the input matrix does not have COP, and those that do not provide a witness.  
+The first linear time algorithm for testing COP for a binary matrix
+was using a data structure called PQ trees, which represent all COP orderings of $M$, invented by
+\cite{bl76}. There is a PQ tree for a matrix iff the matrix has COP.   Indeed, this is an algorithmic characterization
+of the consecutive ones property and the absence of the PQ-tree does not yield any witness to the reason for failure.
+A closely related data structure is the generalized PQ tree in
+\cite{mcc04}. 
+In generalized PQ tree the P and Q nodes are called prime and linear
+nodes. Aside from that, it has a third type of node called degenerate
+nodes which is present only if the set system does not have COP \cite{mcc04}.
+Using the idea of generalized PQ tree, \cite{mcc04} proves that checking for bipartiteness in
+the certain incomparability graph is sufficient to check for COP. 
+\cite{mcc04} invented a certificate to confirm when a binary matrix
+does not have COP.   \cite{mcc04} describes a graph called incompatibility graph of a set
+system $\cF$ which has
+vertices $(a,b), a \ne b$ for every $a, b \in U$, $U$ being the
+universe of the set system. There are edges $((a,b),(b,c))$ and $((b,a),(c,b))$
+if there is a set $S \in \cF$ such that $a, c \in S$ and $b \notin
+S$. In other words the vertices of an edge in this graph represents
+two orderings that cannot occur in a consecutive ones ordering of $\cF$.
+\begin{theorem}[Theorem 6.1, \cite{mcc04}]
+  Let $\cF$ be an arbitrary set family on domain $V$. Then $\cF$ has
+  the consecutive ones property if and only if its incompatibility
+  graph is bipartite, and if it does not have the consecutive ones
+  property, the incompatibility graph has an odd cycle of length at
+  most $n+3$.
+\end{theorem}
+This theorem gives a certificate as to why a given matrix does not have COP.  Similarly,
+the approach of testing for an ICPIA in \cite{nsnrs09} also gives a different certificate- a prime sub-matrix that does
+not have an ICPIA.  Further, the above theorem can be used to check if a given matrix has COP
+in logspace by checking if 
+its incompatibility graph is bipartite. \cite{rei84} showed that
+checking for bipartiteness can be done in logspace. Thus we conclude that consecutive ones testing
+can be done in logspace.
 
 \noindent
-% \cite{nsnrs09} introduced a simple set cardinality based
-% characterization called ICPIA (Intersection Cardinality Preservation
-% Interval Assignment). 
-% This characterization uses the fact that COT on
-% a binary matrix is equivalent to the problem of testing if feasible
-% intervals can be assigned to a set system. In other words, given a set
-% system containing subsets of a universe, check if we can assign
-% intervals to them such that there exists a bijection from the universe
-% of the set system to the intervals' universe, which maps every subset
-% to an interval. A simpler COT algorithm is given using ICPIA to find
-% the COP ordering for a binary matrix if there exists one. The
-% algorithm uses the set system version of the COP problem to solve it.
-% It first finds a set $S$ such that any two sets that intersect with
-% $S$ also intersect with each other and assigns an arbitrary interval
-% (say leftmost) to it. Then it attempts to assign an interval to any
-% set $S'$ that intersects with $S$ preserving the pairwise intersection
-% cardinality (ICPIA condition). This continues such that at every
-% iteration the algorithm selects a set that intersects with already
-% interval-assigned sets for the next assignment. This new set is
-% assigned an interval making sure ICPIA conditions are still met. If at
-% any point no interval assignment is possible that meets ICPIA
-% condition, the matrix corresponding to the set system has no COP.
-% This is a polynomial time algorithm
-\subsection{Inverval hypergraphs}
-\cite{kklv10} showed that interval graphs isomorphism can be done in
+More recently, \cite{kklv10} showed that interval graph isomorphism can be done in
 logspace. Their paper proves that a canon for interval graphs can be
 calculated in logspace using an interval hypergraph representation of the
 interval graph with each hyperedge being a set to which an interval shall be
@@ -1063,12 +893,12 @@ are computed for each overlap component. The overlap components define
 a tree like relation due to the fact that two overlap components are
 such that either all the hyperedges of one is disjoint from all in the other,
 or all of them are contained in one hyperedge in the other. This is
-similar to the containment tree defined in \cite{nsnrs09}. Finally the
+similar to the containment tree defined in \cite{nsnrs09} and in this paper. Finally the
 canon for the whole graph is created using logspace tree canonization
 algorithm from \cite{sl92}. The interval labelling done in this
 process of canonization is exactly the same as the problem of
 assigning feasible intervals to a set system, and thus the problem of
-finding a COP ordering in a binary matrix\cite{nsnrs09}.
+finding a COP ordering in a binary matrix \cite{nsnrs09}.
 
 \begin{theorem}[Theorem 4.7, \cite{kklv10}] 
 \label{th:canonlabel}
@@ -1077,7 +907,7 @@ for $H$ can be computed in FL.
 \end{theorem}
 
 
-Using the following construction it can be seen that COP testing is
+We present the following reduction to see that COP testing is
 indeed in logspace. Given a binary matrix $M$ of order $n \times m$,
 let $S_i = \{j \mid M[j,i]=1 \}$. Let $\cF = \{S_i \mid i \in [m] \}$
 be this set system. Construct a hypergraph $\cH$ with its vertex set
@@ -1099,61 +929,13 @@ Now we have the following corollary.
   of its columns can be calculated in FL.
 \end{corollary}
 
+\noindent
+Finally, we conclude by asking about the complexity of  Tree Path Assignment restricted to other subclasses of
+trees.  In particular, is Tree Path Assignment in caterpillars easier than Tree Path assignment in general trees.
 
-\subsection{Generalized PQ tree}
-The first linear time algorithm for testing COP for a binary matrix
-was using a data structure called PQ trees invented by
-\cite{bl76}. There is a PQ tree for a matrix iff the matrix has COP.
-A PQ tree is a ``partly'' ordered tree which is created for a
-binary matrix $M$ with COP. 
-A PQ tree represents all COP orderings of $M$. 
 
-The PQ tree is constructed by considering one column at a time and at
-each iteration, either the algorithm reports $M$ has no COP or changes
-the tree to create a PQ tree for the matrix induced by the columns
-considered so far. The construction is very elaborate and complicated.
 
-A closely related data structure is the generalized PQ tree in
-\cite{mcc04}. 
-In generalized PQ tree the P and Q nodes are called prime and linear
-nodes. Aside from that, it has a third type of node called degenerate
-nodes which is present only if the set system does not have COP.
 
-\begin{theorem}[\cite{mcc04} Theorem 3.6]
-If $\cF$ has COP, its generalized PQ tree has no degenerate nodes  
-\end{theorem}
-
-Using the idea of generalized PQ tree, this result proves that checking for bipartiteness in
-the certain incomparability graph is sufficient to check for COP. 
-\cite{mcc04} invented a certificate to confirm when a binary matrix
-does not have COP. This is, to the best of our knowledge, the first
-result that came up with such a verification strategy. Earlier work
-only involved recognition of COP. If a matrix is recognized to have
-COP, this is easy to verify because the algorithm outputs the COP
-ordering (permutation of rows for COP in columns) and it is only a
-matter of applying this ordering for verification.
-
-\cite{mcc04} describes a graph called incompatibility graph of a set
-system $\cF$ which has
-vertices $(a,b), a \ne b$ for every $a, b \in U$, $U$ being the
-universe of the set system. There are edges $((a,b),(b,c))$ and $((b,a),(c,b))$
-if there is a set $S \in \cF$ such that $a, c \in S$ and $b \notin
-S$. In other words the vertices of an edge in this graph represents
-two orderings that cannot occur in a consecutive ones ordering of $\cF$.
-
-\begin{theorem}[Theorem 6.1, \cite{mcc04}]
-  Let $\cF$ be an arbitrary set family on domain $V$. Then $\cF$ has
-  the consecutive ones property if and only if its incompatibility
-  graph is bipartite, and if it does not have the consecutive ones
-  property, the incompatibility graph has an odd cycle of length at
-  most $n+3$\footnote{original theorem says $n+2$ but this is an error
-  and was corrected by \cite{d08phd}}
-\end{theorem}
-
-Thus to check for COP of a set system (or matrix), one can check if
-its incompatibility graph is bipartite. \cite{rei84} showed that
-checking for bipartiteness can be done in logspace. Thus we arrive at
-corollary \ref{cor:coplog} using this approach of COP testing as well. 
 
 
 %\section {Acknowlegements:} 

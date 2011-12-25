@@ -1,0 +1,89 @@
+
+-------- WG
+
+
+***** 1
+1st line of section 2: are there any indices i \in I such that U \setminus S_i \ne \emptyset or S_i = \emptyset?
+1st paragraph on page 3: the symbol \preccurlyeq indicates a transitive, reflexive and antisymmetric relation. In which way does mub(X) represent a maximal upper bound? What about m=q in the definition of maximal upper bound? What is the difference between a maximal upper bound and a maximal element?
+page 7: Here \preccurlyeq is reflexive, contradicting the "either - or" in Lemma 6. By the way, you could write M_i \preccurlyeq M_j instead of (M_i,M_j) \in \preccurlyeq.
+
+
+***** 2
+The isomorphism completeness of path graphs has been known
+for nearly as long as the isomorphism completeness of chordal graphs
+[1]. In particular, a slight modification to the construction used in [1]
+ shows that the class of split \cap path graphs is isomorphism complete
+(i.e., after subdividing each edge, we make the ``new'' vertices into a
+clique as opposed to the original vertices). For a more direct reference
+the isomorphism completeness of directed path graphs can be used [2].
+
+[1] K.S. Booth and G.S. Leuker, “A linear time algorithm for
+deciding interval graph isomorphism”, Journal of the ACM, 26(2): 183-195, 197
+
+[2] L. Babel; I. N. Ponomarenko; G. Tinhofer, ``The Isomorphism Problem
+For Directed Path Graphs and For Rooted Directed Path Graphs'',
+Journal of Algorithms (November 1996), 21 (3), pg. 542-564
+
+DOWNLOAD AND CHECK WHICH PAPER IS MORE APPROPRIATE FOR REFERENCE
+
+
+***** 3
+** The use of overlap components as a way to ``divide'' the testing
+of the consecutive ones property into subproblems was first discussed
+by Fulkerson and Gross [3]. They showed that a set family F has the
+consecutive ones property iff the connected components of its overlap
+graph have the consecutive ones property.
+
+[3]D.R. Fulkerson and O.A. Gross, Incidence Matrices and Interval Graphs,
+Pacific Journal of Math., (1965), 15:835-855
+
+CHECK IF THE PARTIAL ORDER IDEA WAS IN FG65 OR HSU OR NSN09 FIRST
+
+
+***** 4
+
+Some of the references are missing the source information. For example:
+[APY92] and [KM02].
+
+GET THE SOURCE INFO
+
+
+
+
+
+***** 5
+The paper states simple properties and direct extensions of Mc-Connell overlap
+class structures [McC04] applied to tree paths instead of a unique path as in the
+case of C1P. The decomposition used in section 5 is that of the overlap graph,
+decomposed in connected component as in [Mc04] (precisely using 
+Dahlhaus's algorithm, might
+be cited). Each of these component is then treated separately to test a path-model
+using already existing algorithms.
+
+
+
+************ 
+corneil quesitons the completeness...
+TRY OTHER REDUCTIONS
+
+************
+(matrix decomposition) and it apparently also is from mcconnel- i doubt the second part..
+CHECK THIS
+  
+************
+try this business for 3 leaf trees, and would it be in logspace, and does an mcconnel kind of result hold? can you explore this..
+       -- use the idea of slots from kklv10
+
+************
+ a. sloppy writing  
+ can you seem fulkerson gross, hsu, etc..and see what notation they use... and standardize our work
+use KKLV10- notation
+-- Standardize the notation to kklv10: sec 2.1, sec 2.2 (para 2, 3)
+      -- define tree path labellings analogous to interval labelling and restate the problem as in kklv10
+CHECK
+
+************
+-- AIM FOR FSTTCS JULY 2011
+
+************
+-- Lemma: the number of tree path labellings of (\cF, T) is equal to zero or number of automorphisms of T. Prove this.

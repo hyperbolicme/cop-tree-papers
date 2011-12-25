@@ -1,0 +1,158 @@
+a. the first part is fine..it has gone to WG and you have incorporated kklv's notation
+b. it is the new stuff with respect to the star-
+b1. check in standard graph theory what this star is called
+b2. outline the approach
+b3. mention that we saturate the "arms" or "rays" without touching the root. partial labeling
+b4. after b3, we are left an assignment and a "remaining" set system which is of two types - 
+type1: a set is either strictly contained in all those that are assigned or disjoint from all those that are assigned (do you see slot)  type 1 can be defined from kklv
+type 2: when assigned it would touch the root (type 2 is waht needs to be formalized) we need to give a name
+
+c. so now how do we complete the partial labeling
+for each arm assign one set of b4 type 2
+of course this cannot be completed as it could go into another arm and we do not know which
+so to handle b4 type 2: we come up with a paritial assignment of b4 type 2 in each arm upto the root of the star
+
+d.at the end of this step (after doing so for each arm), we "KNOW THE UNIVERSE OF OUR SET SYSTEM ASSOCIATED WITH EACH ARM"  
+finally, take each pair of arms.
+you know the sub-universe of the set system associated with the arm.
+********** ????? take all the hyperedges in that sub-universe - assign it to the path formed by the two arms by checking for icpia. check for icpia on that path
+
+
+e. also, 3 mutually intersecting paths such that one is not contained in the union of the other 2 will have to intersect at the root of the tree alone
+   
+f. just put this flowchart in first..
+and then make connnections to concepts already there in kklv  
+and then..put in new formalism we need
+
+
+Algorithm
+1) modularize 
+
+2) top level flowchart - ---- with pointers to modules   
+each module must be kutti and logical single unit
+===============
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+remove TBDs etc. and give me a text in which the proofs you are unsure about are listed	
+
+======
+future edits
+
+
+
+\rcomment
+{Several path labelings could result in the same path representation. EXPAND?}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------
+
+%%%%%%%%%%%%
+%%        %%
+\noindent
+\rfootnote{could be explored for logspace algo::
+{\em Slots} are sets of elements in the universe $supp(\cF)$ which either
+appear together in a set or do not appear in a set at all (as defined
+in \cite{kklv10}).  \rcomment{mention partative family connection?}
+\rcomment{Define ``slot'' in prelim sec}
+If $T$ is a three leaved tree, it is clear that there is exactly one vertex $r$ in $T$ that has
+degree $d(r) = 3$.\rfootnote{unexplored: Which is the set(s) that
+  maps to a path(s) that has $r$?} In \cite{kklv10} they find the two {\em
+  side slots} by identifying the two {\em maximum marginal} sets from $\cF$ (or
+hyperedge from hypergraph $\cH$ in their set up). \rcomment{define
+  ``marginal'', ``side slot'' in prelim or here.} Using this side slot
+a partial order is defined that in their case (intervals) totally
+orders $supp(\cF)$. From this it is easy to derive the 
+the interval isomorphism and labeling.\\
+
+\noindent
+Calculate the slots in $supp(\cF)$ and let them be $Y_1, Y_2 ... Y_k$,
+$k \in \mathbb{N}$.
+
+\rcomment{Define ``marginal slot'' for a set in the system. How do we
+  find it? 
+}
+\begin{lemma}
+  If a set $S \in \cF$ has three marginal slots and if $v$ is the
+  unique vertex in a three leaved tree $T$ such that $d(v) = 3$, $S$
+  contains the element mapped to $v$ by a feasible tree path labeling
+  if one exists. i.e. $\cl^{-1}(v) \in S$ where $\cl$ is a feasible
+  tree path labeling. If such a labeling cannot be found, there does
+  not exist a feasible tree path labeling for $\cF$ from $T$.
+\end{lemma}
+\begin{proof}
+  \rcomment{TBD}
+\end{proof}
+
+\noindent
+There will be exactly
+three end slots if $\cF$ has a TPL to $T$. For each slot $Y_i, i \in
+[k]$, do the following till a solution is found. Assume $Y = Y_i$ is
+an end slot. Define the following partial order $\preccurlyeq_Y$ on $supp(\cF)$
+\begin{enumerate}
+\item if $u \in Y$ and $v \notin Y$ then $u \preccurlyeq_Y v$
+\item if $u, v \in S$, where $S \in \cF$, then for every $w \notin S$,
+  if $u \preccurlyeq_Y w$ then $v \preccurlyeq_Y w$ or if $w \preccurlyeq_Y u$ then $w \preccurlyeq_Y v$
+\end{enumerate}
+
+This is clearly a partial order since it is reflexive, antisymmetric and
+transitive 
+\rcomment{prove?}.
+
+\begin{theorem}
+  Let the Hasse diagram of the partial order $\preccurlyeq_Y$ defined
+  above be $H_{\preccurlyeq_Y}$. Then if $T$ is a subgraph of
+  $H_{\preccurlyeq_Y}$, there exists a TPL to $\cF$ from $T$.
+\end{theorem}
+\begin{proof}
+ \qed
+\end{proof}
+}
+
+\rfootnote{tried first/unexplored:
+  let slot that gets
+assigned to the path with $r$ be $Y_r$. If $T_i$ is rooted at $r$ we
+have exactly three paths from $r$ to the three leaves which are vertex
+disjoint except at $r$. -- but it is not straightforward to find this
+special slot. end slots are easier to find see kklv10.}  
+\rfootnote{tried: There will be three marginal sets and three end slots. pick one at
+random. Let it be $Y = Y_i, i \in [k]$
+Use the partial ordering idea in \cite{kklv10} (page 10 para 1)
+$\le_{Y}$. However in this case it will not be a total order. 
+Assign paths as in pg 10 eq (3). \\
+Finding $Y$ involves something similar to the marginal hyperedge
+idea in \cite{kklv10}.}
+%%        %%
+%%%%%%%%%%%%

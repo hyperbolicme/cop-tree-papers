@@ -17,6 +17,27 @@
 \usepackage{algorithmic}
 % \usepackage{natbib}
 
+%%%            %%%
+%  TrackChanges  %
+%%%            %%%
+\usepackage[footnotes]{trackchanges}
+% finalold
+%   Ignore all of the edits. 
+%   The document will look as if the edits had not been added.
+% finalnew
+%   Accept all of the edits. 
+%   Notes will not be shown in the final output.
+% footnotes
+%   Added text will be shown inline. Removed text and notes will be shown as footnotes. 
+%   This is the default option.
+% margins
+%   Added text will be shown inline. Removed text and notes will be
+%   shown in the margin. Margin notes will be aligned with the edits when possible.
+% inline
+%   All changes and notes will be shown inline.
+\addeditor{AS} 
+\addeditor{NSN} 
+
 
 \DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
 \DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
@@ -175,15 +196,17 @@
 
 % Review comment. in a parbox that wraps before right margin. vertical
 % lines on the left for easy identification.
-\newcommand{\rcomment}[1]{}
-% { \begin{tabular}{ |||||r| } 
-%     \hline
-%     \parbox{\cmt}{\tiny{#1}}\\
-%     \hline
-%   \end{tabular}
-% }
-\newcommand{\rfootnote}[1] {} %{\footnote{{#1}}}
+%%\newcommand{\rcomment}[1]{}
+\newcommand{\rcomment}[1]
+{ \begin{tabular}{ |||||r| } 
+    \hline
+    \parbox{\cmt}{\tiny{#1}}\\
+    \hline
+  \end{tabular}
+}
 
+%%\newcommand{\rfootnote}[1] {} %{\footnote{{#1}}}
+\newcommand{\rfootnote}[1] {\footnote{{#1}}}
 
 % D O C U M E N T
 \begin{document}
@@ -216,7 +239,6 @@
 %\maketitle
 
 \begin{abstract}
-  \rcomment{Need to overhaul the abstract}
   We consider the following constraint satisfaction problem. Given (i)
   a
   set system $\F \subseteq (powerset(U) \setminus \O)$ of a finite
@@ -240,8 +262,6 @@
 \end{abstract}
 
 \section{Introduction}
-%\subsection{Previous Work}
-  \rcomment{Needs a section overhaul }
 \noindent
 Consecutive ones property (COP) of binary matrices is a widely studied
 combinatorial problem. The problem is to rearrange rows (columns) of a
@@ -256,6 +276,7 @@ Recognition of COP is polynomial time solvable by several
 algorithms. PQ trees \cite{bl76}, variations of PQ
 trees \cite{mm09, wlh01, wlh02, mcc04}, ICPIA \cite{nsnrs09} are the main
 ones.
+
 \noindent
 The problem of COP testing can be easily seen as a simple constraint
 satisfaction problem involving a system of sets from a universe. Every
@@ -279,7 +300,7 @@ Cardinality Preserving Interval Assignment (ICPIA).  Finally, the idea of
 decomposing a given 0-1 matrix into prime matrices to check for COP is
 adopted from 
 \cite{wlh02} to test if an ICPIA exists for a given set system.\\
-{\bf Our Work}
+{\bf Our Work.}
 A natural generalization of the interval assignment problem is
 feasible tree path labeling problem of a set system. The problem is
 defined as follows - given a set system 
@@ -293,54 +314,58 @@ characterize feasible path assignments.  We show that for a given set
 system $\cF$, a tree $T$, and an assignment of paths from $T$ to the sets,
 there is a bijection between $U$ and $V(T)$ if and only if all
 intersection cardinalities among any three sets (not necessarily distinct)
-is same as the intersection cardinality of the paths assigned to them.
+is same as the intersection cardinality of the paths assigned to them
+and the input runs a filtering algorithm (described in
+this paper) without prematurely exiting.
 This characterization is proved constructively and it gives a natural
 data structure that stores all the relevant bijections between $U$ and
-$V(T)$.  Further, it also gives an efficient algorithm to test if a
-path assignment to the sets is feasible.  This also naturally
-generalizes the result in \cite{nsnrs09}.
- 
+$V(T)$.  
+Further, the filtering algorithm is also an efficient algorithm to test if a
+tree path labeling to the set system is feasible.  This 
+generalizes the result in \cite{nsnrs09}.\\
 \noindent
 It is an interesting fact that for a matrix with the COP, the
 intersection graph of the corresponding set system is an interval
-graph.  A similar connection to a subclass of chordal graphs, and this
-subclass contains interval graphs, exists for the generalization of
-COP.  In this case, the intersection graph of the corresponding set
-system must be a {\em path graph}. Chordal graphs are of great
-significance, extensively studied, and have several applications.  One
-of the well known and interesting properties of a chordal graphs is
-its connection with intersection graphs \cite{mcg04}. For every chordal
-graph, there exists a tree and a family of subtrees of this tree such
-that the intersection graph of this family is isomorphic to the
-chordal graph \cite{plr70,gav78,bp93}.  Certain format of these trees
-are called clique trees \cite{apy92} of the graph which is a compact
-representation of the chordal graph. There has also been work done on
-the generalization of clique trees to clique hypergraphs \cite{km02}.
-If the chordal graph can be represented as the intersection graph of
-paths in a tree, then the graph is called path graph \cite{mcg04}.
-Therefore, it is clear that if there is a bijection from $U$ to $V(T)$
-such that the sets map to paths, then the intersection graph of the
-set system is indeed a path graph.  This is, however, only a necessary
-condition and can be checked efficiently, as path graph recognition is
-polynomial solvable \cite{gav78,aas93}.  Indeed, it is possible to
-construct a set system and tree, such that the intersection graph is a
-path graph, but there is no bijection between $U$ and $V(T)$ such that
-the sets map to paths.  This connection indeed suggests that our
-problem is indeed as hard as path graph isomorphism.  Further path
-graph isomorphism is known be isomorphism-complete, see for example
-\cite{kklv10}.  In the later part of this paper, we decompose our
-search for a bijection between $U$ and $V(T)$ into subproblems.  Each
-subproblem is on a set system in which for each set, there is another
-set in the set system with which the intersection is {\em strict} -
-there is a non-empty intersection, but neither is contained in the
-other.  This is in the spirit of results in \cite{wlh02,nsnrs09} where
-to test for the COP in a given matrix, the COP problem is solved on an
-equivalent set of prime matrices.  \\
-{\bf Roadmap:} In Section \ref{sec:prelims} we present the
-necessary preliminaries, in Section \ref{sec:feasible} we present our
+graph.  A similar connection to a subclass of chordal graphs and a
+superclass of interval graphs exists for the generalization of COP.
+In this case, the intersection graph of the corresponding set system
+must be a {\em path graph}. Chordal graphs are of great significance,
+extensively studied, and have several applications.  One of the well
+known and interesting properties of a chordal graphs is its connection
+with intersection graphs \cite{mcg04}. For every chordal graph, there
+exists a tree and a family of subtrees of this tree such that the
+intersection graph of this family is isomorphic to the chordal graph
+\cite{plr70,gav78,bp93}.  These trees when in a certain format, are
+called clique trees \cite{apy92} of the chordal graph. This is a
+compact representation of the chordal graph. There has also been work
+done on the generalization of clique trees to clique hypergraphs
+\cite{km02}.  If the chordal graph can be represented as the
+intersection graph of paths in a tree, then the graph is called path
+graph \cite{mcg04}.  Therefore, it is clear that if there is a
+bijection from $U$ to $V(T)$ such that for every set, the elements in
+it map to vertices of a unique path in $T$, then the intersection
+graph of the set system is indeed a path graph.  However, this is only
+a necessary condition and can be checked efficiently because path
+graph recognition is polynomial time
+solvable\cite{gav78,aas93}. Indeed, it is possible to construct a set
+system and tree, such that the intersection graph is a path graph, but
+there is no bijection between $U$ and $V(T)$ such that the sets map to
+paths. Path graph isomorphism is known be isomorphism-complete, see
+for example \cite{kklv10}. An interesting area of research would be to see
+what this result tells us about the complexity of the tree path
+labeling problem (not covered in this paper). In the later part of
+this paper, we decompose our search for a bijection between $U$ and
+$V(T)$ into subproblems.  Each subproblem is on a set subsystem in which
+for each set, there is another set in the set subsystem with which the
+intersection is {\em strict} - i.e., there is a non-empty intersection, but
+neither is contained in the other.  This is in the spirit of results
+in \cite{wlh02,nsnrs09} where to test for the COP in a given matrix,
+the COP problem is solved on an equivalent set of prime matrices.  \\
+{\bf Roadmap.} In Section \ref{sec:prelims} we present the necessary
+preliminaries, in Section \ref{sec:feasible} we present our
 characterization of feasible tree path assignments, and in Section
-\ref{sec:decompos} we present the characterizing subproblems for finding a
-bijection between $U$ and $V(T)$ such that sets map to tree
+\ref{sec:decompos} we present the characterizing subproblems for
+finding a bijection between $U$ and $V(T)$ such that sets map to tree
 paths. In Section \ref{sec:ksubdivstar} we present a polynomial time
 algorithm to find the tree path labeling of a given set system from a
 given $k$-subdivided tree.
@@ -425,16 +450,17 @@ $\cF$ and the path system $\cP$ may be alternatively denoted as
 $\cF^\cl$. 
  
 \noindent
-A set system $\cF$ can be represented as a {\em hypergraph} $\H_\cF$ whose
-vertex set is $supp(\cF)$ and hyperedges are sets in $\cF$. This is a
-known representation for interval systems in literature \cite{bls99}.
-We extend this definition here to path systems.  Two hypergraphs
-$\cH$, $\cK$ are said to be isomorphic to each other, denoted by $\cH
-\cong \cK$, iff there exists a bijection $\phi: supp(\cH) \rightarrow
-supp(\cK)$ such that for all sets $H \subseteq supp(\cH)$, $H$ is a
-hyperedge in $\cH$ iff $K$ is a hyperedge in $\cK$ where $K =
-\{\phi(x) \mid x \in H\}$.  If $\H_\cF \cong \H_\cP$ where $\cP$ is a  path system $\cP$, then $\H_\cF$ is called a {\em path
-  hypergraph}
+A set system $\cF$ can be alternatively represented by a {\em
+  hypergraph} $\H_\cF$ whose vertex set is $supp(\cF)$ and hyperedges
+are the sets in $\cF$. This is a known representation for interval
+systems in literature \cite{bls99}.  We extend this definition here to
+path systems.  Two hypergraphs $\cH$, $\cK$ are said to be isomorphic
+to each other, denoted by $\cH \cong \cK$, iff there exists a
+bijection $\phi: supp(\cH) \rightarrow supp(\cK)$ such that for all
+sets $H \subseteq supp(\cH)$, $H$ is a hyperedge in $\cH$ iff $K$ is a
+hyperedge in $\cK$ where $K = \{\phi(x) \mid x \in H\}$.  If $\H_\cF
+\cong \H_\cP$ where $\cP$ is a path system, then $\H_\cF$ is
+called a {\em path hypergraph}
 %  (of course, 
 % $\H_\cP$ is trivially a path hypergraph)
 and $\cP$ is called {\em path representation} of $\H_\cF$. If
@@ -455,7 +481,7 @@ i.e. $A \overlap B \text{ iff } A \cap B \ne \O, A \nsubseteq B, B
 necessarily connected. Each connected component of $\bO(\cF)$ is
 called an {\em overlap component}. If there are $d$ overlap components
 in $\bO(\cF)$, the set subsystems are denoted by $\cO_1, \cO_2, \ldots
-\cO_d$. Clearly $\cO_i \subseteq \F, i \in [k]$. For any $i, j \in [k]$,
+\cO_d$. Clearly $\cO_i \subseteq \F, i \in [d]$. For any $i, j \in [d]$,
 it can be verified that one of the following is true.
 \begin{enumerate}
 \item[i.] $supp(\cO_i)$ and $supp(\cO_j)$ are disjoint
@@ -464,17 +490,17 @@ it can be verified that one of the following is true.
 \end{enumerate}
  
 \noindent
-A path labeling $\cl: \cF \rightarrow \cP$ of $\cF$ is defined to be {\em
+A path labeling $\cl: \cF \rightarrow \cP$ of setsystem $\cF$ is defined to be {\em
   feasible} if their hypergraphs are isomorphic to each other,
-$\cH_\cF \cong \cH_\cP$ and if the isomorphism $\phi: supp(\cF)
+$\cH_\cF \cong \cH_\cP$ and if this isomorphism $\phi: supp(\cF)
 \rightarrow supp(\cP)$ induces a path labeling $\cl_\phi: \cF
 \rightarrow \cP$ such that $\cl_\phi = \cl$. 
 
 \noindent
-For any partial order $\preccurlyeq$ on a partially ordered set $X$,  the notation $mub(X)$ represents an element in $X$ which is
-a {\em maximal upper bound} on $X$.  An element $X_m \in X$ is a maximal upper bound of
-$X$ if $\nexists X_q \in X$ such that $X_m
-\preccurlyeq X_q$. 
+For any partial order $(X, \preccurlyeq)$,  the notation $mub(X)$
+represents an element $X_m \in X$ which is called
+a {\em maximal upper bound} on $X$.  The element $X_m$ is a maximal upper bound of
+$X$ if $\nexists X_q \in X$ such that $X_m \preccurlyeq X_q$. 
 
 % \noindent
 % When refering to a tree as $T$ it could be a reference to the tree
@@ -492,7 +518,6 @@ Consider a path labeling $\cl: \cF \rightarrow \cP$ for set system $\cF$
 and path system $\cP$ on the given tree $T$. We
 call $\cl$ an {\em Intersection Cardinality Preserving Path Labeling
   (ICPPL)} if it has the following properties.
-
 \begin{enumerate}
 \item [i.]  $|S| = |\cl(S)|$ for all $S \in \cF$
 \item [ii.] $|S_1 \cap S_2| = |\cl(S_1) \cap \cl(S_2)|$ for all
@@ -500,44 +525,51 @@ call $\cl$ an {\em Intersection Cardinality Preserving Path Labeling
 \item [iii.] $|S_1 \cap S_2 \cap S_3| = |\cl(S_1) \cap \cl(S_2) \cap
   \cl(S_3)|$ for all distinct  $S_1, S_2, S_3 \in \cF$
 \end{enumerate}
-
 The following two lemma are useful in characterizing feasible tree path labelings.  Their
 proofs are in the appendix.
 \begin{lemma}
   \label{lem:setminuscard}
-  If $\cl$ is an ICPPL, and $S_1, S_2, S_3 \in
-  \cF$, then $|S_1 \cap (S_2 \setminus S_3)| = |P_1 \cap (P_2
-   \setminus P_3)|$ where $P_i = \cl(S_i), i \in \{1, 2, 3\}$.
+  If $\cl$ is an ICPPL, and $S_1, S_2, S_3 \in \cF$, then $|S_1 \cap
+  (S_2 \setminus S_3)| = |\cl(S_1) \cap (\cl(S_2) \setminus
+  \cl(S_3))|$.
 \end{lemma}
 \begin{lemma}\label{lem:fourpaths} 
-   Consider four paths in a tree $P_1, P_2, P_3,
-  P_4$ such that they have non-empty pairwise intersection and paths $P_1,
-  P_2$ share a leaf. Then there exists distinct $i, j, k \in
-  \{1,2,3,4\}$ such that, $P_1 \cap P_2 \cap P_3 \cap P_4 = P_i \cap
-  P_j \cap P_k$.
+  Consider four paths in a tree $P_1, P_2, P_3, P_4$ such that they
+  have non-empty pairwise intersections and paths $P_1, P_2$ share a
+  leaf. Then there exist distinct integers $i, j, k \in \{1,2,3,4\}$ such
+  that, $P_1 \cap P_2 \cap P_3 \cap P_4 = P_i \cap P_j \cap P_k$.
 \end{lemma}
 
 \noindent
-In the remaining part of this section we show that a path labeling is
-feasible if and only if it is an ICPPL.  One direction of this claim
-is clear: that if a path labeling is feasible, then all intersection
-cardinalities are preserved, i.e. the path labeling is an ICPPL.  
-The
-reason is that a feasible path labeling has an associated bijection
-between $supp(\cF)$ and $V(T)$ such that the sets map to paths. The
-rest of the section is devoted to constructively proving that it is
-sufficient for a path labeling to be an ICPPL.  At a top-level, the
-constructive approaches refine an ICPPL iteratively, such
-that at the end of each iteration we have a ``filtered'' path labeling,
-and finally we have a path labeling that defines a family of
-bijections from $supp(\cF)$ to $supp(\cP)$.  First we
-present Algorithm \ref{perms} and prove its correctness.  This
-algorithm refines the path labeling by considering pairs of paths that
-share a leaf.
+In the remaining part of this section we describe an algorithmic
+characterization for a feasible tree path labeling. We show that a
+path labeling is feasible if and only if it is an ICPPL and it
+successfully passes the filtering algorithms \ref{perms} and
+\ref{leafasgn}.  One direction of this claim is clear: that if a path
+labeling is feasible, then all intersection cardinalities are
+preserved, i.e. the path labeling is an ICPPL. Algorithm \ref{perms}
+has \annote[AS]{no premature exit condition}{it does. verify.} hence any input will go through
+it. Algorithm \ref{leafasgn} has an exit condition at line
+\ref{xempty}. \annote[AS]{It can be easily verified that $X$ cannot be empty if
+$\cl$ is a feasible path labeling.}{Maybe this needs to be expanded in
+the appendix}  The reason is
+that a feasible path labeling has an associated bijection between
+$supp(\cF)$ and $V(T)$ i.e. $supp(\cF^{\cl})$ such that the sets map to paths, ``preserving''
+the path labeling. The rest of the section is devoted to
+constructively proving that it is sufficient for a path labeling to be
+an ICPPL and pass the two filtering algorithms.  To describe in brief, the
+constructive approaches refine an ICPPL iteratively, such that at the
+end of each iteration we have a ``filtered'' path labeling, and
+finally we have a path labeling that defines a family of
+bijections from $supp(\cF)$ to $V(T)$ i.e. $supp(\cF^{\cl})$.  \\
+\noindent
+First we present Algorithm \ref{perms} or Filter 1, and prove its correctness.
+This algorithm refines the path labeling by considering pairs of paths
+that share a leaf.
 
 
 \begin{algorithm}[h]
-\caption{Refine ICPPL ($\cF$, $\cl$)}
+\caption{FILTER 1: Refine ICPPL ($\cF$, $\cl$)}
 \label{perms}
 \begin{algorithmic}
 \STATE Let $\cF_0 = \cF$\\
@@ -545,8 +577,8 @@ share a leaf.
 \STATE $j = 1$\\
 \label{shareleaf} \WHILE {there is $S_1, S_2 \in \cF_{j-1}$ such that $\cl_{j-1}(S_1)$ and
   $\cl_{j-1}(S_2)$ have a common leaf in $T$}
-\label{setbreak} \STATE $\cF_j = (\cF_{j-1} \setminus \{S_1, S_2\}) \cup \{S_1 \cap S_2, S_1 \setminus S_2, S_2
-\setminus S_1 \}$
+\label{setbreak} \STATE $\cF_j = (\cF_{j-1} \setminus \{S_1, S_2\})
+\cup \{S_1 \cap S_2, S_1 \setminus S_2, S_2 \setminus S_1 \}$
 \COMMENT {Remove $S_1$, $S_2$ and add the ``filtered'' sets}
 \STATE for all $S \in \cF_{j-1}$ such that $S \ne S_1$ and $S \ne
 S_2$, set $\cl_j(S) = \cl_{j-1}(S)$
@@ -555,18 +587,49 @@ S_2$, set $\cl_j(S) = \cl_{j-1}(S)$
 \STATE $\cl_j(S_1 \setminus S_2) = \cl_{j-1}(S_1) \setminus \cl_{j-1}(S_2)$
 \STATE $\cl_j(S_2 \setminus S_1) = \cl_{j-1}(S_2) \setminus \cl_{j-1}(S_1)$
 
-%\Pi_j \cup \{(P_1 \cap P_2,Q_1 \cap Q_2), (P_1 \setminus P_2,Q_1 \setminus Q_2), (P_2 \setminus P_1, Q_2 \setminus Q_1)\}$;
+\label{ln:3waycheck} \IF{$(\cF_j, \cl_j)$ does not satisfy condition (iii) of ICPPL}
+  \STATE {\bf exit}
+\ENDIF
+
 \STATE $j = j+1$\\
 \ENDWHILE
 \STATE $\cF' = \cF_j$, $\cl' = \cl_j$\\
-\STATE Return $\cF', \cl'$\\
+\STATE {\bf return} $\cF', \cl'$\\
 \end{algorithmic}
 \end{algorithm}
 
-\begin{lemma}
-\label{lem:invar1}
-  In Algorithm \ref{perms}, at the end of $j$th iteration, $j \ge 0$, of the while loop of 
-  Algorithm \ref{perms}, the following invariants are maintained.
+
+\begin{lemma} 
+  \label{lem:feasible} In Algorithm \ref{perms}, if input $(\cF, \cl)$ is a
+  feasible path assignment then at the end of $j$th iteration of the
+  {\bf while} loop, $j \ge 0$, 
+  $(\cF_j, \cl_j)$ is a feasible path assignment.
+\end{lemma}
+\proof
+  We will prove this by mathematical induction on the number of
+  iterations. The base case $(\cF_0, \cl_0)$ is feasible since it is
+  the input itself. Assume the lemma is true till $j-1$th
+  iteration. i.e. there is a bijection $\phi: supp(\cF_{j-1})
+  \rightarrow V(T)$ such that the induced path labeling on $\cF_{j-1}$,
+   $\cl_{\phi[{\cF_{j-1}}]}$ is equal to $\cl_{j-1}$. We will prove that $\phi$ is
+  also the bijection that makes $(\cF_j, \cl_j)$ feasible. Note that
+  $supp(\cF_{j-1}) = supp(\cF_{j})$ since the new sets in $\cF_j$ are
+  created from basic set operations to the sets in $\cF_{j-1}$. For
+  the same reason and
+  $\phi$ being a bijection, it is clear that $ \cl_{\phi[{\cF_{j}}]}(S_1
+  \setminus S_2) = \cl_{\phi[{\cF_{j-1}}]}(S_1) \setminus
+  \cl_{\phi[{\cF_{j-1}}]}(S_2)$. Now observe that $ \cl_j(S_1
+  \setminus S_2) = \cl_{j-1}(S_1) \setminus \cl_{j-1}(S_2) =
+  \cl_{\phi[{\cF_{j-1}}]}(S_1) \setminus
+  \cl_{\phi[{\cF_{j-1}}]}(S_2)$. Thus the induced path labeling $\cl_{\phi[{\cF_{j}}]} =
+  \cl_{j}$. Therefore lemma is proven. 
+\qed
+
+
+\begin{lemma} 
+  \label{lem:invar1} In Algorithm \ref{perms}, at the end of $j$th
+  iteration, $j \ge 0$, of the {\bf while} loop of Algorithm
+  \ref{perms}, the following invariants are maintained.
 \begin{itemize}
 \item []\underline {Invariant I}: $\cl_j(R)$ is a path in $T$ for each $R \in \cF_j$
 \item []\underline {Invariant II}: $|R| = |\cl_j(R)|$ for each $R \in \cF_j$
@@ -577,7 +640,7 @@ S_2$, set $\cl_j(S) = \cl_{j-1}(S)$
 \end{itemize}
 \end{lemma}
 \proof
-The complete proofs of the different cases below are in the appendix.
+The detailed proofs of the some of the cases below are in the appendix.
   Proof is by induction on the number of iterations, $j$. In the rest
   of the proof, the term ``new sets'' will refer to the sets added
   to $\cF_j$ in $j$th iteration in line \ref{setbreak} of Algorithm
@@ -591,6 +654,8 @@ The complete proofs of the different cases below are in the appendix.
 the possible cases for each invariant for the  $j$th  iteration.
 
   \noindent
+  \begin{enumerate} % dummy list to get the indendation right.
+  \item []
   \begin{enumerate}
   \item [Case 1:] {\em Invariant I and II} 
     \begin{enumerate}
@@ -599,65 +664,122 @@ the possible cases for each invariant for the  $j$th  iteration.
       proven.
     \item [Case 1.2:] {\em $R$ is a new set.} If $R$ is in $\cF_{j}$
       and not in $\cF_{j-1}$, then it must be one of the new sets
-      added in $\cF_j$. In this case, it is clear that
-      for each new set, the image under $\cl_j$ is a path since by definition the chosen
-      sets $S_1$, $S_2$ are from $\cF_{j-1}$ and due to the while loop
-      condition, $\cl_{j-1}(S_1)$, $\cl_{j-1}(S_2)$ have a common
-      leaf. Thus invariant I is proven.\\
+      added in $\cF_j$. In this case, it is clear that for each new
+      set, the image under $\cl_j$ is a path since by definition the
+      chosen sets $S_1$, $S_2$ are from $\cF_{j-1}$ and due to the
+      while loop condition, $\cl_{j-1}(S_1)$, $\cl_{j-1}(S_2)$ have a
+      common leaf. Thus invariant I is proven.\\
       Moreover, due to induction hypothesis of invariant III ($j-1$th
-      iteration) and the  the definition of $l_j$ in terms of $l_{j-1}$, invariant II is indeed true in the $j$th
-      iteration for any of the new sets.
+      iteration) and the definition of $l_j$ in terms of $l_{j-1}$,
+      invariant II is indeed true in the $j$th iteration for any of
+      the new sets.
    \end{enumerate}
   \item [Case 2:] {\em Invariant III}
     \begin{enumerate}
     \item [Case 2.1:] {\em $R$ and $R'$ are not new sets.} Trivially
       true by induction hypothesis.
     \item [Case 2.2:] {\em Only one, say $R$, is a new set.} Due to
-  invariant IV which is true by the induction hypothesis, lemma \ref{lem:setminuscard} and
-      definition of $l_j$ with the fact that $R'$ is not a new set, it is follows that invariant III is true no matter which of
-      the new sets $R$ is equal to.
+  invariant IV induction hypothesis, lemma \ref{lem:setminuscard} and
+      definition of $l_j$, it follows that invariant III is true no matter which of
+      the new sets $R$ is equal to. It is important to note that $R'$ is not a new set here.
     \item [Case 2.3:] {\em $R$ and $R'$ are new sets.} By definition,
       the new sets and their path images in path label $l_j$ are
       disjoint so $|R \cap R'| = |l_j(R) \cap l_j(R)| = 0$. Thus case
       proven.
     \end{enumerate}
   \item [Case 3:] {\em Invariant IV}
-    \begin{enumerate}
-    \item [Case 3.1:] {\em $R$, $R'$ and $R''$ are not new sets.} Trivially
-      true by induction hypothesis.
-    \item [Case 3.2:] {\em Only one, say $R$, is a new set.}
-      If $R = S_1 \cap S_2$,  from lemma \ref{lem:fourpaths} and
-      invariant III hypothesis,  this case is proven. Similarly if $R$
-      is any of the other new  sets, the case is proven by also using
-      lemma  \ref{lem:setminuscard}.
-    \item [Case 3.3:] {\em At least two of $R, R', R''$ are new sets.}
-      The new sets are disjoint hence this case is vacuously true.
-    \end{enumerate}
+    Due to the condition in line \ref{ln:3waycheck}, invariant IV is
+    ensured at the end of every iteration.
+%     \begin{enumerate}
+%     \item [Case 3.1:] {\em $R$, $R'$ and $R''$ are not new sets.} Trivially
+%       true by induction hypothesis.
+%     \item [Case 3.2:] {\em Only one, say $R$, is a new set.}
+%       If $R = S_1 \cap S_2$,  from lemma \ref{lem:fourpaths} and
+%       invariant III hypothesis,  this case is proven. Similarly if $R$
+%       is any of the other new  sets, the case is proven by also using
+%       lemma  \ref{lem:setminuscard}.
+%     \item [Case 3.3:] {\em At least two of $R, R', R''$ are new sets.}
+%       The new sets are disjoint hence this case is vacuously true.
+%     \end{enumerate}
   \end{enumerate} 
+\end{enumerate} 
 \qed
 
+\begin{lemma}
+  \label{lem:noexit1} In Algorithm \ref{perms}, consider an ICPPL
+  input $(\cF, \cl)$ which is also a feasible path labeling. Then in
+  the execution of the algorithm its exit condition in line
+  \ref{ln:3waycheck}, i.e. failure of three way intersection preservation,
+% in $(\cF_j, \cl_j)$) - will not be true in the $j$th iteration where
+%   $j \ge 0$ and 
+  will not be true in any iteration of the {\em \bf while} loop and the
+  algorithm executes without a premature exit.
+\end{lemma}
+\proof This proof uses mathematical induction on the number of
+iterations $j$, $j \ge 0$, of the {\bf while} loop that executed
+without exiting. The base case, $j = 0$ is obviously true since the
+input is an ICPPL and the exit condition cannot hold true due to ICPPL
+condition (iii).  Assume the algorithm executes till the end of
+$j-1$th iteration without exiting at line \ref{ln:3waycheck}. Consider
+the $j$th iteration. From lemma \ref{lem:feasible} we know that
+$(\cF_j, \cl_j)$ and $(\cF_{j-1}, \cl_{j-1})$ are feasible\remove[AS]{and from the proof in lemma lem:invar1 we know that
+  $(\cF_{j-1}, \cl_{j-1})$ satisfies all the invariants defined in the
+  lemma}.  Thus
+there exists a bijection $\phi: supp(\cF) \rightarrow V(T)$ such that
+the induced path
+%labeling on $\cF_{j-1}$ $\cl_{\phi[\cF_{j-1}]} = \cl_{j-1}$.
+labeling on $\cF_{j}$, $\cl_{\phi[\cF_{j}]}$ and on $\cF_{j-1}$,
+$\cl_{\phi[\cF_{j-1}]}$ are equal to $\cl_{j}$ and $\cl_{j-1}$ respectively.
+We need to prove that for any $R, R', R'' \in \cF_{j}$, $|R \cap R'
+\cap R''| = |\cl_j(R) \cap \cl_j(R') \cap \cl_j(R'')|$. 
 
 \noindent
-As a result of  algorithm \ref{perms} each leaf of $T$ is present in at most
-one path assigned to some set in $\cF$.  In Algorithm \ref{leafasgn} we
-identify elements in $supp(\cF)$ whose images are leaves in feasible path labeling
-if one exists.
-Let vertex $v \in T$ be the unique
-leaf incident on a path image $P$ in $\cl$.  We define a new path
-labeling $\cl_{new}$ such that $\cl_{new}(\{x\}) = \{v\}$ where $x$ an
-arbitrary element from $\cl^{-1}(P) \setminus \bigcup_{\hP \ne P}
-\cl^{-1}(\hP)$. In other words, $x$ is an element present in no other
-set in $\cF$ except $\cl^{-1}(P)$. This is intuitive since $v$ is
-present in no other path image other than $P$.  The element $x$ and
-leaf $v$ are then removed from the set $\cl^{-1}(P)$ and path $P$
-respectively. The tree is pruned off $v$ and the refined set system
-will have $\cl^{-1}(P) \setminus \{x\}$. After doing this for all
-leaves in $T$, all path images in the
-new path labeling $\cl_{new}$ except single leaf labels (the pruned
-out vertex is called the {\em leaf label} for the corresponding set
-item) 
-are paths from the pruned
-tree $T_0 = T \setminus \{v \mid v \text{ is a leaf in }
+The following are the possible cases that could arise. From argument
+above, $|\cl_j(R) \cap \cl_j(R') \cap \cl_j(R'')| =
+|\cl_{\phi[\cF_{j}]}(R) \cap \cl_{\phi[\cF_{j}]} (R') \cap
+\cl_{\phi[\cF_{j}]} (R'')|$
+  \begin{enumerate} % dummy list to get the indendation right.
+  \item []
+    \begin{enumerate}
+    \item [Case 1:] {\em None of the sets are new. $R, R', R'' \in
+        \cF_{j-1}$.}  We know $(\cF_{j-1}, \cl_{j-1})$ is
+      feasible. Thus $|R \cap R' \cap R''| = |\cl_{j-1}(R) \cap
+      \cl_{j-1}(R') \cap \cl_{j-1}(R'')| = |\cl_{j}(R) \cap
+      \cl_{j}(R') \cap \cl_{j}(R'')|$.
+    \item [Case 2:]{\em Only one, say $R$, is a new set.}  Let $R =
+      S_1 \cap S_2$ ($S_1, S_2$ are defined in the proof of lemma
+      \ref{lem:invar1}). Now we have $|R \cap R' \cap R''| = |S_1 \cap
+      S_2 \cap R' \cap R''| = |\cl_{j-1}(S_1) \cap \cl_{j-1}(S_2) \cap
+      \cl_{j-1}(R') \cap \cl_{j-1}(R'')| = |\cl_{j}(R) \cap
+      \cl_{j}(R') \cap \cl_{j}(R'')|$. Thus proven. If $R$ is any of
+      the other new sets, the same claim can be verified using lemma
+      \ref{lem:setminuscard}.
+    %\item []{\bf Case 3:} 
+    \item [Case 3:] {\em At least two of $R, R', R''$ are new sets.}
+      The new sets are disjoint hence this case is vacuously true.
+    \end{enumerate}
+  \end{enumerate}
+\qed
+
+\noindent
+As a result of Algorithm \ref{perms} each leaf $v$ in $T$ is such that
+there is exactly one set in $\cF$ such that $v$ is a node in the path
+assigned to it.  In Algorithm \ref{leafasgn} we identify elements in
+$supp(\cF)$ whose images are leaves in a feasible path labeling if one
+exists.  Let vertex $v \in T$ be the unique leaf incident on a path
+image $P$ in $\cl$.  We define a new path labeling $\cl_{new}$ such
+that $\cl_{new}(\{x\}) = \{v\}$ where $x$ an arbitrary element from
+$\cl^{-1}(P) \setminus \bigcup_{\hP \ne P} \cl^{-1}(\hP)$. In other
+words, $x$ is an element present in no other set in $\cF$ except
+$\cl^{-1}(P)$. This is intuitive since $v$ is present in no other path
+image other than $P$.  The element $x$ and leaf $v$ are then removed
+from the set $\cl^{-1}(P)$ and path $P$ respectively. The tree is
+pruned off $v$ and the refined set system will have $\cl^{-1}(P)
+\setminus \{x\}$ instead of $\cl^{-1}(P)$. After doing this for all
+leaves in $T$, all path images in the new path labeling $\cl_{new}$
+except single leaf labels (the pruned out vertex is called the {\em
+  leaf label} for the corresponding set item) are paths from the
+pruned tree $T_0 = T \setminus \{v \mid v \text{ is a leaf in }
 T\}$. Algorithm \ref{leafasgn} is now presented with details.
 
 
@@ -675,8 +797,8 @@ two path images share a leaf.\\
 \STATE for all $S \in \cF_{j-1}$ such that $S \ne S_1$ set $\cl_j(S) =
 \cl_{j-1}(S)$\\
 \STATE $X = S_1 \setminus \bigcup_{S \in \cF_{j-1}, S \ne S_1}S$\\
-\IF{$X$ is empty} 
-\STATE exit \\
+\label{xempty}\IF{$X$ is empty} 
+\STATE {\bf exit}
 \ENDIF
 \STATE Let $x = $ arbitrary element from $X$\\
 \STATE $\cF_j = \cF_j \cup \{\{x\}, S_1 \setminus \{x\}\} $\\
@@ -686,7 +808,7 @@ two path images share a leaf.\\
 \ENDWHILE
 \STATE $\cF' = \cF_j$\\
 \STATE $\cl' = \cl_j$\\
-\STATE Return $\cF', \cl'$\\
+\STATE {\bf return} $\cF', \cl'$\\
 \end{algorithmic}
 \end{algorithm}
 
@@ -696,22 +818,20 @@ In Algorithm \ref{leafasgn}, for all $j \geq 0$, at the end of the
 $j$th iteration the four invariants given in lemma \ref{lem:invar1}
 are valid.  
 \end{lemma}
-\begin{proof}
-  First we see that $X = S_1 \setminus \bigcup_{S \ne S_1}S$ is
-  non-empty for an ICPPL in every iteration of this algorithm. Suppose
-  $X$ is empty. We know that $v$ is an element of
-  $\cl_{j-1}(S_1)$. Since it is uniquely present in $\cl_{j-1}(S_1)$,
-  it is clear that $v \in \cl_{j-1}(S_1) \setminus \bigcup_{S \in
-    \cF_{j-1}, S \ne S_1}\cl_{j-1}(S)$.  Note that for any $x \in S_1$
-  it is contained in at least two sets due to our assumption about
-  cardinality of $X$. Let $S_2 \in \cF_{j-1}$ be another set that
-  contains $x$. From the above argument, we know $v \notin
-  \cl_{j-1}(S_2)$. Therefore there cannot exist a
-  permutation that maps elements of $S_2$ to $\cl_{j-1}(S_2)$. This
-  contradicts our assumption that this is an ICPPL. Thus $X$ cannot be
-  empty.
-
-  \noindent
+\proof
+  Suppose the input ICPPL is also feasible but $X$ is empty. This will
+  prematurely exit the algorithm and thus prevent us from finding the
+  permutation.  We will now show that this cannot happen. We know that
+  $v$ is an element of $\cl_{j-1}(S_1)$. Since it is uniquely present
+  in $\cl_{j-1}(S_1)$, it is clear that $v \in \cl_{j-1}(S_1)
+  \setminus \bigcup_{S \in \cF_{j-1}, S \ne S_1}\cl_{j-1}(S)$.  Note
+  that for any $x \in S_1$ it is contained in at least two sets due to
+  our assumption about cardinality of $X$. Let $S_2 \in \cF_{j-1}$ be
+  another set that contains $x$. From the above argument, we know $v
+  \notin \cl_{j-1}(S_2)$. Therefore there cannot exist a permutation
+  that maps elements of $S_2$ to $\cl_{j-1}(S_2)$. This contradicts
+  our assumption that the input is feasible. Thus $X$ cannot be empty
+  if input is ICPPL and feasible.
   For the rest of the proof we use mathematical induction on the
   number of iterations $j$. As before, the term ``new sets'' will
   refer to the sets added in $\cF_j$ in the $j$th iteration, i.e. $S_1
@@ -719,10 +839,10 @@ are valid.
   For $\cF_0, \cl_0$ all invariants hold because it is output from
   algorithm \ref{perms} which is an ICPPL. Hence base case is proved.
   Assume the lemma holds for the $j-1$th iteration. Consider $j$th
-  iteration 
-%and any $(P,Q) \in \Pi_j$.
-
+  iteration. 
   \noindent
+  \begin{enumerate} % dummy list to get the indendation right.
+  \item []
   \begin{enumerate}
   \item [Case 1:] {\em Invariant I and II} 
     \begin{enumerate}
@@ -745,12 +865,13 @@ are valid.
     \begin{enumerate}
     \item [Case 2.1:] {\em $R$ and $R'$ are not new sets.} Trivially
       true by induction hypothesis.
-    \item [Case 2.2:] {\em Only one, say $R$, is a new set.} 
-  By definition, $\cl_{j-1}(S_1)$ is the only path with $v$ and $S_1$ the
-  only set with $x$ in the
-  previous iteration, hence $|R' \cap (S_1 \setminus \{x\})| = |R' \cap S_1|$
-  and $|\cl_{j-1}(R') \cap (\cl_{j-1}(S_1) \setminus \{v\})| = |\cl_{j-1}(R') \cap \cl_{j-1}(S_1)|$ and $|R' \cap
-  \{x\}| = 0$, $|\cl_{j-1}(R') \cap \{v\}| = 0$. Thus case proven.
+    \item [Case 2.2:] {\em Only one, say $R$, is a new set.}  By
+      definition, $\cl_{j-1}(S_1)$ is the only path with $v$ and $S_1$
+      the only set with $x$ in the previous iteration, hence $|R' \cap
+      (S_1 \setminus \{x\})| = |R' \cap S_1|$ and $|\cl_{j-1}(R') \cap
+      (\cl_{j-1}(S_1) \setminus \{v\})| = |\cl_{j-1}(R') \cap
+      \cl_{j-1}(S_1)|$ and $|R' \cap \{x\}| = 0$, $|\cl_{j-1}(R') \cap
+      \{v\}| = 0$. Thus case proven.
     \item [Case 2.3:] {\em $R$ and $R'$ are new sets.} By definition,
       the new sets and their path images in path label $l_j$ are
       disjoint so $|R \cap R'| = |l_j(R) \cap l_j(R)| = 0$. Thus case
@@ -760,54 +881,47 @@ are valid.
     \begin{enumerate}
     \item [Case 3.1:] {\em $R$, $R'$ and $R''$ are not new sets.} Trivially
       true by induction hypothesis.
-    \item [Case 3.2:] {\em Only one, say $R$, is a new set.}
-      By the same argument used to
-  prove invariant III, $|R' \cap R'' \cap (S_1
-  \setminus \{x\})| = |R' \cap R'' \cap S_1|$ 
-  and $|\cl_{j-1}(R') \cap \cl_{j-1}(R'') \cap (\cl_{j-1}(S_1)
-  \setminus \{v\})| = |\cl_{j-1}(R') \cap \cl_{j-1}(R'') \cap
-  \cl_{j-1}(S_1)|$. Since $R', R'', S_1$ are all in $\cF_{j-1}$, by
-  induction hypothesis of invariant IV,
-$|R' \cap R'' \cap S_1| = |\cl_{j-1}(R') \cap \cl_{j-1}(R'') \cap
-  \cl_{j-1}(S_1)|$.
-Also, $|R' \cap R'' \cap \{x\}| = |\cl_{j-1}(R') \cap \cl_{j-1}(R'') \cap
-  \{v\}|$ = 0.
+    \item [Case 3.2:] {\em Only one, say $R$, is a new set.}  By the
+      same argument used to prove invariant III, $|R' \cap R'' \cap
+      (S_1 \setminus \{x\})| = |R' \cap R'' \cap S_1|$ and
+      $|\cl_{j-1}(R') \cap \cl_{j-1}(R'') \cap (\cl_{j-1}(S_1)
+      \setminus \{v\})| = |\cl_{j-1}(R') \cap \cl_{j-1}(R'') \cap
+      \cl_{j-1}(S_1)|$. Since $R', R'', S_1$ are all in $\cF_{j-1}$,
+      by induction hypothesis of invariant IV, $|R' \cap R'' \cap S_1|
+      = |\cl_{j-1}(R') \cap \cl_{j-1}(R'') \cap \cl_{j-1}(S_1)|$.
+      Also, $|R' \cap R'' \cap \{x\}| = |\cl_{j-1}(R') \cap
+      \cl_{j-1}(R'') \cap \{v\}|$ = 0.
     \item [Case 3.3:] {\em At least two of $R, R', R''$ are new sets.}
-      If two or more of them are not in $\cF_{j-1}$, then it can
-  be verified that $|R
-  \cap R' \cap R''| = |\cl_j(R) \cap \cl_j(R') \cap \cl_j(R'')|$ since the new sets
-  in $\cF_j$ are either disjoint or as follows: assuming $R, R'
-  \notin \cF_{j-1}$ and new sets are derived from $S_1, S_2 \in
-  \cF_{j-1}$ with $x_1, x_2$
-  exclusively in $S_1, S_2$, $\cl_j(\{x_1\})=\{v_1\},
-  \cl_j(\{x_2\}) = \{v_2\}$ where $
-  \{x_1\}, \{x_2\} \in \cF_j $ thus $v_1, v_2$ are exclusively in
-  $\cl_j(\{x_1\})$, $\cl_j(\{x_2\})$ respectively. It 
-  follows that
-  $|R
-  \cap R' \cap R''| =$ $ |(S_1 \setminus \{x_1\}) \cap (S_2 \setminus
-  \{x_2\}) \cap R''| =$ $ |S_1 \cap S_2 \cap R''| = $ $|\cl_{j-1}(S_1) \cap
-  \cl_{j-1}(S_2) \cap \cl_{j-1}(R'')|
-  = |(\cl_{j-1}(S_1) \setminus \{v_1\}) \cap (\cl_{j-1}(S_2) \setminus
-  \{v_2\}) \cap \cl_{j-1}(R'')| =
-  |\cl_j(R)
-  \cap \cl_j(R') \cap \cl_j(R'')|$. Thus invariant
-  IV is also proven.\\
-% $|P_1
-%   \cap P_2 \cap P_3| = |(P' \setminus \{x_1\}) \cap (P'' \setminus
-%   \{x_2\}) \cap P_3| = |P' \cap P'' \cap P_3| = |Q' \cap Q'' \cap Q_3|
-%   = |(Q' \setminus \{v_1\} \cap Q'' \setminus \{v_2\} \cap Q_3| =
-%   |Q_1 \cap Q_2 \cap Q_3|$. Thus invariant
-%   IV is also proven.\\
-%   ******** END PROOF NOT CLEAR TBD *******
+      If two or more of them are not in $\cF_{j-1}$, then it can be
+      verified that $|R \cap R' \cap R''| = |\cl_j(R) \cap \cl_j(R')
+      \cap \cl_j(R'')|$ since the new sets in $\cF_j$ are
+      disjoint \annote[AS]{}{The following is not
+        correct. While loop only handles one leaf at a
+        time.} \remove[AS]{ or as follows: assuming $R, R' \notin
+        \cF_{j-1}$ and new sets are derived from $S_1, S_2 \in
+        \cF_{j-1}$ with $x_1, x_2$ exclusively in $S_1, S_2$,
+        $\cl_j(\{x_1\})=\{v_1\}, \cl_j(\{x_2\}) = \{v_2\}$ where $
+        \{x_1\}, \{x_2\} \in \cF_j $ thus $v_1, v_2$ are exclusively
+        in $\cl_j(\{x_1\})$, $\cl_j(\{x_2\})$ respectively. It follows
+        that $|R \cap R' \cap R''| =$ $ |(S_1 \setminus \{x_1\}) \cap
+        (S_2 \setminus \{x_2\}) \cap R''| =$ $ |S_1 \cap S_2 \cap R''|
+        = $ $|\cl_{j-1}(S_1) \cap \cl_{j-1}(S_2) \cap \cl_{j-1}(R'')|
+        = |(\cl_{j-1}(S_1) \setminus \{v_1\}) \cap (\cl_{j-1}(S_2)
+        \setminus \{v_2\}) \cap \cl_{j-1}(R'')| = |\cl_j(R) \cap
+        \cl_j(R') \cap \cl_j(R'')|$}. Thus invariant IV is also
+      proven.
     \end{enumerate}
   \end{enumerate} 
+  \end{enumerate} 
 \qed
-\end{proof}
+
 
 \noindent
-Using algorithms \ref{perms} and \ref{leafasgn} we prove the following
-theorem.
+We have seen two filtering algorithms above - algorithms \ref{perms}
+and \ref{leafasgn}. We also proved that if the input is indeed
+feasible, these algorithms do not exit prematurely and succesfully
+filters the input keeping the ICPPL conditions intact.
+Using these algorithms we now prove the following theorem.
 
 \begin{theorem}
 \label{th:perm}
@@ -815,15 +929,16 @@ theorem.
   isomorphism $\phi : supp(\cF) \rightarrow supp(\cF^\cl)$ such that
   the $\phi$-induced tree path labeling is equal to $\cl$, $\cl_\phi = \cl$.
 \end{theorem}
-\proof
-This is a contructive proof. We find $\phi$ part by part by running
-algorithms \ref{perms} and \ref{leafasgn} one after the other
-in a loop. After each iteration we find a part of $\phi$, namely
-that which involves all the leaves of the tree in that iteration. Then the
-tree is pruned off all its leaves before the next iteration. The loop
-terminates when the tree becomes a single path after which ICPIA algorithm is
-used to find the final part (interval assignment) of $\phi$. This is the brief outline of the
-algorithm and now we describe it in detail below.
+\proof This is a contructive proof. We find $\phi$ part by part by
+running algorithms \ref{perms} and \ref{leafasgn} one after the other
+in a loop. After each iteration we calculate an exclusive subset of
+the bijection $\phi$, namely that which involves all the leaves of the
+tree in that iteration. Then all the leaves are pruned off the tree
+before the next iteration. The loop terminates when the pruned tree
+becomes a single path after which ICPIA algorithm is used to find the
+final subset (interval assignment) that exhausts $\phi$. This is
+the brief outline of the algorithm and now we describe it in detail
+below.
 %The algorithm is presented as follows.
 % \begin{algorithm}[h]
 % \caption{find the tree path bijection of ICPPL ($\cF$, $\cl$) on given
@@ -838,25 +953,20 @@ algorithm and now we describe it in detail below.
 %   by calling algorithm \ref{leafassign}
 %   \STATE 
   
-
-
 % \ENDWHILE
 
 % \end{algorithmic}
 % \end{algorithm}
 \noindent
-First, the given ICPPL $(\cF, \cl)$ and tree $T$
-are given as input to Algorithm 
-\ref{perms}. This yields a ``filtered'' ICPPL as the output which is
-input to Algorithm \ref{leafasgn}.
-Let the output of Algorithm \ref{leafasgn} be $(\cF',\cl')$. We define a
-bijection $\phi_1: Y_1 \rightarrow L_1$ 
-where $Y_1 \subseteq supp(\cF)$ and $V_1 = \{v \mid v \text{ is a leaf
-in } $T$\}$.
-It can be observed that the output of Algorithm \ref{leafasgn} is a set of path
-assignments to sets and one-to-one assignment of elements of $U$ to
-each leaf of $T$. These are defined below as $\cl_1$ and $\phi_1$
-respectively. 
+First, the given ICPPL $(\cF, \cl)$ and tree $T$ are given as input to
+Algorithm \ref{perms}. This yields a ``filtered'' ICPPL as the output
+which is input to Algorithm \ref{leafasgn}.  Let the output of
+Algorithm \ref{leafasgn} be $(\cF',\cl')$. We define a bijection
+$\phi_1: Y_1 \rightarrow L_1$ where $Y_1 \subseteq supp(\cF)$ and $V_1
+= \{v \mid v \text{ is a leaf in } $T$\}$.  It can be observed that
+the output of Algorithm \ref{leafasgn} is a set of path assignments to
+sets and one-to-one assignment of elements of $U$ to each leaf of
+$T$. These are defined below as $\cl_1$ and $\phi_1$ respectively.
 \vspace{-3mm}
 \begin{align*}
   \cl_1(S) &= \cl'(S) &\text{ when $\cl'(S)$ has non leaf vertices} \\
@@ -1584,6 +1694,7 @@ colleagues who helped us with the readability of this document.
 \section{Detailed proofs}
 {\bf Proof of Lemma \ref{lem:setminuscard}}\\
 \begin{proof}
+  Let $P_i = \cl(S_i)$, for all $1 \le i \le  3$.
   $|S_1 \cap (S_2 \setminus S_3)| = |(S_1 \cap S_2) \setminus S_3| =
   |S_1 \cap S_2| - |S_1 \cap S_2 \cap S_3|$. Due to conditions (ii)
   and (iii) of ICPPL, $|S_1 \cap S_2| - |S_1 \cap S_2 \cap S_3| = |P_1

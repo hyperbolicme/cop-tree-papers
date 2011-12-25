@@ -1,0 +1,36 @@
+
+
+
+DONE ######### add a note on why we are working with only a single overlap component. 
+we also allow components that are contained in this component but none that is disjoint from it.
+ what we do is take all inclusion maximal sets. create overlap graph. this MUST be just one component. i.e.  we consider the case where the other overlap component are contained in this main component, disjointnesss is not allowed
+or we only consider a single component with the subtree being a kstar.  
+ok...we need to put that in ..without killing the reader  
+
+
+DONE ########## modify theorem 1...
+why say all that part by part..
+why not say...
+we assign a leaf to an element of the set system....such that blah blah..and consider the recursive subproblem in which...we have an icppl...  
+and run it through al1 and alg2
+
+can you not recursively specify what the algorithm does...
+identify leaves..
+identify the elements in a single set
+define \phi on them..
+remove...
+recursive instance of U,T,ICPPL'
+
+
+DONE ###### and then  
+introduce the icpia and its salient features
+then use icpia on each ray..
+
+you could before the section 4 mention that the results of secitn 3 are more general to the ICPIA studied...andmentionin what way they are more general
+a. only airwise intersection cardinality
+b. target tree is ap ath
+c. no exit at all for icpia..  
+d. we use this in the following section.
+ and refer to it as ICPIA blah blah
+
+

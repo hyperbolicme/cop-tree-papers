@@ -1,0 +1,34 @@
+Subject:
+LATIN 2012 notification for paper 154
+From:
+LATIN 2012 <latin2012@easychair.org>
+Date:
+Fri, 25 Nov 2011 17:58:58 +0000
+To:
+Anju Srinivasan <anjuzabil@gmail.com>
+
+Dear author,
+
+The review process for LATIN 2012 has been a delicate and challenging task for the committee.  Each 
+paper was carefully evaluated by at least three referees; in most cases, there were at least four.  After 
+the reviews were turned in, a vigorous discussion ensued.  
+
+In an effort to balance the program by attempting to cover the major areas of current interest and also 
+to maximize the number of people participating in the conference, many very good papers had to be 
+rejected.  In the end, out of 153 submissions received, we could only accept 55.  I regret to inform you 
+that your paper,
+
+  Tree Path Labeling of Path Hypergraphs – A Generalization of the Consecutive Ones Property
+
+was not one of those accepted.
+
+Time constraints did not permit referees to make extensive comments on each paper. If comments were 
+made that we believe would be beneficial to the authors, they will be sent in the coming days.
+
+On behalf of the Program Committee I would like to thank you for your submission to and support of 
+LATIN.
+
+Sincerely,
+
+-- David Fernández-Baca
+   LATIN 2012 Program Chair

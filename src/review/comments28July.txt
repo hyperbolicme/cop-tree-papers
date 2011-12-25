@@ -1,0 +1,10 @@
+** Page 4 - {Should this be expanded in Appendix?}
+*Wasn't obvious to me at first but proof is simple once worked out. should we have it in the appendix?
+
+
+** why do we need lemma 3? since we added ICPPL exit condition in algo 1
+
+** The following is not correct. While loop only handles one leaf at a time.
+
+
+
