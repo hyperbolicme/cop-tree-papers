@@ -1323,25 +1323,25 @@ These lemmas now are used to prove the following theorem.
   If the algorithm outputs a path labeling $\cl$, then it is clear
   that it is an ICPPL. The reason is that the algorithm checks that
   three-way intersection cardinalities are preserved in each iteration
-  which ensures ICPPL \icpplpr~\ref{pr:iii}. Moreover, it is clear that
-  $\cl(X)$ for any $X \in \cO$ is computed by maintaining
-  ICPPL \icpplpr~\ref{pr:i} and ICPPL \icpplpr~\ref{pr:ii}. For such a labeling
-  $\cl$, the proof that it is feasible is by induction on $k$. What
-  needs to be shown is that Algorithm~\ref{al:icppl-find-isomorph}
-  successfully runs on input $(\cO, \cl)$. In base case $k=0$, $T$ is
-  a star. Also every set is at most size 2 ($k+2$) size and thus
-  overlaps are at most 1. If two paths share a leaf in {\tt filter\_1}
-  one must be of length 2 and the other of length 1. Thus the exit
-  condition is not met. Now it is trivial that the exit condition in
-  {\tt filter\_2} is also not met. Thus claim proven for base case.
-  Now assume the claim to be true when target tree is a
-  $(k-1)$-subdivided star. Consider the case of a $k$-subdivided
-  star. It is clear that after {\tt filter\_1} and one iteration of
-  {\tt filter\_2}, the leaves are assigned pre-images.  Removing the
-  leaves from $T$ and the pre-images from support of $\cO$, results in
-  an ICPPL to a $(k-1)$-subdivided star.  Now we apply the induction
-  hypothesis, and we get a isomorphism between the hypergraph $\cO$
-  and $\cO^\cl$.
+  which ensures ICPPL \icpplpr~\ref{pr:iii}. Moreover, it is clear
+  that $\cl(X)$ for any $X \in \cO$ is computed by maintaining ICPPL
+  \icpplpr~\ref{pr:i} and ICPPL \icpplpr~\ref{pr:ii}. For such a
+  labeling $\cl$, the proof that it is feasible is by induction on
+  $k$. What needs to be shown is that
+  Algorithm~\ref{al:icppl-find-isomorph} successfully runs on input
+  $(\cO, \cl)$. In base case $k=0$, $T$ is a star. Also every set is
+  at most size 2 ($k+2$) size and thus overlaps are at most 1. If two
+  paths share a leaf in {\tt filter\_1} one must be of length 2 and
+  the other of length 1. Thus the exit condition is not met. Further,
+  it is also clear that the exit condition in {\tt filter\_2} is also
+  not met. Thus claim proven for base case.  Now assume the claim to
+  be true when target tree is a $(k-1)$-subdivided star. Consider the
+  case of a $k$-subdivided star.  We can show that after {\tt
+    filter\_1} and one iteration of a modified {\tt filter\_2} {\em
+    all} leaves are assigned pre-images.  Removing the leaves from $T$
+  and the pre-images from support of $\cO$, results in an ICPPL to a
+  $(k-1)$-subdivided star.  Now we apply the induction hypothesis, and
+  we get an isomorphism between the hypergraphs $\cO$ and $\cO^\cl$.
 
   \noindent
   In the reverse direction if there is a feasible path labeling $\cl$,

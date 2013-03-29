@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2008.1.10)  5 MAY 2011 07:15
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2008.1.10)  31 DEC 2011 11:26
 entering extended mode
  file:line:error style messages enabled.
  %&-line parsing enabled.
@@ -294,7 +294,7 @@ LaTeX Info: Redefining \cite on input line 602.
 )
 \c@observation=\count137
 
-(./cop-logspace-wdoc__submittedversion.aux)
+No file cop-logspace-wdoc__submittedversion.aux.
 \openout1 = `cop-logspace-wdoc__submittedversion.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 145.
@@ -309,7 +309,6 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 145.
 LaTeX Font Info:    ... okay on input line 145.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 145.
 LaTeX Font Info:    ... okay on input line 145.
-
 (/usr/local/texlive/2007/texmf-dist/tex/context/base/supp-pdf.tex
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count138
@@ -335,106 +334,87 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 160.
 
 (/usr/local/texlive/2007/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2002/01/19 v2.2g AMS font definitions
-) [1
+)
 
-{/usr/local/texlive/2007/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Warning: Command \O invalid in math mode on input line 285.
+Package natbib Warning: Citation `hl06' on page 1 undefined on input line 175.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 284--288
-
- []
+Package natbib Warning: Citation `k77' on page 1 undefined on input line 175.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 289--293
-
- []
+Package natbib Warning: Citation `abh98' on page 1 undefined on input line 175.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 301--305
 
- []
-
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 318--323
-
- []
+Package natbib Warning: Citation `mcg04' on page 1 undefined on input line 176.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 324--332
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 333--337
-
- []
+Package natbib Warning: Citation `ht02' on page 1 undefined on input line 177.
 
 
-LaTeX Warning: Command \O invalid in math mode on input line 383.
+Package natbib Warning: Citation `hl06' on page 1 undefined on input line 177.
 
 
-LaTeX Warning: Command \O invalid in math mode on input line 385.
+Package natbib Warning: Citation `bl76' on page 1 undefined on input line 179.
 
 
-LaTeX Warning: Command \O invalid in math mode on input line 394.
+Package natbib Warning: Citation `mm09' on page 1 undefined on input line 180.
 
 
-LaTeX Warning: Command \O invalid in math mode on input line 394.
-
-[3] [4] [5] [6]
-
-LaTeX Warning: Command \O invalid in math mode on input line 719.
+Package natbib Warning: Citation `wlh01' on page 1 undefined on input line 180.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 701--732
 
- []
+Package natbib Warning: Citation `wlh02' on page 1 undefined on input line 180.
 
-[7] [8] [9]
 
-LaTeX Warning: Command \l invalid in math mode on input line 920.
 
-(./cop-logspace-wdoc__submittedversion.bbl [10]) [11
+Package natbib Warning: Citation `mcc04' on page 1 undefined on input line 180.
 
-]
-(./cop-logspace-wdoc__submittedversion.aux) ) 
+
+
+Package natbib Warning: Citation `nsnrs09' on page 1 undefined on input line 18
+0.
+
+
+Package natbib Warning: Citation `nsnrs09' on page 1 undefined on input line 19
+1.
+
+
+Package natbib Warning: Citation `nsnrs09' on page 1 undefined on input line 19
+3.
+
+
+Package natbib Warning: Citation `wlh02' on page 1 undefined on input line 199.
+
+
+
+Package natbib Warning: Citation `nsnrs09' on page 1 undefined on input line 21
+0.
+
+
+Package natbib Warning: Citation `nsnrs09' on page 1 undefined on input line 21
+5.
+
+./cop-logspace-wdoc__submittedversion.tex:217: I can't write on file `cop-logsp
+ace-wdoc__submittedversion.pdf'.
+Please type another file name for output
+./cop-logspace-wdoc__submittedversion.tex:217: Emergency stop.
+<to be read again> 
+                   \endgroup \set@typeset@protect 
+l.217 \noindent
+               
+*** (job aborted, file error in nonstop mode)
+
+ 
 Here is how much of TeX's memory you used:
- 2979 strings out of 94073
- 35634 string characters out of 1162984
- 100624 words of memory out of 1500000
- 6213 multiletter control sequences out of 10000+50000
- 12023 words of font info for 49 fonts, out of 1200000 for 2000
+ 2910 strings out of 94073
+ 34769 string characters out of 1162984
+ 95064 words of memory out of 1500000
+ 6155 multiletter control sequences out of 10000+50000
+ 11318 words of font info for 47 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
- 32i,13n,30p,1217b,467s stack positions out of 5000i,500n,6000p,200000b,5000s
-</usr/local/texlive/2007/texmf-dis
-t/fonts/type1/bluesky/cm/cmbx10.pfb></usr/local/texlive/2007/texmf-dist/fonts/t
-ype1/bluesky/cm/cmbx12.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/blue
-sky/cm/cmbx9.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmb
-xti10.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmex10.pfb
-></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmmi10.pfb></usr/lo
-cal/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmmi5.pfb></usr/local/texliv
-e/2007/texmf-dist/fonts/type1/bluesky/cm/cmmi6.pfb></usr/local/texlive/2007/tex
-mf-dist/fonts/type1/bluesky/cm/cmmi7.pfb></usr/local/texlive/2007/texmf-dist/fo
-nts/type1/bluesky/cm/cmmi9.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/
-bluesky/cm/cmr10.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm
-/cmr5.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmr6.pfb><
-/usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmr7.pfb></usr/local/
-texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmr9.pfb></usr/local/texlive/200
-7/texmf-dist/fonts/type1/bluesky/cm/cmsy10.pfb></usr/local/texlive/2007/texmf-d
-ist/fonts/type1/bluesky/cm/cmsy6.pfb></usr/local/texlive/2007/texmf-dist/fonts/
-type1/bluesky/cm/cmsy7.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/blue
-sky/cm/cmsy9.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmt
-i10.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmti9.pfb></
-usr/local/texlive/2007/texmf-dist/fonts/type1/bluesky/cm/cmtt9.pfb></usr/local/
-texlive/2007/texmf-dist/fonts/type1/public/cmex/fmex9.pfb></usr/local/texlive/2
-007/texmf-dist/fonts/type1/bluesky/ams/msam10.pfb></usr/local/texlive/2007/texm
-f-dist/fonts/type1/bluesky/ams/msbm10.pfb>
-Output written on cop-logspace-wdoc__submittedversion.pdf (11 pages, 202742 byt
-es).
-PDF statistics:
- 140 PDF objects out of 1000 (max. 8388607)
- 0 named destinations out of 1000 (max. 131072)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+ 32i,5n,24p,1217b,175s stack positions out of 5000i,500n,6000p,200000b,5000s
+./cop-logspace-wdoc__submittedversion.tex:217:  ==> Fatal error occurred, no ou
+tput PDF file produced!

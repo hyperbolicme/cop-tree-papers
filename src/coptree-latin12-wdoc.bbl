@@ -1,14 +1,9 @@
 \begin{thebibliography}{KKLV10}
 
 \bibitem[ABH98]{abh98}
-Atkins, Boman, and Hendrickson.
+J.~E. Atkins, E.~G. Boman, and B.~Hendrickson.
 \newblock A spectral algorithm for seriation and the consecutive ones problem.
 \newblock {\em SICOMP: SIAM Journal on Computing}, 28, 1998.
-
-\bibitem[APY92]{apy92}
-Barry~Peyton Alex, Alex Pothen, and Xiaoqing Yuan.
-\newblock A clique tree algorithm for partitioning a chordal graph into
-  transitive subgraphs, 1992.
 
 \bibitem[BL76]{bl76}
 Kellogg~S. Booth and George~S. Lueker.
@@ -17,12 +12,17 @@ Kellogg~S. Booth and George~S. Lueker.
 \newblock {\em Journal of Computer and System Sciences}, 13(3):335--379,
   December 1976.
 
-\bibitem[BP93]{bp93}
+\bibitem[BLS99]{bls99}
+Andreas Brandst\"{a}dt, Van~Bang Le, and Jeremy~P. Spinrad.
+\newblock {\em Graph classes: a survey}.
+\newblock Society for Industrial and Applied Mathematics, Philadelphia, PA,
+  USA, 1999.
+
+\bibitem[BP92]{bp93}
 J.~R.~S. Blair and B.~Peyton.
 \newblock An introduction to chordal graphs and clique trees.
-\newblock In A.~George, J.~R. Gilbert, and J.~H.~U. Liu, editors, {\em Graph
-  Theory and Sparse Matrix Computations}, pages 1--29, New York, 1993.
-  Springer.
+\newblock Technical report, Oak Ridge National Laboratory, Oak Ridge, Tennessee
+  37831, 1992.
 
 \bibitem[Gav78]{gav78}
 Fanica Gavril.
@@ -64,20 +64,10 @@ Johannes K{\"o}bler, Sebastian Kuhnert, Bastian Laubner, and Oleg Verbitsky.
 \newblock {\em Electronic Colloquium on Computational Complexity (ECCC)},
   17:43, 2010.
 
-\bibitem[KM02]{km02}
-P.~S. Kumar and CEV Madhavan.
-\newblock Clique tree generalization and new subclasses of chordal graphs.
-\newblock pages 109--131, 2002.
-
 \bibitem[Kou77]{k77}
 Lawrence~T. Kou.
 \newblock Polynomial complete consecutive information retrieval problems.
 \newblock {\em SIAM Journal on Computing}, 6(1):67--75, March 1977.
-
-\bibitem[Lin92]{sl92}
-Steven Lindell.
-\newblock A logspace algorithm for tree canonization (extended abstract).
-\newblock In {\em STOC}, pages 400--404. ACM, 1992.
 
 \bibitem[McC04]{mcc04}
 Ross~M. McConnell.
@@ -96,11 +86,6 @@ N.~S. Narayanaswamy and R.~Subashini.
 \newblock A new characterization of matrices with the consecutive ones
   property.
 \newblock {\em Discrete Applied Mathematics}, 157(18):3721--3727, 2009.
-
-\bibitem[Rei84]{rei84}
-John~H. Reif.
-\newblock Symmetric complementation.
-\newblock {\em JACM: Journal of the ACM}, 31(2):401--421, 1984.
 
 \bibitem[Ren70]{plr70}
 Peter~L. Renz.
