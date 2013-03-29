@@ -1,0 +1,34 @@
+\documentclass{article}
+
+
+\usepackage{coptreefigures}
+\usepackage{tikz}
+\usetikzlibrary{backgrounds, positioning, fit,%
+                shapes.geometric, shapes.misc%
+               }
+
+
+
+
+\begin{document}
+
+\begin{figure}[htb]
+  \centering
+
+  \begin{tabular}[t]{c}
+
+    \ksubstartplTree\\
+
+   \ksubstartplHypergraph\\
+  \end{tabular}
+
+  \caption{$k$-subdivided star tree path labeling example.}
+  \label{fig:ksubstartpl}
+\end{figure}
+
+Path label $P_i$ maps to set $S_i$. Blue sets are marginal sets. Red
+sets are the ones that get labeled in phase 2 and green ones get
+resolved in phase 3.
+
+
+\end{document}

@@ -1,0 +1,141 @@
+\documentclass{article}
+\usepackage{coptreefigures}
+
+
+
+
+\usepackage{tikz}
+%\usepackage{pgflibraryshapes}
+\usetikzlibrary{arrows,%
+                decorations.pathreplacing,%
+                backgrounds,positioning,%
+                fit,%
+                petri,%
+                shapes.geometric,%
+                shapes.misc,%
+                spy,%
+                trees,%
+                calc,%
+                matrix
+              }
+
+
+
+\def\xsetofvertices{1,2,...,7}
+
+\def\setofvertexpointsRI{0.25/0.5/1, 0.5/1.0/2, 0.75/1.5/3, 1.0/2.0/4,
+  1.25/2.5/5, 1.5/3.0/6, 1.75/3.5/7, 2.0/4.0/8, 2.25/4.5/9,
+  2.5/5.0/10, 2.75/5.5/11}  
+
+\def\setofvertexpointsRII{0/0.5/1, 0/1.0/2, 0/1.5/3, 0/2.0/4,
+  0/2.5/5, 0/3.0/6, 0/3.5/7, 0/4.0/8, 0/4.5/9,
+  0/5.0/10, 0/5.5/11}  
+
+\def\xsetofvertexpointsRII{0/1, 0/2, 0/3, 0/4, 0/5, 0/6,
+  0/7, 0/8, 0/9, 0/10, 0/11} 
+
+\def\xsetofvertexpointsRIII{\setofvertexpointsRI} 
+\def\xxsetofvertexpointsRIII{0.25/0.5/1, 0.5/1.0/2, 0.75/1.5/3, 1.0/2.0/4,
+  1.25/2.5/5, 1.5/3.0/6, 1.75/3.5/7, 2.0/4.0/8, 2.25/4.5/9,
+  2.5/5.0/10, 2.75/5.5/11}  
+
+
+\def\plabelsRI{
+    {(RIv11)(RIv10)(RIv9)(RIv8)             /(p1) /8pt /blue} ,% 
+    {(RIv10)(RIv9)(RIv8)(RIv7)              /(p2) /4pt /red}%,%
+%     {(RIv9)(RIv8)(RIv7)(RIv6)(RIv5)(RIv4)   /(p3) /6pt /red},
+%     {(RIv11)(RIv10)(RIv9)(RIv8)(RIv7)(RIv6) /(p4) /2pt /blue},
+%     {(RIv5)(RIv4)(RIv3)(RIv2)               /(p5) /2pt /red}
+    }
+
+% \def\plabelsRII{
+%     {(RIIv11)(RIIv10)(RIIv9)(RIIv8)             /(p6) /8pt /blue},% 
+%     {(RIIv10)(RIIv9)(RIIv8)(RIIv7)              /(p7) /4pt /red},%
+%     {(RIIv9)(RIIv8)(RIIv7)(RIIv6)(RIIv5)(RIIv4)   /(p8) /6pt /red},
+%     {(RIIv11)(RIIv10)(RIIv9)(RIIv8)(RIIv7)(RIIv6) /(p9) /2pt /blue}%,
+%    }
+
+%     {(RIv11)(RIv10)(RIv9)(RIv8)(RIv7)(RIv6) /(p10) /2pt /blue},
+%     {(RIv11)(RIv10)(RIv9)(RIv8)(RIv7)(RIv6) /(p11) /2pt /blue},
+%     {(RIv11)(RIv10)(RIv9)(RIv8)(RIv7)(RIv6) /(p12) /2pt /blue},
+%     {(RIv11)(RIv10)(RIv9)(RIv8)(RIv7)(RIv6) /(p13) /2pt /blue},
+%     {(RIv11)(RIv10)(RIv9)(RIv8)(RIv7)(RIv6) /(p14) /2pt /blue},
+%     {(RIv11)(RIv10)(RIv9)(RIv8)(RIv7)(RIv6) /(p15) /2pt /blue},
+%     {(RIv11)(RIv10)(RIv9)(RIv8)(RIv7)(RIv6) /(p16) /2pt /blue},
+%     {(RIv11)(RIv10)(RIv9)(RIv8)(RIv7)(RIv6) /(p17) /2pt /blue},
+
+
+
+\def\ksubstartpl{%
+  $T$:\\
+
+}%
+
+
+
+
+
+
+
+
+\begin{document}
+
+
+\begin{figure}[htb]
+  \centering
+
+%  \ksubstartpl
+  \begin{tikzpicture}[every node/.style={circle,inner
+      sep=2pt,fill}]% =gray!80}] %
+
+    %% DRAW TREE
+    \draw (0,0) node (root) {}%
+      \foreach \x/\y/\n in \setofvertexpointsRI {%
+        -- (-\x,-\y) node (RIv\n) {}%{$a_{\y}$}
+      }% 
+    ;% 
+
+    \draw (0,0)%
+      \foreach \x/\y/\n in \setofvertexpointsRII {%
+        -- (\x,-\y) node (RIIv\n) {}%{$b_{\y}$}
+      }% 
+    ;% 
+
+    \draw (0,0)% RIII is a mirror image of RI
+      \foreach \x/\y/\n in \setofvertexpointsRI {%
+        -- (\x,-\y) node (RIIIv\n) {}%{$c_{\y}$}
+      }% 
+    ;% 
+
+    \draw (root) node[fill=none, above=2pt] {$r$};
+   
+
+
+    %% DRAW PATH LABELS
+    \begin{pgfonlayer}{background}
+
+     \foreach \pvertices/\pname/\sep/\pcolor in \plabelsRI {%      
+        \node[rectangle, rounded corners=6pt, rotate fit=64,%
+            inner sep=\sep, fill=\pcolor!30, opacity=0.3, draw,% 
+            fit = \pvertices] (\pname) {}; %
+     }
+%      \foreach \pvertices/\pname/\sep/\pcolor in \plabelsRII {%      
+%         \node[rectangle, rounded corners=6pt, rotate fit=90,%
+%             inner sep=\sep, fill=\pcolor!30, opacity=0.3, draw,% 
+%             fit = \pvertices] (\pname) {}; %
+%      }
+
+    \end{pgfonlayer}
+
+
+
+
+  \end{tikzpicture}
+
+  \caption{$k$-subdivided star tree path labeling example.}
+  \label{fig:ksubstartpl}
+\end{figure}
+
+
+
+\end{document}

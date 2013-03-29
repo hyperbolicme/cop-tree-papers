@@ -1,0 +1,42 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{coptreefigures} [2012/02/28]
+
+
+\usepackage{tikz}
+%\usepackage{pgflibraryshapes}
+\usetikzlibrary{arrows,%
+                decorations.pathreplacing,%
+                backgrounds,positioning,%
+                fit,%
+                petri,%
+                shapes.geometric,%
+                shapes.misc,%
+                spy,%
+                trees,%
+                calc,%
+                matrix
+              }
+
+
+
+\def\graphici{%
+  $G_1$:\\ 
+  \begin{tikzpicture}[every node/.style={circle,inner
+      sep=1pt,fill=gray!80}] %
+    % Using tree mode of drawing to avoid coordinate coding
+    \node{$v_5$}%
+      child{node (v3){$v_3$}%
+        child{node (v4){$v_4$}}%
+        child{node {}}% DUMMY to make alignment work
+      }%
+      child{node (v1){$v_1$}%
+        child{node (v2){$v_2$}}%
+        child{node (v6){$v_6$}}%
+      }%
+      ;%
+
+      \draw (v3)--(v1);%
+      \draw (v2)--(v4);%     
+      \draw (v2)--(v6);%
+  \end{tikzpicture}
+}%

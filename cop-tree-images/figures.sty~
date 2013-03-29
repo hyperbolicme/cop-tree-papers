@@ -1,0 +1,18 @@
+\usepackage{tikz}
+%\usepackage{pgflibraryshapes}
+\usetikzlibrary{arrows,%
+                decorations.pathreplacing,%
+                backgrounds,positioning,%
+                fit,%
+                petri,%
+                shapes.geometric,%
+                shapes.misc,%
+                spy,%
+                trees,%
+                calc,%
+                matrix
+              }
+
+
+
+\def\

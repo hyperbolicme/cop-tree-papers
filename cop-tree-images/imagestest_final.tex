@@ -1,0 +1,237 @@
+\documentclass{article}
+
+
+\usepackage{coptreefigures}
+\usepackage{tikz}
+\usetikzlibrary{backgrounds, positioning, fit,%
+                shapes.geometric, shapes.misc%
+               }
+
+\def\labelsize{\small}
+
+
+\begin{document}
+
+% \begin{figure}[htb]
+%   \centering
+
+%   \begin{tabular}[t]{c}
+
+%    % \ksubstartplTree\\
+%    \ksubstartplMarginalSetOnTree\\
+
+% %    \ksubstartplHypergraph\\
+%     \ksubstartplMarginalSetOnHypergraph\\\\
+
+%     \ksubstartplTreeStepIV\\
+
+%   \end{tabular}
+
+%   \caption{$k$-subdivided star tree path labeling example. (a) marginal
+%     sets $S_1$ and $S_4$. The latter is super marginal. (b) $P_{17}$
+%     is a partial labeled path that gets resolved in Step 4.}
+%   \label{fig:ksubstartpl}
+% \end{figure}
+
+$k$-subdivided star tree path labeling example. The convention used is, path label $P_i$ maps to set $S_i$. 
+
+\pagestyle{empty}
+\begin{figure}[htb]
+  \centering
+
+  \begin{tabular}[t]{c}
+    \ksubstartplMarginalSetOnTree\\\\
+    \hline\\\\
+    \ksubstartplMarginalSetOnHypergraph
+  \end{tabular}
+
+  \caption{\labelsize \textbf{Step 1:} The sets in shades of red are marginal
+    sets: $S_1, S_4, S_6, S_7, S_{12}, S_{10}$. The maximal sets among
+    them, $S_4, S_7, S_{10}$, are super-marginal. They are assigned to
+  the paths with leaves as shown above, in Step 1. The green
+  sets are the ones involved in illustrating the single
+  inclusion chain that characterizes marginal sets. Gray sets are not
+  involved in this step.}
+  \label{fig:ksubstartpl-StepI}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+
+  \begin{tabular}[t]{c}
+    \ksubstartplSaturatingRaysOnTree\\\\
+    \hline\\\\
+    \ksubstartplSaturatingRaysHypergraph
+  \end{tabular}
+
+  \caption{\labelsize \textbf{Step 2:} The sets in shades of red are the
+    overlapping sets that saturate each of the rays. All sets except
+    $S_{14}, S_{15}, S_{17}$ are assigned paths as shown. The ones not
+    assigned must proceed with partial labeling in Step 3. Gray sets
+    are not involved in this step.}
+  \label{fig:ksubstartpl-StepII}
+\end{figure}
+
+After Step 2 shown in Figure~\ref{fig:ksubstartpl-StepII}, the rest
+of the steps could compute in different ways to arrive at a solution
+depending on in what order $X \in \mathcal{O}$ is processed.
+
+
+
+\begin{figure}[htb]
+  \centering
+
+  \begin{tabular}[t]{c}
+    \ksubstartplPartialLabelingOnTreeI\\\\
+    \hline\\\\
+    \ksubstartplPartialLabelingHypergraph
+  \end{tabular}
+
+  \caption{\labelsize \textbf{Step 3:} The red paths are {\em one possibility of} partial labels to
+    $S_{14}, S_{15}, S_{17}$. Note that the path's cardinality is
+    lesser than the set's cardinality; hence partial labeling.}
+  \label{fig:ksubstartpl-StepIIIa}
+\end{figure}
+
+
+\begin{figure}[htb]
+  \centering
+
+  \begin{tabular}[t]{c}
+    \ksubstartplPartialLabelingOnTreeIStepIV\\\\
+    \hline\\\\
+    \ksubstartplPartialLabelingHypergraphIStepIV
+  \end{tabular}
+
+  \caption{\labelsize \textbf{Step 4:} Following the state of the
+    algorithm shown in Fig.~\ref{fig:ksubstartpl-StepIIIa}, the red partial
+    path $P_{14}$ grows on to a full path as shown here due to $S_{14}$'s
+    overlap with $S_9$. This growth happens onto ray $R_2$ since $P_9$
+    is on $R_2$. The gray sets are partial labeling which have not
+    been resolved yet.}
+  \label{fig:ksubstartpl-StepIVa}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+
+  \begin{tabular}[t]{c}
+   \ksubstartplPartialLabelingOnTreeIStepVI\\\\
+   \hline\\\\
+   \ksubstartplPartialLabelingHypergraphIStepVI
+  \end{tabular}
+
+  \caption{\labelsize \textbf{Step 6:} Following the state of the
+    algorithm shown in Fig.~\ref{fig:ksubstartpl-StepIVa}, the red partial
+    path $P_{17}$ grows on to a full path as shown here due to $S_{17}$'s
+    overlap with $S_{15}$. This growth happens onto ray $R_1$ since
+    the partial label $P_{15}$
+    is on $R_1$. Note that Step 5 does not apply in this instance of
+    the problem.}
+  \label{fig:ksubstartpl-StepVIa}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+
+  \begin{tabular}[t]{c}
+   \ksubstartplPartialLabelingOnTreeIStepVII\\\\
+   \hline\\\\
+   \ksubstartplPartialLabelingHypergraphIStepVII
+  \end{tabular}
+
+  \caption{\labelsize \textbf{Step 7:} Following the state of the
+    algorithm shown in Fig.~\ref{fig:ksubstartpl-StepVIa}, the red partial
+    path $P_{15}$ grows on to a full path as shown here due to $S_{15}$'s
+    overlap with $S_{5}$ and due to $P_5$ being in
+    $\mathcal{L}_{1,2}$. Also $S_{15} \subseteq S_{14}$, hence only
+    this new $P_{15}$ satisfies pariwise intersection cardinality property.}
+  \label{fig:ksubstartpl-StepVIIa}
+\end{figure}
+
+
+\begin{figure}[htb]
+  \centering
+
+  \begin{tabular}[t]{c}
+   \ksubstartplPartialLabelingOnTreeII\\
+%   \hline\\\\
+   \ksubstartplPartialLabelingOnTreeIIStepV
+  \end{tabular}
+
+  \caption{\labelsize \textbf{Step 5:} To illustrate Step 5, we
+    consider a different possible partial assignment in Step 3 (rather
+    than the one in Fig.~\ref{fig:ksubstartpl-StepIIIa}). In this instance,  $P_{14}$
+    and $P_{15}$ get resolved by Step 5. They were partial labels from
+    rays $R_2$ and $R_1$ respectively and by Step 5, it is understood
+    that they ``grow into'' each others rays.}
+  \label{fig:ksubstartpl-StepVb}
+\end{figure}
+
+
+
+
+
+
+
+% \begin{figure}[htb]
+%   \centering
+%   \begin{tabular}[t]{c}
+%     \ksubstartplTreeStepIV
+%   \end{tabular}
+%   \caption{$k$-subdivided star tree path labeling example: $P_{17}$
+%     gets resolved in Step 4. It was partially labeled from ray $R_i$ only
+%     and gets resolved due to its overlap with $P_{16}$ which is from
+%     $\mathcal{L}$ and labeled from ray $R_k$.}
+%   \label{fig:ksubstartpl-stepIV}
+% \end{figure}
+
+
+
+% \begin{figure}[htb]
+%   \centering
+%   \begin{tabular}[t]{c}
+%     \ksubstartplTreeStepV
+%   \end{tabular}
+
+%   \caption{$k$-subdivided star tree path labeling example: $P_{14}$
+%     and $P_{15}$ get resolved in Step 5. They were partial labels from
+%     rays $R_j$ and $R_i$ respectively and by Step 5, it is understood
+%     that they ``grow into'' each others rays.}
+%   \label{fig:ksubstartpl}
+% \end{figure}
+
+
+% \begin{figure}[htb]
+%   \centering
+%   \begin{tabular}[t]{c}
+%    \ksubstartplTreeStepVI\\\\
+%    \ksubstartplTreeStepVIb
+%   \end{tabular}
+
+%   \caption{$k$-subdivided star tree path labeling example: Partial
+%     path labeling $P_{14}$ is resolved in Step 6. $X = P_{14}$, $Z =
+%     P_{17}$, $R = R_i$. The second diagram shows a different scenario
+%     that also gets fixedin Step 6.}
+%   \label{fig:ksubstartpl}
+% \end{figure}
+
+
+
+
+\begin{figure}[htb]
+  \centering
+
+  \begin{tabular}[t]{c}
+   \ksubstartplTree\\
+   \ksubstartplHypergraph
+  \end{tabular}
+
+  \caption{\labelsize \textbf{Step 8:} This solution satisfies the
+    properties of ICPPL and hence is a feasible solution.}
+  \label{fig:ksubstartpl}
+\end{figure}
+
+
+
+\end{document}
